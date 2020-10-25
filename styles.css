@@ -1,0 +1,34 @@
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+h5 {
+  white-space: nowrap;
+}
+
+.jumbotron {
+  margin-bottom: 0;
+}
+
+.jumbotron:nth-child(odd) {
+  background-color: white;
+}
+
+.jumbotron:not(:first-of-type) {
+  text-align: center;
+}
+
+.portrait {
+  margin-right: 1.5rem;
+  width: 7.5rem;
+  height: 7.5rem;
+  border-radius: 50%;
+}
+
+.card {
+  opacity: 0.5;
+  width: 300px;
+}
