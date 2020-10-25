@@ -29,6 +29,17 @@ h5 {
 }
 
 .card {
-  opacity: 0.5;
+  cursor: pointer;
   width: 300px;
+}
+
+.card img {
+  height: 200px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom: 1px solid rgba(0,0,0,.125);
+}
+
+.card:hover {
+  border-color: black;
 }
