@@ -10,10 +10,12 @@
 <title>Find Apps | Digital Makerspace</title>
 
 <body class="bg-light">
+
+  <!-- Header -->
   <header class="border-bottom">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">
-      <img src="logo.png" width="30" height="30" alt="" loading="lazy">
+      <img src="./img/logo.png" width="30" height="30" alt="" loading="lazy">
       Digital Makerspace
     </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,22 +29,20 @@
           <li class="nav-item">
             <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">My Apps</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#create-apps">Create Apps</a>
-          </li>
           <li class="nav-item active">
             <a class="nav-link" href="#find-apps">Find Apps <span class="sr-only">(current)</span></a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#create-apps">Create Apps</a>
+          </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
       </div>
     </nav>
   </header>
 
-  <main>
+  <main class="bg-find">
+
+    <!-- Search Bar -->
     <section>
       <form class="p-3">
         <div class="form-row align-items-center">
@@ -73,59 +73,64 @@
       </form>
     </section>
 
-    <section class="container-fluid mb-2 d-flex flex-wrap justify-content-around">
-      <div class="card rounded bg-light m-3">
-        <img src="digital_learning.jpg" class="card-img" alt="Category: Digital Learning">
+    <!-- Categories -->
+    <section class="container-fluid pb-2 d-flex flex-wrap justify-content-around">
+
+      <a href="results.html" class="card rounded bg-light m-3 app-category">
+        <img src="img/digital_learning.jpg" class="card-img" alt="Category: Digital Learning">
         <div class="card-body">
           <h5>Digital Learning</h5>
           <small>Apps for teachers and students.</small>
         </div>
-      </div>
+      </a>
 
-      <div class="card rounded bg-light m-3">
-        <img src="app-collection.jpg" class="card-img" alt="Category: App Collection">
+      <a href="results.html" class="card rounded bg-light m-3 app-category">
+        <img src="img/app-collection.jpg" class="card-img" alt="Category: App Collection">
         <div class="card-body">
           <h5>App Collection</h5>
           <small>Combine several apps into one app.</small>
         </div>
-      </div>
+      </a>
 
-      <div class="card rounded bg-light m-3">
-        <img src="project-management.jpg" class="card-img" alt="Category: Project Management">
+      <a href="results.html" class="card rounded bg-light m-3 app-category">
+        <img src="img/project-management.jpg" class="card-img" alt="Category: Project Management">
         <div class="card-body">
           <h5>Project Management</h5>
           <small>Apps to support teamwork.</small>
         </div>
-      </div>
+      </a>
 
-      <div class="card rounded bg-light m-3">
-        <img src="gamification.png" class="card-img" alt="Category: Gamification">
+      <a href="results.html" class="card rounded bg-light m-3 app-category">
+        <img src="img/gamification.png" class="card-img" alt="Category: Gamification">
         <div class="card-body">
           <h5>Gamification</h5>
+          <small>Apps with game-design elements.</small>
         </div>
-      </div>
+      </a>
 
       <div class="card rounded bg-light m-3">
-        <img src="best-rated.jpg" class="card-img" alt="Category: Best Rated">
+        <img src="img/best-rated.jpg" class="card-img" alt="Category: Best Rated">
         <div class="card-body">
           <h5>Best Rated</h5>
         </div>
       </div>
 
       <div class="card rounded bg-light m-3">
-        <img src="most-used.jpg" class="card-img" alt="Category: Most Used">
+        <img src="img/most-used.jpg" class="card-img" alt="Category: Most Used">
         <div class="card-body">
           <h5 class="card-title">Most Used</h5>
         </div>
       </div>
+
     </section>
   </main>
 
+  <!-- Footer -->
   <footer>
     <div class="container-fluid bg-light pt-2 pb-2 border-top">
       <div class="row">
         <div class="col text-nowrap mt-1 mb-1">
-          <img alt="Logo of Digital Makerspace" src="logo.png" width="30" class="mr-1">
+          <img alt="Logo of Digital Makerspace" src="img/logo.png" width="30" class="mr-1">
           <span class="text-muted">© 2020 André Kless</span>
         </div>
         <div class="col">
@@ -141,4 +146,5 @@
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+  <script src="script.js"></script>
 </body>

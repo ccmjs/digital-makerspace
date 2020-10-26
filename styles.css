@@ -33,6 +33,11 @@ h5 {
   width: 300px;
 }
 
+a.card, a.card:hover {
+  color: black;
+  text-decoration: none;
+}
+
 .card img {
   height: 200px;
   border-bottom-left-radius: 0;
@@ -42,4 +47,42 @@ h5 {
 
 .card:hover {
   border-color: black;
+}
+
+.bg-find {
+  background-color: rgba(40,167,69,0.125);
+}
+
+.bg-create {
+  background-color: rgba(0,123,255,0.125);
+}
+
+.bg-developer {
+  background-color: rgba(255,193,7,0.125);
+}
+
+.bg-features {
+  background-color: rgba(23,162,184,0.125);
+}
+
+ul {
+  margin-bottom: 0;
+}
+
+ul li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+ul li:hover {
+  background-color: rgba(0,123,255,0.125);
+}
+
+ul img {
+  width: 80px;
+}
+
+ul h5,
+ul small {
+  white-space: nowrap;
 }

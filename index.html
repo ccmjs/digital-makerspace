@@ -12,7 +12,7 @@
   <header class="border-bottom">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">
-      <img src="logo.png" width="30" height="30" alt="" loading="lazy">
+      <img src="./img/logo.png" width="30" height="30" alt="" loading="lazy">
       Digital Makerspace
     </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,22 +27,18 @@
             <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">My Apps</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#create-apps">Create Apps</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="find_apps.html">Find Apps</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#create-apps">Create Apps</a>
+          </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
       </div>
     </nav>
   </header>
 
   <main>
-    <section class="jumbotron jumbotron-fluid">
+    <section class="jumbotron jumbotron-fluid border">
       <div class="container">
         <h1 class="display-4 ml-3 mr-3">Let's bring the Modular Web to Life!</h1>
         <div class="container mt-5">
@@ -65,7 +61,7 @@
       </div>
     </section>
 
-    <section class="jumbotron jumbotron-fluid" id="create-apps">
+    <section class="jumbotron jumbotron-fluid bg-create border" id="create-apps">
       <div class="container">
         <h1 class="display-4 ml-3 mr-3">Create your own Apps</h1>
         <p class="lead">
@@ -78,7 +74,7 @@
         </p>
         <p>
           <button class="btn btn-primary btn-lg">
-            Open the Toolbox
+            Open Toolbox
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
             </svg>
@@ -87,7 +83,7 @@
       </div>
     </section>
 
-    <section class="jumbotron jumbotron-fluid">
+    <section class="jumbotron jumbotron-fluid border">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-12 col-lg-10">
@@ -105,7 +101,7 @@
       </div>
     </section>
 
-    <section class="jumbotron jumbotron-fluid" id="find-apps">
+    <section class="jumbotron jumbotron-fluid bg-find border" id="find-apps">
       <div class="container">
         <h1 class="display-4 ml-3 mr-3">Find Apps of Others</h1>
         <p class="lead">
@@ -119,17 +115,17 @@
           </video>
         </p>
         <p>
-          <button class="btn btn-primary btn-lg">
-            Jump to App Store
+          <a class="btn btn-success btn-lg" href="find_apps.html">
+            Explore Apps
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
             </svg>
-          </button>
+          </a>
         </p>
       </div>
     </section>
 
-    <section class="jumbotron jumbotron-fluid">
+    <section class="jumbotron jumbotron-fluid border">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-12 col-lg-10">
@@ -147,7 +143,7 @@
       </div>
     </section>
 
-    <section class="jumbotron jumbotron-fluid" id="add-component">
+    <section class="jumbotron jumbotron-fluid bg-developer border" id="add-component">
       <div class="container">
         <h1 class="display-4 ml-3 mr-3">Developer Guide</h1>
         <p class="lead">
@@ -159,7 +155,7 @@
           </video>
         </p>
         <p>
-          <button class="btn btn-primary btn-lg">
+          <button class="btn btn-warning btn-lg">
             Open Guide
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
@@ -169,7 +165,7 @@
       </div>
     </section>
 
-    <section class="jumbotron jumbotron-fluid">
+    <section class="jumbotron jumbotron-fluid border">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-12 col-lg-10">
@@ -187,7 +183,7 @@
       </div>
     </section>
 
-    <section class="jumbotron jumbotron-fluid">
+    <section class="jumbotron jumbotron-fluid bg-features border">
       <div class="container">
         <h1 class="display-4 ml-3 mr-3">More Features</h1>
         <p class="lead">
@@ -198,7 +194,7 @@
           <li>Mobile Desktop</li>
         </ul>
         <p>
-          <button class="btn btn-primary btn-lg">
+          <button class="btn btn-info btn-lg">
             Show me more
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
@@ -213,7 +209,7 @@
     <div class="container-fluid bg-light pt-2 pb-2 border-top">
       <div class="row">
         <div class="col text-nowrap mt-1 mb-1">
-          <img alt="Logo of Digital Makerspace" src="logo.png" width="30" class="mr-1">
+          <img alt="Logo of Digital Makerspace" src="img/logo.png" width="30" class="mr-1">
           <span class="text-muted">© 2020 André Kless</span>
         </div>
         <div class="col">
