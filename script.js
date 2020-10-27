@@ -55,9 +55,12 @@
           items.push( item );
         }
         else
-          for ( const key in item )
-            if ( typeof item[ key ] === 'string' && item[ key ].includes( query ) )
+          for ( const key in item ) {
+            if ( !Array.isArray( item[ key ] ) )
+              item[ key ] = item[ key ].toString();
+            if ( item[ key ].includes( query ) )
               return items.push( item );
+          }
       } )
       return items;
     }
