@@ -75,7 +75,7 @@ ul li {
 }
 
 ul li:hover {
-  background-color: rgba(0,123,255,0.125);
+  background-color: rgba(0,0,0,0.125);
 }
 
 ul img {
