@@ -5,10 +5,6 @@ header {
   z-index: 10;
 }
 
-h5 {
-  white-space: nowrap;
-}
-
 .jumbotron {
   margin-bottom: 0;
 }
@@ -80,9 +76,4 @@ ul li:hover {
 
 ul img {
   width: 80px;
-}
-
-ul h5,
-ul small {
-  white-space: nowrap;
 }

@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="André Kless <andre.kless@web.de> 2020">
 <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="./libs/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+<link rel="stylesheet" href="./styles.css">
 <title>Create Apps | Digital Makerspace</title>
 
 <body class="bg-light">
@@ -44,7 +44,7 @@
 
     <!-- Search Bar -->
     <section>
-      <form class="p-3">
+      <form class="p-3" action="./results.html">
         <input type="hidden" name="only" value="tools">
         <div class="form-row align-items-center">
           <label class="sr-only" for="search-tools">Search</label>
@@ -57,7 +57,7 @@
                 </svg>
               </div>
             </div>
-            <input type="text" class="form-control" id="search-tools" placeholder="Title, Developer, Category, Tag">
+            <input type="search" class="form-control" id="search-tools" name="search" placeholder="Title, Developer, Category, Tag">
             <div class="input-group-append">
               <button type="button" class="btn btn-light border text-nowrap" title="Advanced Search">
                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -145,7 +145,8 @@
     </div>
   </footer>
 
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-  <script src="script.js"></script>
+  <script src="./libs/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="./libs/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+  <script src="./libs/ccm-26.0.0.min.js"></script>
+  <script src="./script.js"></script>
 </body>
