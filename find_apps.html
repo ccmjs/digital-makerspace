@@ -44,7 +44,8 @@
 
     <!-- Search Bar -->
     <section>
-      <form class="p-3" action="./results.html" id="search-apps">
+      <form class="p-3" action="./results.html">
+        <input type="hidden" name="only" value="apps">
         <div class="form-row align-items-center">
           <label class="sr-only" for="search-apps">Search</label>
           <div class="input-group">
@@ -56,7 +57,7 @@
                 </svg>
               </div>
             </div>
-            <input type="search" class="form-control" name="search" placeholder="Title, Component, Creator, Category, Tag, Language">
+            <input type="search" class="form-control" id="search-apps" name="search" placeholder="Title, Component, Creator, Category, Tag, Language">
             <div class="input-group-append">
               <button type="button" class="btn btn-light border text-nowrap" title="Advanced Search">
                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
