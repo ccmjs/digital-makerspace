@@ -7,7 +7,7 @@
 <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 <link rel="stylesheet" href="./libs/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 <link rel="stylesheet" href="./styles.css">
-<title>Create Apps | Digital Makerspace</title>
+<title>Find Apps | Digital Makerspace</title>
 
 <body class="bg-light">
 
@@ -26,25 +26,25 @@
           <li class="nav-item">
             <a class="nav-link" href="./index.html">Home</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="./find_apps.html">Apps</a>
-          </li>
           <li class="nav-item active">
-            <a class="nav-link" href="./create_apps.html">Tools <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="./apps.html">Apps <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./tools.html">Tools</a>
           </li>
         </ul>
       </div>
     </nav>
   </header>
 
-  <main class="bg-create">
+  <main class="bg-find">
 
     <!-- Search Bar -->
     <section>
       <form class="p-3" action="./results.html">
-        <input type="hidden" name="only" value="tools">
+        <input type="hidden" name="only" value="apps">
         <div class="form-row align-items-center">
-          <label class="sr-only" for="search-tools">Search</label>
+          <label class="sr-only" for="search-apps">Search</label>
           <div class="input-group">
             <div class="input-group-prepend">
               <div class="input-group-text">
@@ -54,8 +54,8 @@
                 </svg>
               </div>
             </div>
-            <input type="search" list="items" autocomplete="off" class="form-control" id="search-tools" name="search" placeholder="Title, Developer, Category, Tag">
-            <datalist id="items" data-only="tools"></datalist>
+            <input type="search" list="items" autocomplete="off" class="form-control" id="search-apps" name="search" placeholder="Title, Component, Creator, Category, Tag, Language">
+            <datalist id="items" data-only="apps"></datalist>
             <div class="input-group-append">
               <button type="button" class="btn btn-light border text-nowrap" title="Advanced Search">
                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -75,7 +75,7 @@
     <!-- Categories -->
     <section class="container-fluid pb-2 d-flex flex-wrap justify-content-around">
 
-      <a href="./results.html?only=tools&search=eyJ0YWdzIjoiRGlnaXRhbCBMZWFybmluZyJ9" class="card rounded bg-light m-3 app-category">
+      <a href="./results.html?only=apps&search=eyJ0YWdzIjoiRGlnaXRhbCBMZWFybmluZyJ9" class="card rounded bg-light m-3 app-category">
         <img src="./img/digital_learning.jpg" class="card-img" alt="Category: Digital Learning">
         <div class="card-body">
           <h5>Digital Learning</h5>
@@ -83,7 +83,7 @@
         </div>
       </a>
 
-      <a href="./results.html?only=tools&search=eyJ0YWdzIjoiQXBwIENvbGxlY3Rpb24ifQ==" class="card rounded bg-light m-3 app-category">
+      <a href="./results.html?only=apps&search=eyJ0YWdzIjoiQXBwIENvbGxlY3Rpb24ifQ==" class="card rounded bg-light m-3 app-category">
         <img src="./img/app-collection.jpg" class="card-img" alt="Category: App Collection">
         <div class="card-body">
           <h5>App Collection</h5>
@@ -91,7 +91,7 @@
         </div>
       </a>
 
-      <a href="./results.html?only=tools&search=eyJ0YWdzIjoiUHJvamVjdCBNYW5hZ2VtZW50In0=" class="card rounded bg-light m-3 app-category">
+      <a href="./results.html?only=apps&search=eyJ0YWdzIjoiUHJvamVjdCBNYW5hZ2VtZW50In0=" class="card rounded bg-light m-3 app-category">
         <img src="./img/project-management.jpg" class="card-img" alt="Category: Project Management">
         <div class="card-body">
           <h5>Project Management</h5>
@@ -99,7 +99,7 @@
         </div>
       </a>
 
-      <a href="./results.html?only=tools&search=eyJ0YWdzIjoiR2FtaWZpY2F0aW9uIn0=" class="card rounded bg-light m-3 app-category">
+      <a href="./results.html?only=apps&search=eyJ0YWdzIjoiR2FtaWZpY2F0aW9uIn0=" class="card rounded bg-light m-3 app-category">
         <img src="./img/gamification.png" class="card-img" alt="Category: Gamification">
         <div class="card-body">
           <h5>Gamification</h5>
