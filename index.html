@@ -24,37 +24,39 @@
             <a class="nav-link" href="./index.html">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">My Apps</a>
+            <a class="nav-link" href="./find_apps.html">Apps</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./find_apps.html">Find Apps</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="./create_apps.html">Create Apps</a>
+            <a class="nav-link" href="./create_apps.html">Tools</a>
           </li>
         </ul>
-        <form class="p-3" action="./results.html">
-          <div class="form-row align-items-center">
-            <label class="sr-only" for="search-all">Search</label>
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <div class="input-group-text">
-                  <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
-                    <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
-                  </svg>
-                </div>
-              </div>
-              <input type="search" class="form-control" id="search-all" name="search" placeholder="Search">
-            </div>
-          </div>
-        </form>
       </div>
     </nav>
   </header>
 
   <main>
-    <section class="jumbotron jumbotron-fluid border-bottom">
+    <section class="border-top bg-white">
+      <!-- Search Bar -->
+      <form class="p-3" action="./results.html">
+        <div class="form-row align-items-center">
+          <label class="sr-only" for="search-all">Search</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
+                  <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+                </svg>
+              </div>
+            </div>
+            <input type="search" list="items" autocomplete="off" class="form-control" id="search-all" name="search" placeholder="Search for Apps and Tools">
+            <datalist id="items"></datalist>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <section class="jumbotron jumbotron-fluid border-bottom bg-white">
       <div class="container">
         <h1 class="display-4 ml-3 mr-3">Let's bring the Modular Web to Life!</h1>
         <div class="container mt-5">
@@ -77,7 +79,7 @@
       </div>
     </section>
 
-    <section class="jumbotron jumbotron-fluid bg-create border" id="create-apps">
+    <section class="jumbotron jumbotron-fluid bg-create border text-center" id="create-apps">
       <div class="container">
         <h1 class="display-4 ml-3 mr-3">Create your own Apps</h1>
         <p class="lead">
@@ -99,7 +101,7 @@
       </div>
     </section>
 
-    <section class="jumbotron jumbotron-fluid border">
+    <section class="jumbotron jumbotron-fluid bg-white border">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-12 col-lg-10">
@@ -117,7 +119,7 @@
       </div>
     </section>
 
-    <section class="jumbotron jumbotron-fluid bg-find border" id="find-apps">
+    <section class="jumbotron jumbotron-fluid bg-find border text-center" id="find-apps">
       <div class="container">
         <h1 class="display-4 ml-3 mr-3">Find Apps of Others</h1>
         <p class="lead">
@@ -141,7 +143,7 @@
       </div>
     </section>
 
-    <section class="jumbotron jumbotron-fluid border">
+    <section class="jumbotron jumbotron-fluid bg-white border">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-12 col-lg-10">
@@ -159,7 +161,7 @@
       </div>
     </section>
 
-    <section class="jumbotron jumbotron-fluid bg-developer border" id="add-component">
+    <section class="jumbotron jumbotron-fluid bg-developer border text-center" id="add-component">
       <div class="container">
         <h1 class="display-4 ml-3 mr-3">Developer Guide</h1>
         <p class="lead">
@@ -181,7 +183,7 @@
       </div>
     </section>
 
-    <section class="jumbotron jumbotron-fluid border">
+    <section class="jumbotron jumbotron-fluid bg-white border">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-12 col-lg-10">
@@ -199,7 +201,7 @@
       </div>
     </section>
 
-    <section class="jumbotron jumbotron-fluid bg-features border">
+    <section class="jumbotron jumbotron-fluid bg-features border text-center">
       <div class="container">
         <h1 class="display-4 ml-3 mr-3">More Features</h1>
         <p class="lead">

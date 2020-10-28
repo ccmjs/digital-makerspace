@@ -9,14 +9,6 @@ header {
   margin-bottom: 0;
 }
 
-.jumbotron:nth-child(odd) {
-  background-color: white;
-}
-
-.jumbotron:not(:first-of-type) {
-  text-align: center;
-}
-
 .portrait {
   margin-right: 1.5rem;
   width: 7.5rem;

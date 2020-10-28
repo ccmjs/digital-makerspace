@@ -26,14 +26,11 @@
           <li class="nav-item">
             <a class="nav-link" href="./index.html">Home</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">My Apps</a>
-          </li>
           <li class="nav-item active">
-            <a class="nav-link" href="./find_apps.html">Find Apps <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="./find_apps.html">Apps <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./create_apps.html">Create Apps</a>
+            <a class="nav-link" href="./create_apps.html">Tools</a>
           </li>
         </ul>
       </div>
@@ -57,7 +54,8 @@
                 </svg>
               </div>
             </div>
-            <input type="search" class="form-control" id="search-apps" name="search" placeholder="Title, Component, Creator, Category, Tag, Language">
+            <input type="search" list="items" autocomplete="off" class="form-control" id="search-apps" name="search" placeholder="Title, Component, Creator, Category, Tag, Language">
+            <datalist id="items" data-only="apps"></datalist>
             <div class="input-group-append">
               <button type="button" class="btn btn-light border text-nowrap" title="Advanced Search">
                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
