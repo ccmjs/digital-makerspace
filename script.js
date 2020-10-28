@@ -1,17 +1,20 @@
 ( async () => {
 
-  let url = 'https://ccm2.inf.h-brs.de', apps = 'dms-apps', tools = 'dms-components', default_icon = './img/logo.png';
+  const url = 'https://ccm2.inf.h-brs.de', apps = 'dms-apps', tools = 'dms-tools', components = 'dms-components', default_icon = './img/logo.png';
 
-  loadAppsAndToolsData();
+  if ( !sessionStorage.getItem( apps ) || !sessionStorage.getItem( tools ) )
+    loadAppsAndToolsData();
+  else
+    addDatalistEntries();
+
   showSearchResults();
-  addDatalistEntries();
 
   function loadAppsAndToolsData() {
 
-    if ( !sessionStorage.getItem( apps ) || !sessionStorage.getItem( tools ) ) {
+    if ( !sessionStorage.getItem( apps ) ) {
       Promise.all( [
         ccm.get( { name: apps, url: url } ),
-        ccm.get( { name: tools, url: url } )
+        ccm.get( { name: components, url: url } )
       ] ).then( items => {
 
         const term = {
@@ -85,7 +88,16 @@
         sessionStorage.setItem( 'component-tag', JSON.stringify( Object.keys( term.component.tag ).sort() ) );
 
         sessionStorage.setItem( apps, JSON.stringify( items[ 0 ] ) );
-        sessionStorage.setItem( tools, JSON.stringify( items[ 1 ] ) );
+        sessionStorage.setItem( components, JSON.stringify( items[ 1 ] ) );
+
+        const highest = {};
+        sessionStorage.setItem( tools, JSON.stringify( items[ 1 ].forEach( component => {
+          if ( !highest[ component.identifier ] || ccm.helper.compareVersions( highest[ component.identifier ].version, component.version ) < 0 )
+            highest[ component.identifier ] = component;
+        } ) ) );
+        sessionStorage.setItem( tools, JSON.stringify( Object.values( highest ) ) );
+
+        addDatalistEntries();
       } );
     }
   }
@@ -112,11 +124,13 @@
       items.sort( ( a, b ) => a.title.localeCompare( b.title ) );
 
       const list_elem = document.getElementById( 'results' );
-      items.forEach( ( { icon, format, title, subject = '', created_at, creator } ) => {
+      items.forEach( ( { key, icon, format, title, subject = '', created_at, creator } ) => {
         if ( !icon || !icon.trim() ) icon = default_icon;
         created_at = moment( created_at ).fromNow();
         const is_app = format === 'application/json';
         const entry_elem = document.createElement( 'li' );
+        entry_elem.dataset.is = is_app ? 'app' : 'tool';
+        entry_elem.dataset.key = key;
         entry_elem.classList.add( 'media', 'border-top', is_app ? 'bg-find' : 'bg-create' );
         entry_elem.innerHTML = `
         <img src="${icon}" class="mr-3 rounded" alt="App Icon">
