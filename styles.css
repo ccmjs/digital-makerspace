@@ -37,11 +37,11 @@ a.card, a.card:hover {
   border-color: black;
 }
 
-.bg-find {
+.bg-app {
   background-color: rgba(40,167,69,0.125);
 }
 
-.bg-create {
+.bg-tool {
   background-color: rgba(0,123,255,0.125);
 }
 

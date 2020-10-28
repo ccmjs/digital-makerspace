@@ -131,7 +131,7 @@
         const entry_elem = document.createElement( 'li' );
         entry_elem.dataset.is = is_app ? 'app' : 'tool';
         entry_elem.dataset.key = key;
-        entry_elem.classList.add( 'media', 'border-top', is_app ? 'bg-find' : 'bg-create' );
+        entry_elem.classList.add( 'media', 'border-top', is_app ? 'bg-app' : 'bg-tool' );
         entry_elem.innerHTML = `
         <img src="${icon}" class="mr-3 rounded" alt="App Icon">
         <div class="media-body">
