@@ -16,6 +16,14 @@ header {
   border-radius: 50%;
 }
 
+.btn-xs {
+  padding: .25rem;
+  font-size: .875rem;
+  line-height: .78;
+  position: relative;
+  bottom: 2px;
+}
+
 .card {
   cursor: pointer;
   width: 300px;
