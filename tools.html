@@ -65,7 +65,7 @@
             </div>
 
             <!-- Search Input -->
-            <input type="search" list="component-all" autocomplete="off" class="form-control" id="search-tools" name="search" placeholder="Title, Developer, Category">
+            <input type="search" list="component-all" autocomplete="off" class="form-control" id="search-tools" name="search" placeholder="Search for Tools">
             <datalist id="component-all" data-only="tools"></datalist>
 
             <!-- Advanced Search Button -->
@@ -111,9 +111,9 @@
                   </div>
                 </div>
 
-                <!-- Developer -->
+                <!-- Author -->
                 <div class="form-group row">
-                  <label for="search-creator" class="col-sm-2 col-form-label">Developer</label>
+                  <label for="search-creator" class="col-sm-2 col-form-label">Author</label>
                   <div class="col-sm-10">
                     <input type="search" list="component-creator" autocomplete="off" class="form-control" id="search-creator" name="creator">
                     <datalist id="component-creator" data-only="tools"></datalist>
@@ -142,57 +142,60 @@
     </section>
 
     <!-- Categories -->
-    <section class="container-fluid pb-2 d-flex flex-wrap justify-content-around">
+    <section class="container-fluid pb-2">
+      <span class="text-muted">Choosed Categories</span>
+      <div class="d-flex flex-wrap justify-content-around">
 
-      <!-- Category: Digital Learning -->
-      <a href="./results.html?only=tools&category=Digital+Learning" class="card rounded bg-light m-3 app-category">
-        <img src="./img/digital_learning.jpg" class="card-img" alt="Category: Digital Learning">
-        <div class="card-body">
-          <h5>Digital Learning</h5>
-          <small>Apps for teachers and students.</small>
+        <!-- Category: Digital Learning -->
+        <a href="./results.html?only=tools&category=Digital+Learning" class="card rounded bg-light m-3 app-category">
+          <img src="./img/digital_learning.jpg" class="card-img" alt="Category: Digital Learning">
+          <div class="card-body">
+            <h5>Digital Learning</h5>
+            <small>Apps for teachers and students.</small>
+          </div>
+        </a>
+
+        <!-- Category: App Collection -->
+        <a href="./results.html?only=tools&category=App+Collection" class="card rounded bg-light m-3 app-category">
+          <img src="./img/app-collection.jpg" class="card-img" alt="Category: App Collection">
+          <div class="card-body">
+            <h5>App Collection</h5>
+            <small>Combine several apps into one app.</small>
+          </div>
+        </a>
+
+        <!-- Category: Project Management -->
+        <a href="./results.html?only=tools&category=Project+Management" class="card rounded bg-light m-3 app-category">
+          <img src="./img/project-management.jpg" class="card-img" alt="Category: Project Management">
+          <div class="card-body">
+            <h5>Project Management</h5>
+            <small>Apps to support teamwork.</small>
+          </div>
+        </a>
+
+        <!-- Category: Gamification -->
+        <a href="./results.html?only=tools&category=Gamification" class="card rounded bg-light m-3 app-category">
+          <img src="./img/gamification.png" class="card-img" alt="Category: Gamification">
+          <div class="card-body">
+            <h5>Gamification</h5>
+            <small>Apps with game-design elements.</small>
+          </div>
+        </a>
+
+        <!-- Category: Best Rated -->
+        <div class="card rounded bg-light m-3">
+          <img src="./img/best-rated.jpg" class="card-img" alt="Category: Best Rated">
+          <div class="card-body">
+            <h5>Best Rated</h5>
+          </div>
         </div>
-      </a>
 
-      <!-- Category: App Collection -->
-      <a href="./results.html?only=tools&category=App+Collection" class="card rounded bg-light m-3 app-category">
-        <img src="./img/app-collection.jpg" class="card-img" alt="Category: App Collection">
-        <div class="card-body">
-          <h5>App Collection</h5>
-          <small>Combine several apps into one app.</small>
-        </div>
-      </a>
-
-      <!-- Category: Project Management -->
-      <a href="./results.html?only=tools&category=Project+Management" class="card rounded bg-light m-3 app-category">
-        <img src="./img/project-management.jpg" class="card-img" alt="Category: Project Management">
-        <div class="card-body">
-          <h5>Project Management</h5>
-          <small>Apps to support teamwork.</small>
-        </div>
-      </a>
-
-      <!-- Category: Gamification -->
-      <a href="./results.html?only=tools&category=Gamification" class="card rounded bg-light m-3 app-category">
-        <img src="./img/gamification.png" class="card-img" alt="Category: Gamification">
-        <div class="card-body">
-          <h5>Gamification</h5>
-          <small>Apps with game-design elements.</small>
-        </div>
-      </a>
-
-      <!-- Category: Best Rated -->
-      <div class="card rounded bg-light m-3">
-        <img src="./img/best-rated.jpg" class="card-img" alt="Category: Best Rated">
-        <div class="card-body">
-          <h5>Best Rated</h5>
-        </div>
-      </div>
-
-      <!-- Category: Most Used -->
-      <div class="card rounded bg-light m-3">
-        <img src="./img/most-used.jpg" class="card-img" alt="Category: Most Used">
-        <div class="card-body">
-          <h5 class="card-title">Most Used</h5>
+        <!-- Category: Most Used -->
+        <div class="card rounded bg-light m-3">
+          <img src="./img/most-used.jpg" class="card-img" alt="Category: Most Used">
+          <div class="card-body">
+            <h5 class="card-title">Most Used</h5>
+          </div>
         </div>
       </div>
     </section>
