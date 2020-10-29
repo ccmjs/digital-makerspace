@@ -1,24 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="André Kless <andre.kless@web.de> 2020">
-<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-<link rel="stylesheet" href="./libs/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-<link rel="stylesheet" href="./styles.css">
-<title>Search Results | Digital Makerspace</title>
-
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="André Kless <andre.kless@web.de> 2020">
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="./libs/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+  <link rel="stylesheet" href="./styles.css">
+  <title>Search Results | Digital Makerspace</title>
+</head>
 <body class="bg-light">
+
+  <!-- Header -->
   <header class="border-bottom">
+
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">
-      <img src="./img/logo.png" width="30" height="30" alt="" loading="lazy">
-      Digital Makerspace
-    </a>
+
+      <!-- Logo -->
+      <a class="navbar-brand" href="./index.html">
+        <img src="./img/logo.png" width="30" height="30" alt="" loading="lazy">
+        Digital Makerspace
+      </a>
+
+      <!-- Hamburger Button -->
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+
+      <!-- Menu Entries -->
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
@@ -35,9 +45,11 @@
     </nav>
   </header>
 
+  <!-- Main -->
   <main class="bg-white">
+
+    <!-- Search Bar -->
     <section>
-      <!-- Search Bar -->
       <form class="p-3" action="./results.html">
         <div class="form-row align-items-center">
           <label class="sr-only" for="search">Search</label>
@@ -50,31 +62,39 @@
                 </svg>
               </div>
             </div>
-            <input type="search" list="items" autocomplete="off" class="form-control" id="search" name="search" placeholder="Search for Apps and Tools">
-            <datalist id="items"></datalist>
+
+            <!-- Search Input -->
+            <input type="search" list="all" autocomplete="off" class="form-control" id="search" name="search" placeholder="Search for Apps and Tools">
+            <datalist id="all"></datalist>
           </div>
         </div>
       </form>
     </section>
 
+    <!-- Search Results -->
     <section>
       <h1 class="p-3 mb-0">Search Results:</h1>
-      <ul id="results" class="list-unstyled"></ul>
+      <ul id="search_results" class="list-unstyled"></ul>
     </section>
   </main>
 
+  <!-- Footer -->
   <footer>
     <div class="container-fluid bg-light pt-2 pb-2 border-top">
       <div class="row">
+
+        <!-- Copyright -->
         <div class="col text-nowrap mt-1 mb-1">
           <img alt="Logo of Digital Makerspace" src="img/logo.png" width="30" class="mr-1">
           <span class="text-muted">© 2020 André Kless</span>
         </div>
+
+        <!-- Navigation -->
         <div class="col">
           <nav class="nav justify-content-end">
-            <a class="nav-link" href="#">About</a>
-            <a class="nav-link" href="#">Contact</a>
-            <a class="nav-link" href="#">Impressum</a>
+            <a class="nav-link" href="https://www.stifterverband.org/digital-lehrfellows/2017/kaul">About</a>
+            <a class="nav-link" href="https://www.h-brs.de/de/inf/andre-kless">Contact</a>
+            <a class="nav-link" href="https://www.h-brs.de/de/impressum">Impressum</a>
           </nav>
         </div>
       </div>

@@ -1,27 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content="André Kless <andre.kless@web.de> 2020">
-<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-<link rel="stylesheet" href="./libs/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-<link rel="stylesheet" href="./styles.css">
-<title>Find Apps | Digital Makerspace</title>
-
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="André Kless <andre.kless@web.de> 2020">
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="./libs/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+  <link rel="stylesheet" href="./styles.css">
+  <title>Find Apps | Digital Makerspace</title>
+</head>
 <body class="bg-light">
 
   <!-- Header -->
   <header class="border-bottom">
+
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">
-      <img src="./img/logo.png" width="30" height="30" alt="" loading="lazy">
-      Digital Makerspace
-    </a>
+
+      <!-- Logo -->
+      <a class="navbar-brand" href="./index.html">
+        <img src="./img/logo.png" width="30" height="30" alt="" loading="lazy">
+        Digital Makerspace
+      </a>
+
+      <!-- Hamburger Button -->
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+      <!-- Menu Entries -->
+      <div class="collapse navbar-collapse">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
             <a class="nav-link" href="./index.html">Home</a>
@@ -37,6 +45,7 @@
     </nav>
   </header>
 
+  <!-- Main -->
   <main class="bg-app">
 
     <!-- Search Bar -->
@@ -54,10 +63,14 @@
                 </svg>
               </div>
             </div>
-            <input type="search" list="items" autocomplete="off" class="form-control" id="search-apps" name="search" placeholder="Title, Component, Creator, Category, Tag, Language">
-            <datalist id="items" data-only="apps"></datalist>
+
+            <!-- Search Input -->
+            <input type="search" list="app-all" autocomplete="off" class="form-control" id="search-apps" name="search" placeholder="Title, Component, Creator, Category, Language">
+            <datalist id="app-all" data-only="apps"></datalist>
+
+            <!-- Advanced Search Button -->
             <div class="input-group-append">
-              <button type="button" class="btn btn-light border text-nowrap" title="Advanced Search">
+              <button type="button" class="btn btn-light border text-nowrap" title="Advanced Search" data-toggle="modal" data-target="#advanced">
                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
                   <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
@@ -70,12 +83,87 @@
           </div>
         </div>
       </form>
+
+      <!-- Modal: Advanced Search -->
+      <div class="modal fade" id="advanced" tabindex="-1" aria-labelledby="Advanced Search" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h5 class="modal-title">Advanced Search</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+              <form action="./results.html" id="modal-form">
+                <input type="hidden" name="only" value="apps">
+
+                <!-- Title -->
+                <div class="form-group row">
+                  <label for="search-title" class="col-sm-2 col-form-label">Title</label>
+                  <div class="col-sm-10">
+                    <input type="search" list="app-title" autocomplete="off" class="form-control" id="search-title" name="title">
+                    <datalist id="app-title" data-only="apps"></datalist>
+                  </div>
+                </div>
+
+                <!-- Tool -->
+                <div class="form-group row">
+                  <label for="search-component" class="col-sm-2 col-form-label">Tool</label>
+                  <div class="col-sm-10">
+                    <input type="search" list="component-title" autocomplete="off" class="form-control" id="search-component" name="tool">
+                    <datalist id="component-title" data-only="apps"></datalist>
+                  </div>
+                </div>
+
+                <!-- Creator -->
+                <div class="form-group row">
+                  <label for="search-creator" class="col-sm-2 col-form-label">Creator</label>
+                  <div class="col-sm-10">
+                    <input type="search" list="app-creator" autocomplete="off" class="form-control" id="search-creator" name="creator">
+                    <datalist id="app-creator" data-only="apps"></datalist>
+                  </div>
+                </div>
+
+                <!-- Category -->
+                <div class="form-group row">
+                  <label for="search-tag" class="col-sm-2 col-form-label">Category</label>
+                  <div class="col-sm-10">
+                    <input type="search" list="app-tag" autocomplete="off" class="form-control" id="search-tag" name="category">
+                    <datalist id="app-tag" data-only="apps"></datalist>
+                  </div>
+                </div>
+
+                <!-- Language -->
+                <div class="form-group row">
+                  <label for="search-lang" class="col-sm-2 col-form-label">Language</label>
+                  <div class="col-sm-10">
+                    <input type="search" list="app-lang" autocomplete="off" class="form-control" id="search-lang" name="language">
+                    <datalist id="app-lang" data-only="apps"></datalist>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary" form="modal-form">Search</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Categories -->
     <section class="container-fluid pb-2 d-flex flex-wrap justify-content-around">
 
-      <a href="./results.html?only=apps&search=eyJ0YWdzIjoiRGlnaXRhbCBMZWFybmluZyJ9" class="card rounded bg-light m-3 app-category">
+      <!-- Category: Digital Learning -->
+      <a href="./results.html?only=apps&category=Digital+Learning" class="card rounded bg-light m-3 app-category">
         <img src="./img/digital_learning.jpg" class="card-img" alt="Category: Digital Learning">
         <div class="card-body">
           <h5>Digital Learning</h5>
@@ -83,7 +171,8 @@
         </div>
       </a>
 
-      <a href="./results.html?only=apps&search=eyJ0YWdzIjoiQXBwIENvbGxlY3Rpb24ifQ==" class="card rounded bg-light m-3 app-category">
+      <!-- Category: App Collection -->
+      <a href="./results.html?only=apps&category=App+Collection" class="card rounded bg-light m-3 app-category">
         <img src="./img/app-collection.jpg" class="card-img" alt="Category: App Collection">
         <div class="card-body">
           <h5>App Collection</h5>
@@ -91,7 +180,8 @@
         </div>
       </a>
 
-      <a href="./results.html?only=apps&search=eyJ0YWdzIjoiUHJvamVjdCBNYW5hZ2VtZW50In0=" class="card rounded bg-light m-3 app-category">
+      <!-- Category: Project Management -->
+      <a href="./results.html?only=apps&category=Project+Management" class="card rounded bg-light m-3 app-category">
         <img src="./img/project-management.jpg" class="card-img" alt="Category: Project Management">
         <div class="card-body">
           <h5>Project Management</h5>
@@ -99,7 +189,8 @@
         </div>
       </a>
 
-      <a href="./results.html?only=apps&search=eyJ0YWdzIjoiR2FtaWZpY2F0aW9uIn0=" class="card rounded bg-light m-3 app-category">
+      <!-- Category: Gamification -->
+      <a href="./results.html?only=apps&category=Gamification" class="card rounded bg-light m-3 app-category">
         <img src="./img/gamification.png" class="card-img" alt="Category: Gamification">
         <div class="card-body">
           <h5>Gamification</h5>
@@ -107,6 +198,7 @@
         </div>
       </a>
 
+      <!-- Category: Best Rated -->
       <div class="card rounded bg-light m-3">
         <img src="./img/best-rated.jpg" class="card-img" alt="Category: Best Rated">
         <div class="card-body">
@@ -114,13 +206,13 @@
         </div>
       </div>
 
+      <!-- Category: Most Used -->
       <div class="card rounded bg-light m-3">
         <img src="./img/most-used.jpg" class="card-img" alt="Category: Most Used">
         <div class="card-body">
           <h5 class="card-title">Most Used</h5>
         </div>
       </div>
-
     </section>
   </main>
 
@@ -128,15 +220,19 @@
   <footer>
     <div class="container-fluid bg-light pt-2 pb-2 border-top">
       <div class="row">
+
+        <!-- Copyright -->
         <div class="col text-nowrap mt-1 mb-1">
           <img alt="Logo of Digital Makerspace" src="img/logo.png" width="30" class="mr-1">
           <span class="text-muted">© 2020 André Kless</span>
         </div>
+
+        <!-- Navigation -->
         <div class="col">
           <nav class="nav justify-content-end">
-            <a class="nav-link" href="#">About</a>
-            <a class="nav-link" href="#">Contact</a>
-            <a class="nav-link" href="#">Impressum</a>
+            <a class="nav-link" href="https://www.stifterverband.org/digital-lehrfellows/2017/kaul">About</a>
+            <a class="nav-link" href="https://www.h-brs.de/de/inf/andre-kless">Contact</a>
+            <a class="nav-link" href="https://www.h-brs.de/de/impressum">Impressum</a>
           </nav>
         </div>
       </div>
