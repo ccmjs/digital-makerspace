@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="André Kless <andre.kless@web.de> 2020">
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="./libs/bootstrap.min.css">
+  <link rel="stylesheet" href="./styles.css">
+  <title>App: ${title} | Digital Makerspace</title>
+</head>
+<body class="bg-light">
+
+  <!-- Header -->
+  <header class="border-bottom">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+      <!-- Logo -->
+      <a class="navbar-brand" href="./index.html">
+        <img src="./img/logo.png" width="30" height="30" alt="" loading="lazy">
+        Digital Makerspace
+      </a>
+
+      <!-- Hamburger Button -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Menu Entries -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="./index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./apps.html">Apps</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./tools.html">Tools</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main -->
+  <main id="app-view" class="bg-white">
+
+    <!-- Trailer -->
+    <section id="trailer" class="container pt-4 pb-2">
+      <div class="row">
+        <div class="col">
+          <article id="subject"></article>
+        </div>
+        <div class="col">
+          <nav>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#handover">Share App</button>
+          </nav>
+          <br>
+          <article class="text-nowrap">
+            <button>RATING</button>
+            <button>CREATE SIMILAR APP</button><br>
+            <button>OPEN APP IN NEW TAB</button>
+            <button>EDIT APP METADATA</button>
+          </article>
+        </div>
+      </div>
+
+      <!-- Modal: Share App -->
+      <div class="modal fade" id="handover" tabindex="-1" aria-labelledby="Advanced Search" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h5 class="modal-title">Handover of the App</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+              <div class="d-flex">
+                <div id="inputs"></div>
+                <div id="qr_code" class="pl-2"></div>
+              </div>
+              <div class="text-center">
+                <button type="button" id="download" class="btn btn-primary mr-2"><span class="fas fa-file-download"></span> File</button>
+                <a id="bookmarklet" class="btn btn-secondary mr-2"><span class="fas fa-bookmark"></span> Bookmarklet</a>
+                <button type="button" id="ibook" class="btn btn-info mr-2"><span class="fas fa-book"></span> iBook Widget</button>
+                <button type="button" id="scorm" class="btn btn-danger"><span class="fas fa-archive"></span> SCORM</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- App -->
+    <section id="app" class="container">
+      <p class="text-muted">App</p>
+      <article class="bg-app border"></article>
+    </section>
+
+    <!-- Description -->
+    <section id="description" class="container">
+      <p class="text-muted">Description</p>
+      <article></article>
+    </section>
+
+    <!-- Metadata -->
+    <section id="meta" class="container">
+      <p class="text-muted">Additional Informations</p>
+      <article></article>
+    </section>
+
+    <!-- Reviews -->
+    <section class="container pb-4">
+      <p class="text-muted">Reviews</p>
+      <article class="p-5 text-center bg-app rounded">REVIEWS</article>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container-fluid bg-light pt-2 pb-2 border-top">
+      <div class="row">
+
+        <!-- Copyright -->
+        <div class="col text-nowrap mt-1 mb-1">
+          <img alt="Logo of Digital Makerspace" src="img/logo.png" width="30" class="mr-1">
+          <span class="text-muted">© 2020 André Kless</span>
+        </div>
+
+        <!-- Navigation -->
+        <div class="col">
+          <nav class="nav justify-content-end">
+            <a class="nav-link" href="https://www.stifterverband.org/digital-lehrfellows/2017/kaul">About</a>
+            <a class="nav-link" href="https://www.h-brs.de/de/inf/andre-kless">Contact</a>
+            <a class="nav-link" href="https://www.h-brs.de/de/impressum">Impressum</a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./libs/jquery-3.5.1.slim.min.js"></script>
+  <script src="./libs/bootstrap.bundle.min.js"></script>
+  <script src="./libs/ccm-26.0.0.min.js"></script>
+  <script src="./libs/moment.min.js"></script>
+  <script src="./script.js"></script>
+</body>

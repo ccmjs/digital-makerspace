@@ -65,15 +65,52 @@ ul {
   margin-bottom: 0;
 }
 
-ul li {
+ul img {
+  width: 80px;
+}
+
+ul#search_results li {
   padding: 10px;
   cursor: pointer;
 }
 
-ul li:hover {
+ul#search_results li:hover {
   background-color: rgba(0,0,0,0.125);
 }
 
-ul img {
-  width: 80px;
+a.link-unstyled,
+a.link-unstyled:visited,
+a.link-unstyled:hover,
+a.link-unstyled:active,
+a.link-unstyled:focus,
+a.link-unstyled:active {
+  font-style: inherit;
+  color: inherit;
+  background-color: transparent;
+  font-size: inherit;
+  text-decoration: none;
+  font-variant: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  font-family: inherit;
+  border-radius: inherit;
+  border: inherit;
+  outline: inherit;
+  box-shadow: inherit;
+  padding: inherit;
+  vertical-align: inherit;
+}
+
+#app-view .text-muted {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+#handover article {
+
+}
+
+#handover article #qr_code img {
+  height: 145px;
+  width: 145px;
 }

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="André Kless <andre.kless@web.de> 2020">
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="./libs/bootstrap.min.css">
+  <link rel="stylesheet" href="./styles.css">
+  <title>App: ${title} | Digital Makerspace</title>
+</head>
+<body class="bg-light">
+
+  <!-- Header -->
+  <header class="border-bottom">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+      <!-- Logo -->
+      <a class="navbar-brand" href="./index.html">
+        <img src="./img/logo.png" width="30" height="30" alt="" loading="lazy">
+        Digital Makerspace
+      </a>
+
+      <!-- Hamburger Button -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Menu Entries -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="./index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./apps.html">Apps</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./tools.html">Tools</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main -->
+  <main id="app-view" class="bg-white">
+
+    <!-- Trailer -->
+    <section id="trailer" class="container pt-4 pb-2">
+      <div class="row">
+        <div class="col">
+          <article id="subject"></article>
+        </div>
+        <div class="col p-3">
+          <article class="text-nowrap">
+            <button>RATING</button>
+            <button>SWITCH APP BUILDER</button><br>
+            <button>APPS CREATED WITH TOOL</button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reviews -->
+    <section class="container pb-4">
+      <p class="text-muted">Reviews</p>
+      <article class="p-5 text-center bg-tool rounded">REVIEWS</article>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container-fluid bg-light pt-2 pb-2 border-top">
+      <div class="row">
+
+        <!-- Copyright -->
+        <div class="col text-nowrap mt-1 mb-1">
+          <img alt="Logo of Digital Makerspace" src="img/logo.png" width="30" class="mr-1">
+          <span class="text-muted">© 2020 André Kless</span>
+        </div>
+
+        <!-- Navigation -->
+        <div class="col">
+          <nav class="nav justify-content-end">
+            <a class="nav-link" href="https://www.stifterverband.org/digital-lehrfellows/2017/kaul">About</a>
+            <a class="nav-link" href="https://www.h-brs.de/de/inf/andre-kless">Contact</a>
+            <a class="nav-link" href="https://www.h-brs.de/de/impressum">Impressum</a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./libs/jquery-3.5.1.slim.min.js"></script>
+  <script src="./libs/bootstrap.bundle.min.js"></script>
+  <script src="./libs/ccm-26.0.0.min.js"></script>
+  <script src="./libs/moment.min.js"></script>
+  <script src="./script.js"></script>
+</body>
