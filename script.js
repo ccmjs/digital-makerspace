@@ -286,6 +286,7 @@
       const app = getItems( apps ).find( item => item.key === key );
       const tool = getItems( components ).find( item => item.path === app.path );
       const config = [ 'ccm.get', app.source[ 0 ], app.source[ 1 ] ];
+      const app_url = location.href.replace( 'app.html', 'show.html' );
 
       // set app title in webpage title
       document.title = document.title.replace( '${title}', app.title );
@@ -303,6 +304,9 @@
           </li>
         </ul>
       `;
+
+      // add target URL for the link button to create a similar app
+      document.querySelector( '#trailer nav a' ).setAttribute( 'href', `./tool.html?id=${tool.key}&template=${key}` );
 
       // add inputs for handover of the app
       document.querySelector( '#handover #inputs' ).innerHTML = `
@@ -349,7 +353,7 @@
 
       // set app URL with copy button
       const input_url = document.querySelector( '#app_url-input' );
-      input_url.value = location.href.replace('app.html','show.html');
+      input_url.value = app_url;
       document.querySelector( '#url_copy' ).addEventListener( 'click', () => { input_url.select(); document.execCommand( 'copy' ); } );
 
       // set app ID with copy button
@@ -357,8 +361,17 @@
       input_id.value = app.key;
       document.querySelector( '#id_copy' ).addEventListener( 'click', () => { input_id.select(); document.execCommand( 'copy' ); } );
 
+      // show QR Code
+      const qr_code = qrcode( 0, 'M' );
+      qr_code.addData( app_url );
+      qr_code.make();
+      const qr_code_elem = document.createElement( 'div' );
+      qr_code_elem.innerHTML = qr_code.createImgTag();
+      document.querySelector( '#qr_code' ).appendChild( qr_code_elem.firstChild );
+
       // show app in the app area
       ccm.get( app.source[ 0 ], app.source[ 1 ] ).then( config => ccm.start( app.path, Object.assign( config, { root: document.querySelector( '#app article' ) } ) ) );
+      document.querySelector( '#app a' ).setAttribute( 'href', app_url );
 
       // add app description
       const desc_elem = document.getElementById( 'description' );
@@ -373,27 +386,27 @@
           <tbody>
             <tr>
               <th scope="row">Author</th>
-              <td><a href="./results.html?author=${app.creator}">${app.creator}</a></td>
+              <td><a href="./results.html?author=${app.creator}" title="Find all Apps and Tools of this Author">${app.creator}</a></td>
             </tr>
             <tr>
               <th scope="row">Category</th>
-              <td>${app.tags.map( tag => `<a href="./results.html?category=${tag}">${tag}</a>` ).join( ', ' )}</td>
+              <td>${app.tags.map( tag => `<a href="./results.html?category=${tag}" title="Find all Apps and Tools of this Category">${tag}</a>` ).join( ', ' )}</td>
             </tr>
             <tr>
               <th scope="row">Language</th>
-              <td>${app.language.map( lang => `<a href="./results.html?language=${lang}">${lang.toUpperCase()}</a>` ).join( ', ' )}</td>
+              <td>${app.language.map( lang => `<a href="./results.html?language=${lang}" title="Find all Apps in this Language">${lang.toUpperCase()}</a>` ).join( ', ' )}</td>
             </tr>
             <tr>
               <th scope="row">Content Licence</th>
-              <td><a href="https://creativecommons.org/share-your-work/public-domain/cc0/">CC0</a></td>
+              <td><a href="https://creativecommons.org/share-your-work/public-domain/cc0/" target="_blank" title="Every published App is Public Domain">CC0</a></td>
             </tr>
             <tr>
               <th scope="row">Software Licence</th>
-              <td><a href="https://en.wikipedia.org/wiki/MIT_License">MIT Licence</a></td>
+              <td><a href="https://en.wikipedia.org/wiki/MIT_License" target="_blank" title="Every published App is Free Software">MIT Licence</a></td>
             </tr>
             <tr>
               <th scope="row">Created with Tool</th>
-              <td><a href="./tool.html?id=${tool.key}">${tool.title}</a></td>
+              <td><a href="./tool.html?id=${tool.key}" title="Opens the Tool that was used to create this App">${tool.title}</a></td>
             </tr>
             <tr>
               <th scope="row">Release Date</th>
@@ -429,8 +442,8 @@
         </ul>
       `;
 
-      // show app in the app area
-      //ccm.get( app.source[ 0 ], app.source[ 1 ] ).then( config => ccm.start( app.path, Object.assign( config, { root: document.querySelector( '#app article' ) } ) ) );
+      // add target URL for the link button to show all apps that were created with this tool
+      document.querySelector( '#all-apps' ).setAttribute( 'href', './results.html?tool=' + tool.title );
 
     }
 

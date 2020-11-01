@@ -54,17 +54,12 @@
         <div class="col">
           <article id="subject"></article>
         </div>
-        <div class="col">
-          <nav>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#handover">Share App</button>
+        <div class="col mt-3 mb-3 d-flex align-items-center">
+          <nav class="text-nowrap">
+            <a class="btn btn-outline-primary btn-lg" title="Use this App as Template for an own App">Create Similar App</a>
+            <button type="button" class="btn btn-outline-info btn-lg" data-toggle="modal" data-target="#handover" title="Use this App anywhere on the Web">Share App</button>
           </nav>
           <br>
-          <article class="text-nowrap">
-            <button>RATING</button>
-            <button>CREATE SIMILAR APP</button><br>
-            <button>OPEN APP IN NEW TAB</button>
-            <button>EDIT APP METADATA</button>
-          </article>
         </div>
       </div>
 
@@ -87,12 +82,14 @@
                 <div id="inputs"></div>
                 <div id="qr_code" class="pl-2"></div>
               </div>
+              <!--
               <div class="text-center">
                 <button type="button" id="download" class="btn btn-primary mr-2"><span class="fas fa-file-download"></span> File</button>
                 <a id="bookmarklet" class="btn btn-secondary mr-2"><span class="fas fa-bookmark"></span> Bookmarklet</a>
                 <button type="button" id="ibook" class="btn btn-info mr-2"><span class="fas fa-book"></span> iBook Widget</button>
                 <button type="button" id="scorm" class="btn btn-danger"><span class="fas fa-archive"></span> SCORM</button>
               </div>
+              -->
             </div>
           </div>
         </div>
@@ -102,8 +99,14 @@
 
     <!-- App -->
     <section id="app" class="container">
-      <p class="text-muted">App</p>
-      <article class="bg-app border"></article>
+      <p class="text-muted">App &nbsp;<a class="btn btn-outline-success btn-xs" title="Opens the App in a new Tab">Fullscreen</a></p>
+      <article class="border">
+        <div class="d-flex justify-content-center align-items-center spinner">
+          <div class="spinner-border text-success" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+      </article>
     </section>
 
     <!-- Description -->
@@ -139,9 +142,9 @@
         <!-- Navigation -->
         <div class="col">
           <nav class="nav justify-content-end">
-            <a class="nav-link" href="https://www.stifterverband.org/digital-lehrfellows/2017/kaul">About</a>
-            <a class="nav-link" href="https://www.h-brs.de/de/inf/andre-kless">Contact</a>
-            <a class="nav-link" href="https://www.h-brs.de/de/impressum">Impressum</a>
+            <a class="nav-link" href="https://www.stifterverband.org/digital-lehrfellows/2017/kaul" target="_blank">About</a>
+            <a class="nav-link" href="https://www.h-brs.de/de/inf/andre-kless" target="_blank">Contact</a>
+            <a class="nav-link" href="https://www.h-brs.de/de/impressum" target="_blank">Impressum</a>
           </nav>
         </div>
       </div>
@@ -152,5 +155,6 @@
   <script src="./libs/bootstrap.bundle.min.js"></script>
   <script src="./libs/ccm-26.0.0.min.js"></script>
   <script src="./libs/moment.min.js"></script>
+  <script src="./libs/qrcode.min.js"></script>
   <script src="./script.js"></script>
 </body>

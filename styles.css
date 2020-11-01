@@ -106,11 +106,24 @@ a.link-unstyled:active {
   margin-bottom: 0.5rem;
 }
 
+.spinner {
+  height: 150px;
+}
+
+#trailer nav .btn {
+  margin: 0 0.5em;
+}
+
 #handover article {
 
 }
 
 #handover article #qr_code img {
+  height: 145px;
+  width: 145px;
+}
+
+#qr_code img {
   height: 145px;
   width: 145px;
 }
