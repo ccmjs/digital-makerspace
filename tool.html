@@ -56,12 +56,74 @@
         </div>
         <div class="col mt-3 mb-3 d-flex align-items-center">
           <nav class="text-nowrap">
-            <a id="all-apps" class="btn btn-outline-success btn-lg" title="Shows all Apps that were created with this Tool">All Apps</a>
-            <button type="button" class="btn btn-outline-info btn-lg" title="Use this App anywhere on the Web">Switch App Builder</button>
+            <button type="button" class="btn btn-outline-primary btn-lg" data-toggle="modal" data-target="#load-app" title="Load an App as Template for an own App or to edit an App you have created">Load Template</button>
+            <a id="all-apps" class="btn btn-outline-success btn-lg" title="Shows all published Apps that were created with this Tool">Show all Apps</a>
           </nav>
           <br>
         </div>
       </div>
+
+      <!-- Modal: Load App -->
+      <div class="modal fade" id="load-app" tabindex="-1" aria-labelledby="Load App as Template" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h5 class="modal-title">Load App as Template</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+              <div class="container">
+                <p>Use one of the following ways:</p>
+                <div id="embed" class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">Embed</span>
+                  </div>
+                  <input type="text" id="embed_code" class="form-control" aria-label="Embed Code">
+                  <div class="input-group-append">
+                    <button id="embed_load" class="btn btn-primary" type="button">Load</button>
+                  </div>
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">URL</span>
+                  </div>
+                  <input type="text" id="app_url" class="form-control" aria-label="URL">
+                  <div class="input-group-append">
+                    <button id="url_copy" class="btn btn-primary" type="button">Load</button>
+                  </div>
+                </div>
+                <div id="id" class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">App ID</span>
+                  </div>
+                  <input type="text" id="app_id" class="form-control" aria-label="App ID">
+                  <div class="input-group-append">
+                    <button id="id_copy" class="btn btn-primary" type="button">Load</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- App Builder -->
+    <section id="app_builder" class="container">
+      <p class="text-muted">App Builder &nbsp;<a class="btn btn-outline-primary btn-xs" title="Switch between different App Builders">Switch</a></p>
+      <article class="border">
+        <div class="d-flex justify-content-center align-items-center spinner">
+          <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+      </article>
     </section>
 
     <!-- Reviews -->
