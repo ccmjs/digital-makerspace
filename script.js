@@ -369,6 +369,9 @@
       qr_code_elem.innerHTML = qr_code.createImgTag();
       document.querySelector( '#qr_code' ).appendChild( qr_code_elem.firstChild );
 
+      // make modal dialog movable
+      movableModal();
+
       // show app in the app area
       ccm.get( app.source[ 0 ], app.source[ 1 ] ).then( config => ccm.start( app.path, Object.assign( config, { root: document.querySelector( '#app article' ) } ) ) ).then( cleanHead );
 
@@ -444,6 +447,9 @@
         </ul>
       `;
 
+      // make modal dialog movable
+      movableModal();
+
       // add target URL for the link button to show all published apps that were created with this tool
       document.querySelector( '#all-apps' ).setAttribute( 'href', './results.html?tool=' + tool.title );
 
@@ -464,6 +470,24 @@
       if ( !items[ key ] )
         items[ key ] = JSON.parse( sessionStorage.getItem( key ) );
       return items[ key ];
+    }
+
+    /** makes the modal dialog movable via drag'n'drop */
+    function movableModal() {
+      $( '.modal-header' ).on( 'mousedown', function ( mousedownEvt ) {
+        const $draggable = $( this );
+        const $body = $( 'body' );
+        const x = mousedownEvt.pageX - $draggable.offset().left;
+        const y = mousedownEvt.pageY - $draggable.offset().top;
+        $body.on( 'mousemove.draggable', mousemoveEvt => {
+          $draggable.closest( '.modal-dialog' ).offset( {
+            "left": mousemoveEvt.pageX - x,
+            "top": mousemoveEvt.pageY - y
+          } );
+        } );
+        $body.one( 'mouseup', () => $body.off( 'mousemove.draggable' ) );
+        $draggable.closest( '.modal' ).one( 'bs.modal.hide', () => $body.off( 'mousemove.draggable' ) );
+      } );
     }
 
     /** removes all global loaded external Bootstrap CSS of the webpage */

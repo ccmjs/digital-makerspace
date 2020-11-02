@@ -123,3 +123,7 @@ a.link-unstyled:active {
   height: 145px;
   width: 145px;
 }
+
+.modal-header {
+  cursor: move;
+}
