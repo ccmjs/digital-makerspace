@@ -469,7 +469,7 @@
     /** removes all global loaded external Bootstrap CSS of the webpage */
     function cleanHead() {
       document.head.querySelectorAll( 'link[href^="https"]' ).forEach( link => {
-        if ( link.getAttribute( 'href' ).includes( 'bootstrap' ) )
+        if ( link.getAttribute( 'href' ).includes( 'bootstrap' ) || link.getAttribute( 'href' ).includes( 'materialize' ) )
           document.head.removeChild( link );
       } );
     }
