@@ -370,7 +370,9 @@
       document.querySelector( '#qr_code' ).appendChild( qr_code_elem.firstChild );
 
       // show app in the app area
-      ccm.get( app.source[ 0 ], app.source[ 1 ] ).then( config => ccm.start( app.path, Object.assign( config, { root: document.querySelector( '#app article' ) } ) ) );
+      ccm.get( app.source[ 0 ], app.source[ 1 ] ).then( config => ccm.start( app.path, Object.assign( config, { root: document.querySelector( '#app article' ) } ) ) ).then( cleanHead );
+
+      // add target URL for the link button to open the App in a new tab to how it in fullscreen
       document.querySelector( '#app a' ).setAttribute( 'href', app_url );
 
       // add app description
@@ -390,11 +392,11 @@
             </tr>
             <tr>
               <th scope="row">Category</th>
-              <td>${app.tags.map( tag => `<a href="./results.html?category=${tag}" title="Find all Apps and Tools of this Category">${tag}</a>` ).join( ', ' )}</td>
+              <td>${app.tags.map( tag => `<a href="./results.html?category=${tag}" title="Find all Apps and Tools of this Category">${tag}</a>` ).join( ', ' ) || '-'}</td>
             </tr>
             <tr>
               <th scope="row">Language</th>
-              <td>${app.language.map( lang => `<a href="./results.html?language=${lang}" title="Find all Apps in this Language">${lang.toUpperCase()}</a>` ).join( ', ' )}</td>
+              <td>${( app.language || [] ).map( lang => `<a href="./results.html?language=${lang}" title="Find all Apps in this Language">${lang.toUpperCase()}</a>` ).join( ', ' ) || '-'}</td>
             </tr>
             <tr>
               <th scope="row">Content Licence</th>
@@ -442,8 +444,14 @@
         </ul>
       `;
 
-      // add target URL for the link button to show all apps that were created with this tool
+      // add target URL for the link button to show all published apps that were created with this tool
       document.querySelector( '#all-apps' ).setAttribute( 'href', './results.html?tool=' + tool.title );
+
+      // show app builder in the app builder area
+      const builder_elem = document.querySelector( '#app_builder article' );
+      if ( !tool.ignore.builders.length ) return builder_elem.innerHTML = '<p class="lead pt-3 text-center">Sorry! This tool has no app builder yet.</p>';
+      const builder = tool.ignore.builders[ 0 ];
+      ccm.helper.solveDependency( builder.app ).then( component => component.start( { root: builder_elem } ) ).then( cleanHead );
 
     }
 
@@ -456,6 +464,14 @@
       if ( !items[ key ] )
         items[ key ] = JSON.parse( sessionStorage.getItem( key ) );
       return items[ key ];
+    }
+
+    /** removes all global loaded external Bootstrap CSS of the webpage */
+    function cleanHead() {
+      document.head.querySelectorAll( 'link[href^="https"]' ).forEach( link => {
+        if ( link.getAttribute( 'href' ).includes( 'bootstrap' ) )
+          document.head.removeChild( link );
+      } );
     }
 
   }
