@@ -288,7 +288,7 @@
       const config = [ 'ccm.get', app.source[ 0 ], app.source[ 1 ] ];
       const app_url = location.href.replace( 'app.html', 'show.html' );
 
-      // set app title in webpage title
+      // change webpage title
       document.title = document.title.replace( '${title}', app.title );
 
       // add media list entry for the app in the trailer area
@@ -426,11 +426,13 @@
     /** shows a tool for app creation in frontend */
     function updateToolView() {
 
-      // get key and metadata of the tool
-      const key = params.get( 'id' );
-      const tool = getItems( components ).find( item => item.key === key );
+      // collect GET parameters from URL
+      const key = params.get( 'id' );                                        // ID of the tool
+      const use = params.get( 'use' );                                       // title of the app builder that is used
+      const template = params.get( 'template' );                             // ID of the app that is used as template
+      const tool = getItems( components ).find( item => item.key === key );  // metadata of the tool
 
-      // set tool title in webpage title
+      // change webpage title
       document.title = document.title.replace( '${title}', tool.title );
 
       // add media list entry for the app in the trailer area
@@ -447,6 +449,26 @@
         </ul>
       `;
 
+      /** reloads the webpage of this tool with a specific app as template for app creation */
+      const useTemplate = app_id => app_id && ccm.helper.isKey( app_id ) && location.assign( location.origin + location.pathname + '?id=' + key + ( use ? '&use=' + use : '' ) + '&template=' + app_id );
+
+      // set click event for the button to load an app as template by embed code
+      document.querySelector( '#embed_copy' ).addEventListener( 'click', () => {
+        const match = document.querySelector( '#embed_code' ).value.match( /},"(.*)"\]'/ );
+        useTemplate( match && match[ 1 ] );
+      } );
+
+      // set click event for the button to load an app as template by app URL
+      document.querySelector( '#url_copy' ).addEventListener( 'click', () => {
+        const match = document.querySelector( '#app_url' ).value.match( /id=(.*)/ );
+        useTemplate( match && match[ 1 ] );
+      } );
+
+      // set click event for the button to load an app as template by app ID
+      document.querySelector( '#id_copy' ).addEventListener( 'click', () => {
+        useTemplate( document.querySelector( '#app_id' ).value );
+      } );
+
       // make modal dialog movable
       movableModal();
 
@@ -456,7 +478,9 @@
       // show app builder in the app builder area
       const builder_elem = document.querySelector( '#app_builder article' );
       if ( !tool.ignore.builders.length ) return builder_elem.innerHTML = '<p class="lead pt-3 text-center">Sorry! This tool has no app builder yet.</p>';
-      const builder = tool.ignore.builders[ 0 ];
+      const builders = tool.ignore.builders;
+      let builder = builders[ 0 ];
+      if ( use ) builder = builders.find( builder => builder.title === use );
       ccm.helper.solveDependency( builder.app ).then( component => component.start( { root: builder_elem } ) ).then( cleanHead );
 
     }
