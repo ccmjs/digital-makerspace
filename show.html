@@ -7,9 +7,6 @@
   <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
   <style>* { height: 100%; } body { margin: 0; }</style>
   <script src="./libs/ccm-26.0.0.min.js"></script>
-  <title>App: ${title} | Digital Makerspace</title>
-</head>
-<body>
   <script>
     ( async () => {
       const key = new URL( window.location.href ).searchParams.get( 'id' );
@@ -20,4 +17,5 @@
       ccm.start( meta.path, config );
     } )();
   </script>
-</body>
+  <title>App: ${title} | Digital Makerspace</title>
+</head>
