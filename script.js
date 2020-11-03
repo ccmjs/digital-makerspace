@@ -475,13 +475,40 @@
       // add target URL for the link button to show all published apps that were created with this tool
       document.querySelector( '#all-apps' ).setAttribute( 'href', './results.html?tool=' + tool.title );
 
-      // show app builder in the app builder area
+      // prepare app builders
       const builder_elem = document.querySelector( '#app_builder article' );
-      if ( !tool.ignore.builders.length ) return builder_elem.innerHTML = '<p class="lead pt-3 text-center">Sorry! This tool has no app builder yet.</p>';
       const builders = tool.ignore.builders;
+      if ( !builders.length ) return builder_elem.innerHTML = '<p class="lead pt-3 text-center">Sorry! This tool has no app builder yet.</p>';
+      builders.push( {
+        title: 'JSON Builder',
+        app: [ 'ccm.component', 'https://ccmjs.github.io/akless-components/json_builder/versions/ccm.json_builder-2.1.0.js', { directly: true, nosubmit: true } ]
+      } );
+
+      // show active app builder in the app builder area
       let builder = builders[ 0 ];
       if ( use ) builder = builders.find( builder => builder.title === use );
-      ccm.helper.solveDependency( builder.app ).then( component => component.start( { root: builder_elem } ) ).then( cleanHead );
+      const config = sessionStorage.getItem( 'config' );
+      config && sessionStorage.removeItem( 'config' );
+      const app = !config && getItems( apps ).find( item => item.key === template );
+      let builder_inst;
+
+      Promise.all( [
+        ccm.helper.solveDependency( builder.app ),
+        config && JSON.parse( config ) || app && ccm.get( app.source[ 0 ], app.source[ 1 ] )
+      ] )
+        .then( ( [ component, template ] ) => component.start( { root: builder_elem, data: { store: [ 'ccm.store', { app: template } ], key: 'app' } } ) )
+        .then( builder => { builder_inst = builder; cleanHead(); } );
+
+      // add entries for tab menu to switch between app builders
+      const tabs = document.querySelector( '#tabs' );
+      builders.forEach( ( builder, i ) => {
+        const li = document.createElement( 'li' );
+        li.classList.add( 'nav-item' );
+        li.innerHTML = `<a class="nav-link ${use && use === builder.title || !use && !i ? 'active' : '' }" href="./tool.html?id=${key}&use=${builder.title}${template ? '&template=' + template : ''}">${builder.title}</a>`;
+        li.querySelector( 'a' ).addEventListener( 'click', () => builder_inst && sessionStorage.setItem( 'config', JSON.stringify( builder_inst.getValue() ) ) );
+        tabs.appendChild( li );
+      } );
+      use && tabs.classList.add( 'show' );
 
     }
 

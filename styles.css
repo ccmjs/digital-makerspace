@@ -127,3 +127,11 @@ a.link-unstyled:active {
 .modal-header {
   cursor: move;
 }
+
+#tabs.show + article {
+  border-top-color: white !important;
+}
+
+#tabs a {
+  min-height: 20px;
+}
