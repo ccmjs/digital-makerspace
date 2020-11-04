@@ -292,7 +292,7 @@
       document.title = document.title.replace( '${title}', app.title );
 
       // add media list entry for the app in the trailer area
-      document.getElementById( 'subject' ).innerHTML = `
+      document.getElementById( 'abstract' ).innerHTML = `
         <ul class="list-unstyled">
           <li class="media">
             <img src="${app.icon || default_icon}" class="mr-3 rounded" alt="App Icon">
@@ -436,7 +436,7 @@
       document.title = document.title.replace( '${title}', tool.title );
 
       // add media list entry for the app in the trailer area
-      document.getElementById( 'subject' ).innerHTML = `
+      document.getElementById( 'abstract' ).innerHTML = `
         <ul class="list-unstyled">
           <li class="media">
             <img src="${tool.icon || default_icon}" class="mr-3 rounded" alt="Tool Icon">
@@ -514,6 +514,25 @@
       document.querySelector( '#preview-btn' ).addEventListener( 'click', () => {
         if ( !builder_inst ) return;
         ccm.start( tool.path, Object.assign( builder_inst.getValue(), { root: document.querySelector( '#preview' ) } ) );
+      } );
+
+      // prepare input of app categories
+      const tags = $( document.querySelector( '#tags' ) ).selectize( {
+        create: true,
+        plugins: [ 'remove_button' ],
+        valueField: 'value',
+        labelField: 'value',
+        searchField: 'value',
+        options: JSON.parse( sessionStorage.getItem( 'app-tag' ) ).map( tag => { return { value: tag }; } )
+      } )[ 0 ].selectize;
+
+      // set submit event for publish app form
+      document.querySelector( '#publish' ).addEventListener( 'submit', event => {
+        event.preventDefault();
+        const app_meta = { language: [] };
+        $( event.target ).serializeArray().forEach( ( { name, value } ) => value && ( name === 'language' ? app_meta[ name ].push( value ) : app_meta[ name ] = value ) );
+        app_meta.tags = tags.items;
+        console.log( app_meta );
       } );
 
     }

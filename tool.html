@@ -6,9 +6,12 @@
   <meta name="author" content="André Kless <andre.kless@web.de> 2020">
   <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href="./libs/bootstrap.min.css">
+  <link rel="stylesheet" href="./libs/selectize.css">
   <link rel="stylesheet" href="./styles.css">
   <script src="./libs/jquery-3.5.1.slim.min.js" defer></script>
   <script src="./libs/bootstrap.bundle.min.js" defer></script>
+  <script src="./libs/selectize.min.js" defer></script>
+  <script src="./libs/selectize-plugin.js" defer></script>
   <script src="./libs/moment.min.js" defer></script>
   <script src="./libs/ccm-26.0.0.min.js" defer></script>
   <script src="./script.js" defer></script>
@@ -57,7 +60,7 @@
     <section id="trailer" class="container pt-4 pb-2">
       <div class="row">
         <div class="col">
-          <article id="subject"></article>
+          <article id="abstract"></article>
         </div>
         <div class="col mt-3 mb-3 d-flex align-items-center">
           <nav class="text-nowrap">
@@ -181,13 +184,13 @@
 
             <!-- Modal Body -->
             <div class="modal-body">
-              <p>A published App...</p>
+              <p>A <b class="text-primary">published</b> App...</p>
               <ul>
                 <li>is public domain</li>
                 <li>can be found and shared by others</li>
                 <li>can be used as template for app creation</li>
               </ul>
-              <p>A <b>not</b> published App...</p>
+              <p>A <b class="text-danger">not</b> <b class="text-primary">published</b> App...</p>
               <ul>
                 <li>isn't listed in the Digital Makerspace</li>
                 <li>can not be found using search function</li>
@@ -202,8 +205,77 @@
 
             <!-- Modal Footer -->
             <div class="modal-footer d-flex justify-content-between">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Save without Publish</button>
+              <button type="button" class="btn btn-warning" data-dismiss="modal">Save without Publish</button>
               <button type="button" class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#publish-app">Save and Publish</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal: Publish App -->
+      <div class="modal fade" id="publish-app" tabindex="-1" aria-labelledby="Publish App" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+          <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h5 class="modal-title">Publish App</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+              <form id="publish">
+                <p>Please provide additional information about your app so that others can find your app more easily.</p>
+                <div class="form-group">
+                  <label for="title">Title:</label>
+                  <input type="text" class="form-control" id="title" name="title" aria-describedby="Title" maxlength="33" required>
+                </div>
+                <div class="form-group">
+                  <label for="icon">Icon:</label>
+                  <input type="url" class="form-control" id="icon" name="icon" aria-describedby="Icon">
+                </div>
+                <div class="form-group">
+                  <label for="subject">Short Description:</label>
+                  <input type="text" class="form-control" id="subject" name="subject" aria-describedby="Short Description" maxlength="62">
+                </div>
+                <div class="form-group">
+                  <label for="description">Long Description:</label>
+                  <textarea class="form-control" id="description" name="description" aria-describedby="Long Description"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="tags">Categories:</label>
+                  <select id="tags" multiple></select>
+                </div>
+                <div class="form-group">
+                  <div><label>Language:</label></div>
+                  <div class="form-check form-check-inline custom-checkbox">
+                    <input class="form-check-input custom-control-input" type="checkbox" id="en" name="language" value="en">
+                    <label class="form-check-label custom-control-label" for="en">English</label>
+                  </div>
+                  <div class="form-check form-check-inline custom-checkbox">
+                    <input class="form-check-input custom-control-input" type="checkbox" id="de" name="language" value="de">
+                    <label class="form-check-label custom-control-label" for="de">German</label>
+                  </div>
+                </div>
+                <div class="bg-light border rounded p-3">
+                  <p>I agree that all content of my app is released as public domain under the <a href="https://creativecommons.org/share-your-work/public-domain/cc0/" target="_blank">CC0 license</a>.</p>
+                  <p>I agree that all software of my app is released as free software under the <a href="https://en.wikipedia.org/wiki/MIT_License" target="_blank">MIT license</a>.</p>
+                  <p>I confirm that this does not violate the copyright of third parties.</p>
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="agree" required>
+                    <label class="custom-control-label" for="agree">I agree</label>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer d-flex justify-content-between">
+              <button type="button" class="btn btn-warning" data-dismiss="modal">Save without Publish</button>
+              <button type="submit" form="publish" class="btn btn-success">Save and Publish</button>
             </div>
           </div>
         </div>

@@ -139,3 +139,11 @@ a.link-unstyled:active {
 #save-app ul {
   margin-bottom: 1rem;
 }
+
+#publish label {
+  font-weight: bold;
+}
+
+#publish input + label {
+  font-weight: normal;
+}
