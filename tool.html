@@ -121,7 +121,7 @@
 
     <!-- App Builder -->
     <section id="app_builder" class="container">
-      <p class="text-muted">App Builder &nbsp;<a class="btn btn-outline-primary btn-xs" data-toggle="collapse" href="#tabs" role="button" aria-expanded="false" aria-controls="tabs" title="Switch between different App Builders">Switch</a></p>
+      <p class="text-muted">App Builder &nbsp;<a class="btn btn-outline-warning btn-xs" data-toggle="collapse" href="#tabs" role="button" aria-expanded="false" aria-controls="tabs" title="Switch between different App Builders">Switch</a></p>
       <ul id="tabs" class="collapse nav nav-tabs"></ul>
       <article class="bg-white border">
         <div class="d-flex justify-content-center align-items-center spinner">
@@ -130,6 +130,84 @@
           </div>
         </div>
       </article>
+      <nav class="pt-3 pb-3">
+        <button type="button" id="preview-btn" class="btn btn-info mr-2" data-toggle="modal" data-target="#show-preview">Show Preview</button>
+        <button type="button" class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#save-app">Save App</button>
+      </nav>
+
+      <!-- Modal: Show Preview -->
+      <div class="modal fade" id="show-preview" tabindex="-1" aria-labelledby="Show Preview" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h5 class="modal-title">App Preview</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div id="preview" class="modal-body">
+              <div class="d-flex justify-content-center align-items-center spinner">
+                <div class="spinner-border text-success" role="status">
+                  <span class="sr-only">Loading...</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Continue Editing</button>
+              <button type="button" class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#save-app">Save App</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal: Save App -->
+      <div class="modal fade" id="save-app" tabindex="-1" aria-labelledby="Save App" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h5 class="modal-title">Do you want to publish your App?</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+              <p>A published App...</p>
+              <ul>
+                <li>is public domain</li>
+                <li>can be found and shared by others</li>
+                <li>can be used as template for app creation</li>
+              </ul>
+              <p>A <b>not</b> published App...</p>
+              <ul>
+                <li>isn't listed in the Digital Makerspace</li>
+                <li>can not be found using search function</li>
+              </ul>
+              <p>In any case, you...</p>
+              <ul>
+                <li>can use the app anywhere on the web</li>
+                <li>find your app in the "My Apps" section</li>
+                <li>need a free user account</li>
+              </ul>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer d-flex justify-content-between">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Save without Publish</button>
+              <button type="button" class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#publish-app">Save and Publish</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Reviews -->

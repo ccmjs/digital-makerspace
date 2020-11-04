@@ -491,13 +491,13 @@
       config && sessionStorage.removeItem( 'config' );
       const app = !config && getItems( apps ).find( item => item.key === template );
       let builder_inst;
-
       Promise.all( [
         ccm.helper.solveDependency( builder.app ),
         config && JSON.parse( config ) || app && ccm.get( app.source[ 0 ], app.source[ 1 ] )
-      ] )
-        .then( ( [ component, template ] ) => component.start( { root: builder_elem, data: { store: [ 'ccm.store', { app: template } ], key: 'app' } } ) )
-        .then( builder => { builder_inst = builder; cleanHead(); } );
+      ] ).then( ( [ component, template ] ) => component.start( {
+        root: builder_elem,
+        data: { store: [ 'ccm.store', { app: template } ], key: 'app' }
+      } ) ).then( builder => { builder_inst = builder; cleanHead(); } );
 
       // add entries for tab menu to switch between app builders
       const tabs = document.querySelector( '#tabs' );
@@ -509,6 +509,12 @@
         tabs.appendChild( li );
       } );
       use && tabs.classList.add( 'show' );
+
+      // set click event for the preview button
+      document.querySelector( '#preview-btn' ).addEventListener( 'click', () => {
+        if ( !builder_inst ) return;
+        ccm.start( tool.path, Object.assign( builder_inst.getValue(), { root: document.querySelector( '#preview' ) } ) );
+      } );
 
     }
 
@@ -541,7 +547,7 @@
       } );
     }
 
-    /** removes all global loaded external Bootstrap CSS of the webpage */
+    /** removes all global loaded external Bootstrap and Materialize CSS of the webpage */
     function cleanHead() {
       document.head.querySelectorAll( 'link[href^="https"]' ).forEach( link => {
         if ( link.getAttribute( 'href' ).includes( 'bootstrap' ) || link.getAttribute( 'href' ).includes( 'materialize' ) )

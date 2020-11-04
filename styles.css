@@ -135,3 +135,7 @@ a.link-unstyled:active {
 #tabs a {
   min-height: 20px;
 }
+
+#save-app ul {
+  margin-bottom: 1rem;
+}
