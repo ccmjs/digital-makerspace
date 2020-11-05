@@ -5,6 +5,25 @@ header {
   z-index: 10;
 }
 
+#user-dropdown {
+  text-align: right;
+}
+
+#user-dropdown #username {
+  padding-right: 0.5em;
+}
+
+#user-dropdown button {
+  display: inline-flex;
+  align-items: center;
+}
+
+#user-dropdown .dropdown-menu {
+  left: unset;
+  right: 0;
+  min-width: unset;
+}
+
 .jumbotron {
   margin-bottom: 0;
 }
