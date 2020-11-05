@@ -166,3 +166,7 @@ a.link-unstyled:active {
 #publish input + label {
   font-weight: normal;
 }
+
+footer small {
+  line-height: 16px;
+}
