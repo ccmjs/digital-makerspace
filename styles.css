@@ -167,6 +167,6 @@ a.link-unstyled:active {
   font-weight: normal;
 }
 
-footer small {
-  line-height: 16px;
+#department {
+  line-height: 15px;
 }
