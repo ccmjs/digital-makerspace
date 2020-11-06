@@ -347,5 +347,66 @@
       </div>
     </div>
   </div>
+
+  <!-- Modal: User Registration -->
+  <div class="modal fade" id="register-dialog" tabindex="-1" aria-labelledby="User Registration" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Create a free Account</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body px-4">
+          <form id="register-form">
+            <div class="form-group">
+              <label for="register-user-input">Username</label>
+              <input type="text" class="form-control" id="register-user-input" name="user" required>
+            </div>
+            <div class="form-group">
+              <label for="register-password-input">Password</label>
+              <input type="password" class="form-control" id="register-password-input" name="token" required>
+            </div>
+            <div class="form-group">
+              <label for="register-name-input">Full name</label>
+              <input type="text" class="form-control" id="register-name-input" name="name" required>
+              <small>Please enter your full real name.</small>
+            </div>
+            <div class="hint text-center"></div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-info" form="register-form">Create Account</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Registration Succeeded -->
+  <div class="modal fade" id="register-success-dialog" tabindex="-1" aria-labelledby="Registration succeeded" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Registration succeeded</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-center">
+          <p>You have a free account.</p>
+          <p class="text-success">
+            <svg width="5em" height="5em" viewBox="0 0 16 16" class="bi bi-check-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+            </svg>
+          </p>
+          <span class="lead">Now you can create apps!</span>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
