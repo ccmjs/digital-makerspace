@@ -139,7 +139,7 @@
 
       // show user in frontend
       document.getElementById( 'username' ).innerText = user.name;
-      user.picture && document.querySelector( '#user img' ).setAttribute( 'src', user.picture );
+      document.querySelector( '#user img' ).setAttribute( 'src', user.picture || './img/user.jpg' );
 
       // remove login and register button
       removeElement( 'login-btn' );
@@ -152,8 +152,16 @@
       } );
 
     }
-    // user is not logged in => remove logout button
-    else removeElement( 'logout-btn' );
+    // user is not logged in
+    else {
+
+      // remove logout button
+      removeElement( 'logout-btn' );
+
+      // show default user picture
+      document.querySelector( '#user img' ).setAttribute( 'src', './img/user.jpg' );
+
+    }
 
     // set submit event for login form
     document.getElementById( 'login-form' ).addEventListener( 'submit', async event => {
