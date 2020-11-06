@@ -14,6 +14,9 @@
   else
     ready();
 
+  // make modal dialogs movable
+  movableModals();
+
   /** loads data of all published apps and components and stores them in the Session Storage */
   function init() {
 
@@ -124,6 +127,40 @@
 
     // fill data lists for app and tool searches
     fillDataLists();
+
+    // set submit event for login form
+    document.getElementById( 'login-form' ).addEventListener( 'submit', async event => {
+      event.preventDefault();
+      let params = { realm: 'cloud', store: 'dms-user' };
+      $( event.target ).serializeArray().forEach( ( { name, value } ) => params[ name ] = value );
+      params.token = md5( params.token );
+      try {
+        sessionStorage.setItem( 'user', JSON.stringify( await ccm.load( { url: 'https://ccm2.inf.h-brs.de', params: params } ) ) );
+        $( '#login-dialog' ).modal( 'hide' );
+      }
+      catch ( e ) {
+        renderHint( document.querySelector( '#login-form .hint' ), 'Login failed. Please try again.' );
+      }
+    } );
+
+    // set submit event for register form
+    document.getElementById( 'register-form' ).addEventListener( 'submit', async event => {
+      event.preventDefault();
+      const params = { store: 'dms-user', set: {} };
+      $( event.target ).serializeArray().forEach( ( { name, value } ) => params.set[ name ] = value );
+      params.set.key = params.set.user;
+      params.set.token = md5( params.set.token );
+      try {
+        await ccm.load( { url: 'https://ccm2.inf.h-brs.de', params: params } );
+        $( '#register-dialog' ).modal( 'hide' );
+        $( '#register-success-dialog' ).modal( 'show' );
+      }
+      catch ( e ) {
+        const hint_elem = document.querySelector( '#login-form .hint' );
+        hint_elem.innerText = 'Registration failed. Maybe try a different username.';
+        $( hint_elem ).fadeOut( 'slow' );
+      }
+    } );
 
     // show search results
     if ( location.pathname.endsWith( 'results.html' ) )
@@ -369,9 +406,6 @@
       qr_code_elem.innerHTML = qr_code.createImgTag();
       document.querySelector( '#qr_code' ).appendChild( qr_code_elem.firstChild );
 
-      // make modal dialog movable
-      movableModal();
-
       // show app in the app area
       ccm.get( app.source[ 0 ], app.source[ 1 ] ).then( config => ccm.start( app.path, Object.assign( config, { root: document.querySelector( '#app article' ) } ) ) ).then( cleanHead );
 
@@ -469,9 +503,6 @@
         useTemplate( document.querySelector( '#app_id' ).value );
       } );
 
-      // make modal dialog movable
-      movableModal();
-
       // add target URL for the link button to show all published apps that were created with this tool
       document.querySelector( '#all-apps' ).setAttribute( 'href', './results.html?tool=' + tool.title );
 
@@ -548,22 +579,14 @@
       return items[ key ];
     }
 
-    /** makes the modal dialog movable via drag'n'drop */
-    function movableModal() {
-      $( '.modal-header' ).on( 'mousedown', function ( mousedownEvt ) {
-        const $draggable = $( this );
-        const $body = $( 'body' );
-        const x = mousedownEvt.pageX - $draggable.offset().left;
-        const y = mousedownEvt.pageY - $draggable.offset().top;
-        $body.on( 'mousemove.draggable', mousemoveEvt => {
-          $draggable.closest( '.modal-dialog' ).offset( {
-            "left": mousemoveEvt.pageX - x,
-            "top": mousemoveEvt.pageY - y
-          } );
-        } );
-        $body.one( 'mouseup', () => $body.off( 'mousemove.draggable' ) );
-        $draggable.closest( '.modal' ).one( 'bs.modal.hide', () => $body.off( 'mousemove.draggable' ) );
-      } );
+    /**
+     * renders a red text message in a webpage area with a fadeout effect
+     * @param {HTMLElement} elem - webpage area
+     * @param {string} message - text message
+     */
+    function renderHint( elem, message ) {
+      elem.innerHTML = `<span class="text-danger text-center">${message}</span>`;
+      setTimeout( () => elem.querySelector( 'span' ).classList.add( 'fadeout' ), 100 );
     }
 
     /** removes all global loaded external Bootstrap and Materialize CSS of the webpage */
@@ -574,6 +597,24 @@
       } );
     }
 
+  }
+
+  /** makes the modal dialogs movable via drag'n'drop */
+  function movableModals() {
+    $( '.modal-header' ).on( 'mousedown', function ( mousedownEvt ) {
+      const $draggable = $( this );
+      const $body = $( 'body' );
+      const x = mousedownEvt.pageX - $draggable.offset().left;
+      const y = mousedownEvt.pageY - $draggable.offset().top;
+      $body.on( 'mousemove.draggable', mousemoveEvt => {
+        $draggable.closest( '.modal-dialog' ).offset( {
+          "left": mousemoveEvt.pageX - x,
+          "top": mousemoveEvt.pageY - y
+        } );
+      } );
+      $body.one( 'mouseup', () => $body.off( 'mousemove.draggable' ) );
+      $draggable.closest( '.modal' ).one( 'bs.modal.hide', () => $body.off( 'mousemove.draggable' ) );
+    } );
   }
 
 } )();

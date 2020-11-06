@@ -170,3 +170,8 @@ a.link-unstyled:active {
 #department {
   line-height: 15px;
 }
+
+.fadeout {
+  transition: opacity 5s;
+  opacity: 0;
+}
