@@ -146,19 +146,40 @@
     // set submit event for register form
     document.getElementById( 'register-form' ).addEventListener( 'submit', async event => {
       event.preventDefault();
-      const params = { store: 'dms-user', set: {} };
+      const params = {
+        store: 'dms-user',
+        set: {
+          realm: 'cloud',
+          _: {
+            realm: 'cloud',
+            access: {
+              get: 'creator',
+              set: 'creator',
+              del: 'creator'
+            }
+          }
+        }
+      };
       $( event.target ).serializeArray().forEach( ( { name, value } ) => params.set[ name ] = value );
       params.set.key = params.set.user;
       params.set.token = md5( params.set.token );
+      params.set._.creator = params.set.key;
       try {
         await ccm.load( { url: 'https://ccm2.inf.h-brs.de', params: params } );
+        sessionStorage.setItem( 'user', JSON.stringify( await ccm.load( {
+          url: 'https://ccm2.inf.h-brs.de',
+          params: {
+            realm: 'cloud',
+            store: 'dms-user',
+            user: params.set.key,
+            token: params.set.token
+          }
+        } ) ) );
         $( '#register-dialog' ).modal( 'hide' );
         $( '#register-success-dialog' ).modal( 'show' );
       }
       catch ( e ) {
-        const hint_elem = document.querySelector( '#login-form .hint' );
-        hint_elem.innerText = 'Registration failed. Maybe try a different username.';
-        $( hint_elem ).fadeOut( 'slow' );
+        renderHint( document.querySelector( '#register-form .hint' ), 'Registration failed. Maybe try a different username.' );
       }
     } );
 
