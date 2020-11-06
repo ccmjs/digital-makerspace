@@ -146,6 +146,7 @@
         sessionStorage.removeItem( 'user' );
         location.reload();
       } );
+
     }
     // user is not logged in => remove logout button
     else removeElement( 'logout-btn' );
