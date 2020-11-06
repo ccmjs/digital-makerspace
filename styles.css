@@ -44,8 +44,11 @@ header {
 }
 
 .card {
-  cursor: pointer;
   width: 300px;
+}
+
+.card:not(.disabled) {
+  cursor: pointer;
 }
 
 a.card, a.card:hover {
@@ -174,4 +177,8 @@ a.link-unstyled:active {
 .fadeout {
   transition: opacity 5s;
   opacity: 0;
+}
+
+.disabled {
+  opacity: 0.5;
 }
