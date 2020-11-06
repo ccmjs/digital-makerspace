@@ -136,7 +136,11 @@
 
     // user is logged in?
     if ( user ) {
-      
+
+      // show user in frontend
+      document.getElementById( 'username' ).innerText = user.name;
+      user.picture && document.querySelector( '#user img' ).setAttribute( 'src', user.picture );
+
       // remove login and register button
       removeElement( 'login-btn' );
       removeElement( 'register-btn' );
@@ -159,7 +163,7 @@
       params.token = md5( params.token );
       try {
         sessionStorage.setItem( 'user', JSON.stringify( await ccm.load( { url: 'https://ccm2.inf.h-brs.de', params: params } ) ) );
-        $( '#login-dialog' ).modal( 'hide' );
+        location.reload();
       }
       catch ( e ) {
         renderHint( document.querySelector( '#login-form .hint' ), 'Login failed. Please try again.' );
