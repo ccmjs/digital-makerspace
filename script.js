@@ -128,6 +128,28 @@
     // fill data lists for app and tool searches
     fillDataLists();
 
+    /**
+     * user data if user is logged in
+     * @type {Object}
+     */
+    const user = JSON.parse( sessionStorage.getItem( 'user' ) );
+
+    // user is logged in?
+    if ( user ) {
+      
+      // remove login and register button
+      removeElement( 'login-btn' );
+      removeElement( 'register-btn' );
+
+      // set click event for logout button
+      document.getElementById( 'logout-btn' ).addEventListener( 'click', () => {
+        sessionStorage.removeItem( 'user' );
+        location.reload();
+      } );
+    }
+    // user is not logged in => remove logout button
+    else removeElement( 'logout-btn' );
+
     // set submit event for login form
     document.getElementById( 'login-form' ).addEventListener( 'submit', async event => {
       event.preventDefault();
@@ -181,12 +203,6 @@
       catch ( e ) {
         renderHint( document.querySelector( '#register-form .hint' ), 'Registration failed. Maybe try a different username.' );
       }
-    } );
-
-    // set click event for logout button
-    document.getElementById( 'logout-btn' ).addEventListener( 'click', () => {
-      sessionStorage.removeItem( 'user' );
-      location.reload();
     } );
 
     // show search results
@@ -614,6 +630,14 @@
     function renderHint( elem, message ) {
       elem.innerHTML = `<span class="text-danger text-center">${message}</span>`;
       setTimeout( () => elem.querySelector( 'span' ).classList.add( 'fadeout' ), 100 );
+    }
+
+    /**
+     * removes an HTML element from the DOM
+     * @param {String} id - ID of the HTML element
+     */
+    function removeElement( id ) {
+      document.getElementById( id ).parentNode.removeChild( document.getElementById( id ) );
     }
 
     /** removes all global loaded external Bootstrap and Materialize CSS of the webpage */
