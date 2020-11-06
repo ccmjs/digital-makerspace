@@ -183,6 +183,12 @@
       }
     } );
 
+    // set click event for logout button
+    document.getElementById( 'logout-btn' ).addEventListener( 'click', () => {
+      sessionStorage.removeItem( 'user' );
+      location.reload();
+    } );
+
     // show search results
     if ( location.pathname.endsWith( 'results.html' ) )
       showSearchResults();
