@@ -197,6 +197,7 @@
     // set click event for logout button
     document.getElementById( 'logout-btn' ).addEventListener( 'click', () => {
       sessionStorage.removeItem( 'user' );
+      user = null;
       showLoggedOut();
     } );
 
@@ -606,6 +607,17 @@
         console.log( app_meta );
       } );
 
+      // user must be logged in to save an app
+      $( '#save-app' ).on( 'show.bs.modal', () => {
+        if ( user ) {
+          $( '#save-app button' ).prop( 'disabled', false );
+          $( '#save-app .hint' ).remove();
+        }
+        else {
+          $( '#save-app button' ).prop( 'disabled', true );
+          $( '#save-app .modal-body' ).append( '<div class="text-center text-danger lead hint">You are currently not logged in</div>' );
+        }
+      } );
     }
 
     /**
