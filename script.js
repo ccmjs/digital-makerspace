@@ -3,9 +3,12 @@
   const url = 'https://ccm2.inf.h-brs.de';
   const params = new URL( window.location.href ).searchParams;
   const apps = 'dms-apps';
+  const configs = 'dms-configs';
   const tools = 'dms-tools';
   const components = 'dms-components';
   const default_icon = './img/logo.png';
+  const users = 'dms-user';
+  const realm = 'cloud';
   const items = {};
 
   // no data of published apps and components loaded yet? => start loading
@@ -140,14 +143,15 @@
     // set submit event for login form
     document.getElementById( 'login-form' ).addEventListener( 'submit', async event => {
       event.preventDefault();
-      let params = { realm: 'cloud', store: 'dms-user' };
+      let params = { realm: realm, store: users };
       $( event.target ).serializeArray().forEach( ( { name, value } ) => params[ name ] = value );
       params.token = md5( params.token );
       try {
-        user = await ccm.load( { url: 'https://ccm2.inf.h-brs.de', params: params } );
+        user = await ccm.load( { url: url, params: params } );
         sessionStorage.setItem( 'user', JSON.stringify( user ) );
         showLoggedIn();
         $( '#login-dialog' ).modal( 'hide' );
+        event.target.reset();
       }
       catch ( e ) {
         renderHint( document.querySelector( '#login-form .hint' ), 'Login failed. Please try again.' );
@@ -158,11 +162,11 @@
     document.getElementById( 'register-form' ).addEventListener( 'submit', async event => {
       event.preventDefault();
       const params = {
-        store: 'dms-user',
+        store: users,
         set: {
-          realm: 'cloud',
+          realm: realm,
           _: {
-            realm: 'cloud',
+            realm: realm,
             access: {
               get: 'creator',
               set: 'creator',
@@ -176,18 +180,19 @@
       params.set.token = md5( params.set.token );
       params.set._.creator = params.set.key;
       try {
-        await ccm.load( { url: 'https://ccm2.inf.h-brs.de', params: params } );
+        await ccm.load( { url: url, params: params } );
         sessionStorage.setItem( 'user', JSON.stringify( await ccm.load( {
-          url: 'https://ccm2.inf.h-brs.de',
+          url: url,
           params: {
-            realm: 'cloud',
-            store: 'dms-user',
+            realm: realm,
+            store: users,
             user: params.set.key,
             token: params.set.token
           }
         } ) ) );
         $( '#register-dialog' ).modal( 'hide' );
         $( '#register-success-dialog' ).modal( 'show' );
+        event.target.reset();
       }
       catch ( e ) {
         renderHint( document.querySelector( '#register-form .hint' ), 'Registration failed. Maybe try a different username.' );
@@ -601,23 +606,70 @@
       // set submit event for publish app form
       document.querySelector( '#publish' ).addEventListener( 'submit', event => {
         event.preventDefault();
-        const app_meta = { language: [] };
-        $( event.target ).serializeArray().forEach( ( { name, value } ) => value && ( name === 'language' ? app_meta[ name ].push( value ) : app_meta[ name ] = value ) );
-        app_meta.tags = tags.items;
-        console.log( app_meta );
+        if ( !user ) return;
+
+        /**
+         * dataset key of app metadata and app configuration
+         * @type {string}
+         */
+        const key = ccm.helper.generateKey();
+
+        /**
+         * app metadata
+         * @type {Object}
+         */
+        const meta = {
+          key: key,
+          creator: user.name,
+          language: [],
+          format: 'application/json',
+          license: 'CC0',
+          metaFormat: 'ccm-meta',
+          metaVersion: '2.0.0',
+          path: tool.path,
+          source: [ { name: configs, url: url }, key ],
+          _: { creator: user.key, realm: realm, access: { get: 'all', set: 'creator', del: 'creator' } }
+        };
+
+        /**
+         * app configuration
+         * @type {Object}
+         */
+        const config = Object.assign( builder_inst.getValue(), {
+          key: key,
+          meta: [ { name: apps, url: url }, key ],
+          _: { creator: user.key, realm: realm, access: { get: 'all', set: 'creator', del: 'creator' } }
+        } );
+
+        // add input values in app metadata
+        $( event.target ).serializeArray().forEach( ( { name, value } ) => value && ( name === 'language' ? meta[ name ].push( value ) : meta[ name ] = value ) );
+        meta.tags = tags.items;
+
+        // save app metadata and app configuration
+        Promise.all( [
+          ccm.store( { name: apps, url: url } ).then( store => store.set( meta ) ),
+          ccm.store( { name: configs, url: url } ).then( store => store.set( config ) )
+        ] ).then( () => {
+          $( '#publish-app-dialog' ).modal( 'hide' );
+          sessionStorage.removeItem( 'dms-apps' );
+          document.querySelector( '#publish-app-success-dialog a' ).setAttribute( 'href', './app.html?id=' + key )
+          $( '#publish-app-success-dialog' ).modal( 'show' );
+        } );
+
       } );
 
       // user must be logged in to save an app
       $( '#save-app' ).on( 'show.bs.modal', () => {
         if ( user ) {
           $( '#save-app button' ).prop( 'disabled', false );
-          $( '#save-app .hint' ).remove();
+          document.querySelector( '#save-app .hint' ).innerHTML = '';
         }
         else {
           $( '#save-app button' ).prop( 'disabled', true );
-          $( '#save-app .modal-body' ).append( '<div class="text-center text-danger lead hint">You are currently not logged in</div>' );
+          document.querySelector( '#save-app .hint' ).innerText = 'You are currently not logged in';
         }
       } );
+
     }
 
     /**
