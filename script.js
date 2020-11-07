@@ -642,9 +642,11 @@
       document.getElementById( 'username' ).innerText = user.name;
       document.querySelector( '#user img' ).setAttribute( 'src', user.picture || './img/user.jpg' );
 
-      // hide login and register button and show logout button
+      // hide and show correct buttons in the user dropdown
       document.getElementById( 'login-btn' ).style.display = 'none';
       document.getElementById( 'register-btn' ).style.display = 'none';
+      document.getElementById( 'my-apps-btn' ).style.display = 'inherit';
+      document.getElementById( 'profile-btn' ).style.display = 'inherit';
       document.getElementById( 'logout-btn' ).style.display = 'inherit';
 
     }
@@ -659,6 +661,8 @@
       // show login and register button and hide logout button
       document.getElementById( 'login-btn' ).style.display = 'inherit';
       document.getElementById( 'register-btn' ).style.display = 'inherit';
+      document.getElementById( 'my-apps-btn' ).style.display = 'none';
+      document.getElementById( 'profile-btn' ).style.display = 'none';
       document.getElementById( 'logout-btn' ).style.display = 'none';
 
     }
