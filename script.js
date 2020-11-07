@@ -132,36 +132,10 @@
      * user data if user is logged in
      * @type {Object}
      */
-    const user = JSON.parse( sessionStorage.getItem( 'user' ) );
+    let user = JSON.parse( sessionStorage.getItem( 'user' ) );
 
-    // user is logged in?
-    if ( user ) {
-
-      // show user in frontend
-      document.getElementById( 'username' ).innerText = user.name;
-      document.querySelector( '#user img' ).setAttribute( 'src', user.picture || './img/user.jpg' );
-
-      // remove login and register button
-      removeElement( 'login-btn' );
-      removeElement( 'register-btn' );
-
-      // set click event for logout button
-      document.getElementById( 'logout-btn' ).addEventListener( 'click', () => {
-        sessionStorage.removeItem( 'user' );
-        location.reload();
-      } );
-
-    }
-    // user is not logged in
-    else {
-
-      // remove logout button
-      removeElement( 'logout-btn' );
-
-      // show default user picture
-      document.querySelector( '#user img' ).setAttribute( 'src', './img/user.jpg' );
-
-    }
+    // display user as logged in or logged out
+    user ? showLoggedIn() : showLoggedOut();
 
     // set submit event for login form
     document.getElementById( 'login-form' ).addEventListener( 'submit', async event => {
@@ -170,8 +144,10 @@
       $( event.target ).serializeArray().forEach( ( { name, value } ) => params[ name ] = value );
       params.token = md5( params.token );
       try {
-        sessionStorage.setItem( 'user', JSON.stringify( await ccm.load( { url: 'https://ccm2.inf.h-brs.de', params: params } ) ) );
-        location.reload();
+        user = await ccm.load( { url: 'https://ccm2.inf.h-brs.de', params: params } );
+        sessionStorage.setItem( 'user', JSON.stringify( user ) );
+        showLoggedIn();
+        $( '#login-dialog' ).modal( 'hide' );
       }
       catch ( e ) {
         renderHint( document.querySelector( '#login-form .hint' ), 'Login failed. Please try again.' );
@@ -216,6 +192,12 @@
       catch ( e ) {
         renderHint( document.querySelector( '#register-form .hint' ), 'Registration failed. Maybe try a different username.' );
       }
+    } );
+
+    // set click event for logout button
+    document.getElementById( 'logout-btn' ).addEventListener( 'click', () => {
+      sessionStorage.removeItem( 'user' );
+      showLoggedOut();
     } );
 
     // show search results
@@ -645,20 +627,40 @@
       setTimeout( () => elem.querySelector( 'span' ).classList.add( 'fadeout' ), 100 );
     }
 
-    /**
-     * removes an HTML element from the DOM
-     * @param {String} id - ID of the HTML element
-     */
-    function removeElement( id ) {
-      document.getElementById( id ).parentNode.removeChild( document.getElementById( id ) );
-    }
-
     /** removes all global loaded external Bootstrap and Materialize CSS of the webpage */
     function cleanHead() {
       document.head.querySelectorAll( 'link[href^="https"]' ).forEach( link => {
         if ( link.getAttribute( 'href' ).includes( 'bootstrap' ) || link.getAttribute( 'href' ).includes( 'materialize' ) )
           document.head.removeChild( link );
       } );
+    }
+
+    /** displays the user in frontend as logged in */
+    function showLoggedIn() {
+
+      // show user in frontend
+      document.getElementById( 'username' ).innerText = user.name;
+      document.querySelector( '#user img' ).setAttribute( 'src', user.picture || './img/user.jpg' );
+
+      // hide login and register button and show logout button
+      document.getElementById( 'login-btn' ).style.display = 'none';
+      document.getElementById( 'register-btn' ).style.display = 'none';
+      document.getElementById( 'logout-btn' ).style.display = 'inherit';
+
+    }
+
+    /** displays the user in frontend as logged out */
+    function showLoggedOut() {
+
+      // remove user in frontend
+      document.getElementById( 'username' ).innerText = '';
+      document.querySelector( '#user img' ).setAttribute( 'src', './img/user.jpg' );
+
+      // show login and register button and hide logout button
+      document.getElementById( 'login-btn' ).style.display = 'inherit';
+      document.getElementById( 'register-btn' ).style.display = 'inherit';
+      document.getElementById( 'logout-btn' ).style.display = 'none';
+
     }
 
   }
