@@ -649,7 +649,8 @@
         Promise.all( [
           ccm.store( { name: apps, url: url } ).then( store => store.set( meta ) ),
           ccm.store( { name: configs, url: url } ).then( store => store.set( config ) )
-        ] ).then( () => {
+        ] ).then( response => {
+          if ( response[ 0 ] !== key || response[ 1 ] !== key ) return;
           $( '#publish-app-dialog' ).modal( 'hide' );
           sessionStorage.removeItem( 'dms-apps' );
           document.querySelector( '#publish-app-success-dialog a' ).setAttribute( 'href', './app.html?id=' + key )
