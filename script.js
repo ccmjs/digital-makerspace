@@ -14,9 +14,6 @@
   else
     ready();
 
-  // make modal dialogs movable
-  movableModals();
-
   /** loads data of all published apps and components and stores them in the Session Storage */
   function init() {
 
@@ -127,6 +124,9 @@
 
     // fill data lists for app and tool searches
     fillDataLists();
+
+    // make modal dialogs movable
+    movableModals();
 
     /**
      * user data if user is logged in
@@ -617,16 +617,6 @@
       return items[ key ];
     }
 
-    /**
-     * renders a red text message in a webpage area with a fadeout effect
-     * @param {HTMLElement} elem - webpage area
-     * @param {string} message - text message
-     */
-    function renderHint( elem, message ) {
-      elem.innerHTML = `<span class="text-danger text-center">${message}</span>`;
-      setTimeout( () => elem.querySelector( 'span' ).classList.add( 'fadeout' ), 100 );
-    }
-
     /** removes all global loaded external Bootstrap and Materialize CSS of the webpage */
     function cleanHead() {
       document.head.querySelectorAll( 'link[href^="https"]' ).forEach( link => {
@@ -667,24 +657,34 @@
 
     }
 
-  }
-
-  /** makes the modal dialogs movable via drag'n'drop */
-  function movableModals() {
-    $( '.modal-header' ).on( 'mousedown', function ( mousedownEvt ) {
-      const $draggable = $( this );
-      const $body = $( 'body' );
-      const x = mousedownEvt.pageX - $draggable.offset().left;
-      const y = mousedownEvt.pageY - $draggable.offset().top;
-      $body.on( 'mousemove.draggable', mousemoveEvt => {
-        $draggable.closest( '.modal-dialog' ).offset( {
-          "left": mousemoveEvt.pageX - x,
-          "top": mousemoveEvt.pageY - y
+    /** makes the modal dialogs movable via drag'n'drop */
+    function movableModals() {
+      $( '.modal-header' ).on( 'mousedown', function ( mousedownEvt ) {
+        const $draggable = $( this );
+        const $body = $( 'body' );
+        const x = mousedownEvt.pageX - $draggable.offset().left;
+        const y = mousedownEvt.pageY - $draggable.offset().top;
+        $body.on( 'mousemove.draggable', mousemoveEvt => {
+          $draggable.closest( '.modal-dialog' ).offset( {
+            "left": mousemoveEvt.pageX - x,
+            "top": mousemoveEvt.pageY - y
+          } );
         } );
+        $body.one( 'mouseup', () => $body.off( 'mousemove.draggable' ) );
+        $draggable.closest( '.modal' ).one( 'bs.modal.hide', () => $body.off( 'mousemove.draggable' ) );
       } );
-      $body.one( 'mouseup', () => $body.off( 'mousemove.draggable' ) );
-      $draggable.closest( '.modal' ).one( 'bs.modal.hide', () => $body.off( 'mousemove.draggable' ) );
-    } );
+    }
+
+    /**
+     * renders a red text message in a webpage area with a fadeout effect
+     * @param {HTMLElement} elem - webpage area
+     * @param {string} message - text message
+     */
+    function renderHint( elem, message ) {
+      elem.innerHTML = `<span class="text-danger text-center">${message}</span>`;
+      setTimeout( () => elem.querySelector( 'span' ).classList.add( 'fadeout' ), 100 );
+    }
+
   }
 
 } )();
