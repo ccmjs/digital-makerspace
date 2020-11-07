@@ -525,19 +525,21 @@
       const useTemplate = app_id => app_id && ccm.helper.isKey( app_id ) && location.assign( location.origin + location.pathname + '?id=' + key + ( use ? '&use=' + use : '' ) + '&template=' + app_id );
 
       // set click event for the button to load an app as template by embed code
-      document.querySelector( '#embed_copy' ).addEventListener( 'click', () => {
-        const match = document.querySelector( '#embed_code' ).value.match( /},"(.*)"\]'/ );
-        useTemplate( match && match[ 1 ] );
+      document.querySelector( '#embed_load' ).addEventListener( 'click', () => {
+        const match = document.querySelector( '#embed_code' ).value.match( /},"(.*)"]'/ );
+        if ( !match ) return;
+        const app_meta = getItems( apps ).find( item => item.source[ 1 ] === match[ 1 ] )
+        app_meta && useTemplate( app_meta.key );
       } );
 
       // set click event for the button to load an app as template by app URL
-      document.querySelector( '#url_copy' ).addEventListener( 'click', () => {
+      document.querySelector( '#url_load' ).addEventListener( 'click', () => {
         const match = document.querySelector( '#app_url' ).value.match( /id=(.*)/ );
         useTemplate( match && match[ 1 ] );
       } );
 
       // set click event for the button to load an app as template by app ID
-      document.querySelector( '#id_copy' ).addEventListener( 'click', () => {
+      document.querySelector( '#id_load' ).addEventListener( 'click', () => {
         useTemplate( document.querySelector( '#app_id' ).value );
       } );
 
