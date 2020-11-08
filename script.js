@@ -52,6 +52,8 @@
 
       // collect predefined options for app searches and eliminate duplicates
       items[ 0 ].forEach( app => {
+        if ( !app.published ) return;
+
         add( term.all, app.title );
         add( term.app.all, app.title );
         add( term.app.title, app.title );
@@ -308,11 +310,12 @@
 
         // advanced search
         return items.filter( item => {
-          if ( title   && title   !==                                item.title   ) return false;
-          if ( tool    && tool    !== ( getComponent( item.path ) || {} ).title   ) return false;
-          if ( creator && creator !==                                item.creator ) return false;
-          if ( tag     && ( !item.tags     || !item.tags    .includes( tag  ) )   ) return false;
-          if ( lang    && ( !item.language || !item.language.includes( lang ) )   ) return false;
+          if (                                                      !item.published ) return false;
+          if ( title   && title   !==                                item.title     ) return false;
+          if ( tool    && tool    !== ( getComponent( item.path ) || {} ).title     ) return false;
+          if ( creator && creator !==                                item.creator   ) return false;
+          if ( tag     && ( !item.tags     || !item.tags    .includes( tag  ) )     ) return false;
+          if ( lang    && ( !item.language || !item.language.includes( lang ) )     ) return false;
           return true;
         } );
 
