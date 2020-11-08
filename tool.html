@@ -86,56 +86,6 @@
           <br>
         </div>
       </div>
-
-      <!-- Modal: Load App -->
-      <div class="modal fade" id="load-app" tabindex="-1" aria-labelledby="Load App as Template" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-
-            <!-- Modal Header -->
-            <div class="modal-header">
-              <h5 class="modal-title">Load App as Template</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-
-            <!-- Modal Body -->
-            <div class="modal-body">
-              <div class="container">
-                <p>Use one of the following ways to load an App:</p>
-                <div id="embed" class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">Embed</span>
-                  </div>
-                  <input type="text" id="embed_code" class="form-control" aria-label="Embed Code">
-                  <div class="input-group-append">
-                    <button id="embed_load" class="btn btn-primary" type="button">Load</button>
-                  </div>
-                </div>
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">URL</span>
-                  </div>
-                  <input type="text" id="app_url" class="form-control" aria-label="URL">
-                  <div class="input-group-append">
-                    <button id="url_load" class="btn btn-primary" type="button">Load</button>
-                  </div>
-                </div>
-                <div id="id" class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">App ID</span>
-                  </div>
-                  <input type="text" id="app_id" class="form-control" aria-label="App ID">
-                  <div class="input-group-append">
-                    <button id="id_load" class="btn btn-primary" type="button">Load</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
 
     <!-- App Builder -->
@@ -153,182 +103,6 @@
         <button type="button" id="preview-btn" class="btn btn-info mr-2" data-toggle="modal" data-target="#show-preview">Show Preview</button>
         <button type="button" class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#save-app">Save App</button>
       </nav>
-
-      <!-- Modal: Show Preview -->
-      <div class="modal fade" id="show-preview" tabindex="-1" aria-labelledby="Show Preview" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-
-            <!-- Modal Header -->
-            <div class="modal-header">
-              <h5 class="modal-title">App Preview</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-
-            <!-- Modal Body -->
-            <div id="preview" class="modal-body">
-              <div class="d-flex justify-content-center align-items-center spinner">
-                <div class="spinner-border text-success" role="status">
-                  <span class="sr-only">Loading...</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Modal Footer -->
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary" data-dismiss="modal">Continue Editing</button>
-              <button type="button" class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#save-app">Save App</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Modal: Save App -->
-      <div class="modal fade" id="save-app" tabindex="-1" aria-labelledby="Save App" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-
-            <!-- Modal Header -->
-            <div class="modal-header">
-              <h5 class="modal-title">Do you want to publish your App?</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-
-            <!-- Modal Body -->
-            <div class="modal-body">
-              <p>A <b class="text-primary">published</b> App...</p>
-              <ul>
-                <li>is public domain</li>
-                <li>can be found and shared by others</li>
-                <li>can be used as template for app creation</li>
-              </ul>
-              <p>A <b class="text-danger">not</b> <b class="text-primary">published</b> App...</p>
-              <ul>
-                <li>isn't listed in the Digital Makerspace</li>
-                <li>can not be found using search function</li>
-              </ul>
-              <p>In any case, you...</p>
-              <ul>
-                <li>can use the app anywhere on the web</li>
-                <li>find your app in the "My Apps" section</li>
-                <li>need a free user account</li>
-              </ul>
-              <div class="text-center text-danger lead hint"></div>
-            </div>
-
-            <!-- Modal Footer -->
-            <div class="modal-footer d-flex justify-content-between">
-              <button type="button" class="btn btn-warning" data-dismiss="modal">Save without Publish</button>
-              <button type="button" class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#publish-app-dialog">Save and Publish</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Modal: Publish App -->
-      <div class="modal fade" id="publish-app-dialog" tabindex="-1" aria-labelledby="Publish App" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable">
-          <div class="modal-content">
-
-            <!-- Modal Header -->
-            <div class="modal-header">
-              <h5 class="modal-title">Publish App</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-
-            <!-- Modal Body -->
-            <div class="modal-body">
-              <form id="publish">
-                <p>Please provide additional information about your app so that others can find your app more easily.</p>
-                <div class="form-group">
-                  <label for="title">Title:</label>
-                  <input type="text" class="form-control" id="title" name="title" aria-describedby="Title" maxlength="33" required>
-                </div>
-                <div class="form-group">
-                  <label for="icon">Icon:</label>
-                  <input type="url" class="form-control" id="icon" name="icon" aria-describedby="Icon">
-                </div>
-                <div class="form-group">
-                  <label for="subject">Short Description:</label>
-                  <input type="text" class="form-control" id="subject" name="subject" aria-describedby="Short Description" maxlength="62">
-                </div>
-                <div class="form-group">
-                  <label for="description">Long Description:</label>
-                  <textarea class="form-control" id="description" name="description" aria-describedby="Long Description"></textarea>
-                </div>
-                <div class="form-group">
-                  <label for="tags">Categories:</label>
-                  <select id="tags" multiple></select>
-                </div>
-                <div class="form-group">
-                  <div><label>Language:</label></div>
-                  <div class="form-check form-check-inline custom-checkbox">
-                    <input class="form-check-input custom-control-input" type="checkbox" id="en" name="language" value="en">
-                    <label class="form-check-label custom-control-label" for="en">English</label>
-                  </div>
-                  <div class="form-check form-check-inline custom-checkbox">
-                    <input class="form-check-input custom-control-input" type="checkbox" id="de" name="language" value="de">
-                    <label class="form-check-label custom-control-label" for="de">German</label>
-                  </div>
-                </div>
-                <div class="bg-light border rounded p-3">
-                  <p>I agree that all content of my app is released as public domain under the <a href="https://creativecommons.org/share-your-work/public-domain/cc0/" target="_blank">CC0 license</a>.</p>
-                  <p>I agree that all software of my app is released as free software under the <a href="https://en.wikipedia.org/wiki/MIT_License" target="_blank">MIT license</a>.</p>
-                  <p>I confirm that this does not violate the copyright of third parties.</p>
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="agree" required>
-                    <label class="custom-control-label" for="agree">I agree</label>
-                  </div>
-                </div>
-              </form>
-            </div>
-
-            <!-- Modal Footer -->
-            <div class="modal-footer d-flex justify-content-between">
-              <button type="button" class="btn btn-warning" data-dismiss="modal">Save without Publish</button>
-              <button type="submit" form="publish" class="btn btn-success">Save and Publish</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Modal: Publish App Succeeded -->
-      <div class="modal fade" id="publish-app-success-dialog" tabindex="-1" aria-labelledby="App published successfully" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-
-            <!-- Modal Header -->
-            <div class="modal-header">
-              <h5 class="modal-title">App published successfully</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-
-            <!-- Modal Body -->
-            <div class="modal-body text-center">
-              <p>Congratulation!</p>
-              <p class="text-success">
-                <svg width="5em" height="5em" viewBox="0 0 16 16" class="bi bi-check-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                </svg>
-              </p>
-              <span class="lead">You published an app.</span>
-            </div>
-
-            <!-- Modal Footer -->
-            <div class="modal-footer">
-              <a href="" class="btn btn-secondary">Show App</a>
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
 
     <!-- Reviews -->
@@ -369,12 +143,16 @@
   <div class="modal fade" id="login-dialog" tabindex="-1" aria-labelledby="User Login" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
+
+        <!-- Modal Header -->
         <div class="modal-header">
           <h5 class="modal-title">User Login</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
+
+        <!-- Modal Body -->
         <div class="modal-body px-4">
           <form id="login-form">
             <div class="form-group">
@@ -388,6 +166,8 @@
             <div class="hint text-center"></div>
           </form>
         </div>
+
+        <!-- Modal Footer -->
         <div class="modal-footer justify-content-lg-between">
           <small><a href="https://www.h-brs.de/inf/andre-kless" target="_blank">Contact us</a> if you have forgotten your username or password.</small>
           <button type="submit" class="btn btn-info" form="login-form">Login</button>
@@ -400,12 +180,16 @@
   <div class="modal fade" id="register-dialog" tabindex="-1" aria-labelledby="User Registration" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
+
+        <!-- Modal Header -->
         <div class="modal-header">
           <h5 class="modal-title">Create a free Account</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
+
+        <!-- Modal Body -->
         <div class="modal-body px-4">
           <form id="register-form">
             <div class="form-group">
@@ -424,6 +208,8 @@
             <div class="hint text-center"></div>
           </form>
         </div>
+
+        <!-- Modal Footer -->
         <div class="modal-footer">
           <button type="submit" class="btn btn-info" form="register-form">Create Account</button>
         </div>
@@ -435,12 +221,16 @@
   <div class="modal fade" id="register-success-dialog" tabindex="-1" aria-labelledby="Registration succeeded" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
+
+        <!-- Modal Header -->
         <div class="modal-header">
           <h5 class="modal-title">Registration succeeded</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
+
+        <!-- Modal Body -->
         <div class="modal-body text-center">
           <p>You have a free account.</p>
           <p class="text-success">
@@ -450,8 +240,235 @@
           </p>
           <span class="lead">Now you can create apps!</span>
         </div>
+
+        <!-- Modal Footer -->
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Load App -->
+  <div class="modal fade" id="load-app" tabindex="-1" aria-labelledby="Load App as Template" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h5 class="modal-title">Load App as Template</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body">
+          <div class="container">
+            <p>Use one of the following ways to load an App:</p>
+            <div id="embed" class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">Embed</span>
+              </div>
+              <input type="text" id="embed_code" class="form-control" aria-label="Embed Code">
+              <div class="input-group-append">
+                <button id="embed_load" class="btn btn-primary" type="button">Load</button>
+              </div>
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">URL</span>
+              </div>
+              <input type="text" id="app_url" class="form-control" aria-label="URL">
+              <div class="input-group-append">
+                <button id="url_load" class="btn btn-primary" type="button">Load</button>
+              </div>
+            </div>
+            <div id="id" class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">App ID</span>
+              </div>
+              <input type="text" id="app_id" class="form-control" aria-label="App ID">
+              <div class="input-group-append">
+                <button id="id_load" class="btn btn-primary" type="button">Load</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Show Preview -->
+  <div class="modal fade" id="show-preview" tabindex="-1" aria-labelledby="Show Preview" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h5 class="modal-title">App Preview</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <!-- Modal Body -->
+        <div id="preview" class="modal-body">
+          <div class="d-flex justify-content-center align-items-center spinner">
+            <div class="spinner-border text-success" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Continue Editing</button>
+          <button type="button" class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#save-app">Save App</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Save App -->
+  <div class="modal fade" id="save-app" tabindex="-1" aria-labelledby="Save App" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h5 class="modal-title">Do you want to publish your App?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body">
+          <p>A <b class="text-primary">published</b> App...</p>
+          <ul>
+            <li>is public domain</li>
+            <li>can be found and shared by others</li>
+            <li>can be used as template for app creation</li>
+          </ul>
+          <p>A <b class="text-danger">not</b> <b class="text-primary">published</b> App...</p>
+          <ul>
+            <li>isn't listed in the Digital Makerspace</li>
+            <li>can not be found using search function</li>
+          </ul>
+          <p>In any case, you...</p>
+          <ul>
+            <li>can use the app anywhere on the web</li>
+            <li>find your app in the "My Apps" section</li>
+            <li>need a free user account</li>
+          </ul>
+          <div class="text-center text-danger lead hint"></div>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="modal-footer d-flex justify-content-between">
+          <button type="button" class="btn btn-warning save-btn" data-dismiss="modal">Save without Publish</button>
+          <button type="button" class="btn btn-success" data-dismiss="modal" data-toggle="modal" data-target="#publish-app-dialog">Save and Publish</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Publish App -->
+  <div class="modal fade" id="publish-app-dialog" tabindex="-1" aria-labelledby="Publish App" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h5 class="modal-title">Publish App</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body">
+          <form id="publish">
+            <p>Please provide additional information about your app so that others can find your app more easily.</p>
+            <div class="form-group">
+              <label for="title">Title:</label>
+              <input type="text" class="form-control" id="title" name="title" aria-describedby="Title" maxlength="33" required>
+            </div>
+            <div class="form-group">
+              <label for="icon">Icon:</label>
+              <input type="url" class="form-control" id="icon" name="icon" aria-describedby="Icon">
+            </div>
+            <div class="form-group">
+              <label for="subject">Short Description:</label>
+              <input type="text" class="form-control" id="subject" name="subject" aria-describedby="Short Description" maxlength="62">
+            </div>
+            <div class="form-group">
+              <label for="description">Long Description:</label>
+              <textarea class="form-control" id="description" name="description" aria-describedby="Long Description"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="tags">Categories:</label>
+              <select id="tags" multiple></select>
+            </div>
+            <div class="form-group">
+              <div><label>Language:</label></div>
+              <div class="form-check form-check-inline custom-checkbox">
+                <input class="form-check-input custom-control-input" type="checkbox" id="en" name="language" value="en">
+                <label class="form-check-label custom-control-label" for="en">English</label>
+              </div>
+              <div class="form-check form-check-inline custom-checkbox">
+                <input class="form-check-input custom-control-input" type="checkbox" id="de" name="language" value="de">
+                <label class="form-check-label custom-control-label" for="de">German</label>
+              </div>
+            </div>
+            <div class="bg-light border rounded p-3">
+              <p>I agree that all content of my app is released as public domain under the <a href="https://creativecommons.org/share-your-work/public-domain/cc0/" target="_blank">CC0 license</a>.</p>
+              <p>I agree that all software of my app is released as free software under the <a href="https://en.wikipedia.org/wiki/MIT_License" target="_blank">MIT license</a>.</p>
+              <p>I confirm that this does not violate the copyright of third parties.</p>
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="agree" required>
+                <label class="custom-control-label" for="agree">I agree</label>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="modal-footer">
+          <button type="submit" form="publish" class="btn btn-success">Save and Publish</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Publish App Succeeded -->
+  <div class="modal fade" id="publish-app-success-dialog" tabindex="-1" aria-labelledby="App published successfully" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h5 class="modal-title">App published successfully</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body text-center">
+          <p>Congratulation!</p>
+          <p class="text-success">
+            <svg width="5em" height="5em" viewBox="0 0 16 16" class="bi bi-check-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+            </svg>
+          </p>
+          <span class="lead">You published an app.</span>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="modal-footer">
+          <a href="" class="btn btn-secondary">Show App</a>
         </div>
       </div>
     </div>

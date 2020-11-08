@@ -103,80 +103,6 @@
           </div>
         </div>
       </form>
-
-      <!-- Modal: Advanced Search -->
-      <div class="modal fade" id="advanced" tabindex="-1" aria-labelledby="Advanced Search" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-
-            <!-- Modal Header -->
-            <div class="modal-header">
-              <h5 class="modal-title">Advanced Search</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-
-            <!-- Modal Body -->
-            <div class="modal-body">
-              <form action="./results.html" id="modal-form">
-                <input type="hidden" name="only" value="apps">
-
-                <!-- Title -->
-                <div class="form-group row">
-                  <label for="search-title" class="col-sm-2 col-form-label">Title</label>
-                  <div class="col-sm-10">
-                    <input type="search" list="app-title" autocomplete="off" class="form-control" id="search-title" name="title">
-                    <datalist id="app-title" data-only="apps"></datalist>
-                  </div>
-                </div>
-
-                <!-- Tool -->
-                <div class="form-group row">
-                  <label for="search-component" class="col-sm-2 col-form-label">Tool</label>
-                  <div class="col-sm-10">
-                    <input type="search" list="component-title" autocomplete="off" class="form-control" id="search-component" name="tool">
-                    <datalist id="component-title" data-only="apps"></datalist>
-                  </div>
-                </div>
-
-                <!-- Author -->
-                <div class="form-group row">
-                  <label for="search-creator" class="col-sm-2 col-form-label">Author</label>
-                  <div class="col-sm-10">
-                    <input type="search" list="app-creator" autocomplete="off" class="form-control" id="search-creator" name="author">
-                    <datalist id="app-creator" data-only="apps"></datalist>
-                  </div>
-                </div>
-
-                <!-- Category -->
-                <div class="form-group row">
-                  <label for="search-tag" class="col-sm-2 col-form-label">Category</label>
-                  <div class="col-sm-10">
-                    <input type="search" list="app-tag" autocomplete="off" class="form-control" id="search-tag" name="category">
-                    <datalist id="app-tag" data-only="apps"></datalist>
-                  </div>
-                </div>
-
-                <!-- Language -->
-                <div class="form-group row">
-                  <label for="search-lang" class="col-sm-2 col-form-label">Language</label>
-                  <div class="col-sm-10">
-                    <input type="search" list="app-lang" autocomplete="off" class="form-control" id="search-lang" name="language">
-                    <datalist id="app-lang" data-only="apps"></datalist>
-                  </div>
-                </div>
-              </form>
-            </div>
-
-            <!-- Modal Footer -->
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary" form="modal-form">Search</button>
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
 
     <!-- Categories -->
@@ -270,12 +196,16 @@
   <div class="modal fade" id="login-dialog" tabindex="-1" aria-labelledby="User Login" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
+
+        <!-- Modal Header -->
         <div class="modal-header">
           <h5 class="modal-title">User Login</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
+
+        <!-- Modal Body -->
         <div class="modal-body px-4">
           <form id="login-form">
             <div class="form-group">
@@ -289,6 +219,8 @@
             <div class="hint text-center"></div>
           </form>
         </div>
+
+        <!-- Modal Footer -->
         <div class="modal-footer justify-content-lg-between">
           <small><a href="https://www.h-brs.de/inf/andre-kless" target="_blank">Contact us</a> if you have forgotten your username or password.</small>
           <button type="submit" class="btn btn-info" form="login-form">Login</button>
@@ -301,12 +233,16 @@
   <div class="modal fade" id="register-dialog" tabindex="-1" aria-labelledby="User Registration" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
+
+        <!-- Modal Header -->
         <div class="modal-header">
           <h5 class="modal-title">Create a free Account</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
+
+        <!-- Modal Body -->
         <div class="modal-body px-4">
           <form id="register-form">
             <div class="form-group">
@@ -325,6 +261,8 @@
             <div class="hint text-center"></div>
           </form>
         </div>
+
+        <!-- Modal Footer -->
         <div class="modal-footer">
           <button type="submit" class="btn btn-info" form="register-form">Create Account</button>
         </div>
@@ -336,12 +274,16 @@
   <div class="modal fade" id="register-success-dialog" tabindex="-1" aria-labelledby="Registration succeeded" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
+
+        <!-- Modal Header -->
         <div class="modal-header">
           <h5 class="modal-title">Registration succeeded</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
+
+        <!-- Modal Body -->
         <div class="modal-body text-center">
           <p>You have a free account.</p>
           <p class="text-success">
@@ -351,8 +293,84 @@
           </p>
           <span class="lead">Now you can create apps!</span>
         </div>
+
+        <!-- Modal Footer -->
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Advanced Search -->
+  <div class="modal fade" id="advanced" tabindex="-1" aria-labelledby="Advanced Search" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h5 class="modal-title">Advanced Search</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body">
+          <form action="./results.html" id="modal-form">
+            <input type="hidden" name="only" value="apps">
+
+            <!-- Title -->
+            <div class="form-group row">
+              <label for="search-title" class="col-sm-2 col-form-label">Title</label>
+              <div class="col-sm-10">
+                <input type="search" list="app-title" autocomplete="off" class="form-control" id="search-title" name="title">
+                <datalist id="app-title" data-only="apps"></datalist>
+              </div>
+            </div>
+
+            <!-- Tool -->
+            <div class="form-group row">
+              <label for="search-component" class="col-sm-2 col-form-label">Tool</label>
+              <div class="col-sm-10">
+                <input type="search" list="component-title" autocomplete="off" class="form-control" id="search-component" name="tool">
+                <datalist id="component-title" data-only="apps"></datalist>
+              </div>
+            </div>
+
+            <!-- Author -->
+            <div class="form-group row">
+              <label for="search-creator" class="col-sm-2 col-form-label">Author</label>
+              <div class="col-sm-10">
+                <input type="search" list="app-creator" autocomplete="off" class="form-control" id="search-creator" name="author">
+                <datalist id="app-creator" data-only="apps"></datalist>
+              </div>
+            </div>
+
+            <!-- Category -->
+            <div class="form-group row">
+              <label for="search-tag" class="col-sm-2 col-form-label">Category</label>
+              <div class="col-sm-10">
+                <input type="search" list="app-tag" autocomplete="off" class="form-control" id="search-tag" name="category">
+                <datalist id="app-tag" data-only="apps"></datalist>
+              </div>
+            </div>
+
+            <!-- Language -->
+            <div class="form-group row">
+              <label for="search-lang" class="col-sm-2 col-form-label">Language</label>
+              <div class="col-sm-10">
+                <input type="search" list="app-lang" autocomplete="off" class="form-control" id="search-lang" name="language">
+                <datalist id="app-lang" data-only="apps"></datalist>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" form="modal-form">Search</button>
         </div>
       </div>
     </div>

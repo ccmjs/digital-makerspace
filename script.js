@@ -593,6 +593,45 @@
         ccm.start( tool.path, Object.assign( builder_inst.getValue(), { root: document.querySelector( '#preview' ) } ) );
       } );
 
+      // user must be logged in to save an app
+      $( '#save-app' ).on( 'show.bs.modal', () => {
+        if ( user ) {
+          $( '#save-app button' ).prop( 'disabled', false );
+          document.querySelector( '#save-app .hint' ).innerHTML = '';
+        }
+        else {
+          $( '#save-app button' ).prop( 'disabled', true );
+          document.querySelector( '#save-app .hint' ).innerText = 'You are currently not logged in';
+        }
+      } );
+
+      // set click event for the button that saves the app without publish
+      document.querySelector( '.save-btn' ).addEventListener( 'click', () => {
+
+        /**
+         * dataset key of app metadata and app configuration
+         * @type {string}
+         */
+        const key = ccm.helper.generateKey();
+
+        publishApp( {
+          key: key,
+          creator: user.name,
+          title: 'App ' + moment().format( 'L' ) + ' ' + moment().format( 'LT' ),
+          tags: [],
+          language: [],
+          format: 'application/json',
+          license: 'CC0',
+          metaFormat: 'ccm-meta',
+          metaVersion: '2.0.0',
+          path: tool.path,
+          source: [ { name: configs, url: url }, key ],
+          published: false,
+          _: { creator: user.key, realm: realm, access: { get: 'all', set: 'creator', del: 'creator' } }
+        } );
+
+      } );
+
       // prepare input of app categories
       const tags = $( document.querySelector( '#tags' ) ).selectize( {
         create: true,
@@ -606,7 +645,6 @@
       // set submit event for publish app form
       document.querySelector( '#publish' ).addEventListener( 'submit', event => {
         event.preventDefault();
-        if ( !user ) return;
 
         /**
          * dataset key of app metadata and app configuration
@@ -628,48 +666,52 @@
           metaVersion: '2.0.0',
           path: tool.path,
           source: [ { name: configs, url: url }, key ],
+          published: true,
           _: { creator: user.key, realm: realm, access: { get: 'all', set: 'creator', del: 'creator' } }
         };
-
-        /**
-         * app configuration
-         * @type {Object}
-         */
-        const config = Object.assign( builder_inst.getValue(), {
-          key: key,
-          meta: [ { name: apps, url: url }, key ],
-          _: { creator: user.key, realm: realm, access: { get: 'all', set: 'creator', del: 'creator' } }
-        } );
 
         // add input values in app metadata
         $( event.target ).serializeArray().forEach( ( { name, value } ) => value && ( name === 'language' ? meta[ name ].push( value ) : meta[ name ] = value ) );
         meta.tags = tags.items;
 
         // save app metadata and app configuration
+        publishApp( meta, event.target );
+
+      } );
+
+      /**
+       * @param {Object} meta - app metadata
+       * @param {HTMLElement} [form] - publish form
+       */
+      function publishApp( meta, form ) {
+
+        // user must be logged in
+        if ( !user ) return;
+
+        /**
+         * app configuration
+         * @type {Object}
+         */
+        const config = Object.assign( builder_inst.getValue(), {
+          key: meta.key,
+          meta: [ { name: apps, url: url }, meta.key ],
+          _: { creator: user.key, realm: realm, access: { get: 'all', set: 'creator', del: 'creator' } }
+        } );
+
+        // save app metadata and app configuration
         Promise.all( [
           ccm.store( { name: apps, url: url } ).then( store => store.set( meta ) ),
           ccm.store( { name: configs, url: url } ).then( store => store.set( config ) )
         ] ).then( response => {
-          if ( response[ 0 ] !== key || response[ 1 ] !== key ) return;
+          if ( response[ 0 ] !== meta.key || response[ 1 ] !== meta.key ) return;
           $( '#publish-app-dialog' ).modal( 'hide' );
+          form && $( form ).reset();
           sessionStorage.removeItem( 'dms-apps' );
-          document.querySelector( '#publish-app-success-dialog a' ).setAttribute( 'href', './app.html?id=' + key )
+          document.querySelector( '#publish-app-success-dialog a' ).setAttribute( 'href', './app.html?id=' + meta.key )
           $( '#publish-app-success-dialog' ).modal( 'show' );
         } );
 
-      } );
-
-      // user must be logged in to save an app
-      $( '#save-app' ).on( 'show.bs.modal', () => {
-        if ( user ) {
-          $( '#save-app button' ).prop( 'disabled', false );
-          document.querySelector( '#save-app .hint' ).innerHTML = '';
-        }
-        else {
-          $( '#save-app button' ).prop( 'disabled', true );
-          document.querySelector( '#save-app .hint' ).innerText = 'You are currently not logged in';
-        }
-      } );
+      }
 
     }
 

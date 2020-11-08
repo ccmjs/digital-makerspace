@@ -84,38 +84,6 @@
           <br>
         </div>
       </div>
-
-      <!-- Modal: Share App -->
-      <div class="modal fade" id="handover" tabindex="-1" aria-labelledby="Share App" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-
-            <!-- Modal Header -->
-            <div class="modal-header">
-              <h5 class="modal-title">Handover of the App</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-
-            <!-- Modal Body -->
-            <div class="modal-body">
-              <div class="d-flex">
-                <div id="inputs"></div>
-                <div id="qr_code" class="pl-2"></div>
-              </div>
-              <!--
-              <div class="text-center">
-                <button type="button" id="download" class="btn btn-primary mr-2"><span class="fas fa-file-download"></span> File</button>
-                <a id="bookmarklet" class="btn btn-secondary mr-2"><span class="fas fa-bookmark"></span> Bookmarklet</a>
-                <button type="button" id="ibook" class="btn btn-info mr-2"><span class="fas fa-book"></span> iBook Widget</button>
-                <button type="button" id="scorm" class="btn btn-danger"><span class="fas fa-archive"></span> SCORM</button>
-              </div>
-              -->
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
 
     <!-- App -->
@@ -180,12 +148,16 @@
   <div class="modal fade" id="login-dialog" tabindex="-1" aria-labelledby="User Login" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
+
+        <!-- Modal Header -->
         <div class="modal-header">
           <h5 class="modal-title">User Login</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
+
+        <!-- Modal Body -->
         <div class="modal-body px-4">
           <form id="login-form">
             <div class="form-group">
@@ -199,6 +171,8 @@
             <div class="hint text-center"></div>
           </form>
         </div>
+
+        <!-- Modal Footer -->
         <div class="modal-footer justify-content-lg-between">
           <small><a href="https://www.h-brs.de/inf/andre-kless" target="_blank">Contact us</a> if you have forgotten your username or password.</small>
           <button type="submit" class="btn btn-info" form="login-form">Login</button>
@@ -211,12 +185,16 @@
   <div class="modal fade" id="register-dialog" tabindex="-1" aria-labelledby="User Registration" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
+
+        <!-- Modal Header -->
         <div class="modal-header">
           <h5 class="modal-title">Create a free Account</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
+
+        <!-- Modal Body -->
         <div class="modal-body px-4">
           <form id="register-form">
             <div class="form-group">
@@ -235,6 +213,8 @@
             <div class="hint text-center"></div>
           </form>
         </div>
+
+        <!-- Modal Footer -->
         <div class="modal-footer">
           <button type="submit" class="btn btn-info" form="register-form">Create Account</button>
         </div>
@@ -246,12 +226,16 @@
   <div class="modal fade" id="register-success-dialog" tabindex="-1" aria-labelledby="Registration succeeded" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
+
+        <!-- Modal Header -->
         <div class="modal-header">
           <h5 class="modal-title">Registration succeeded</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
+
+        <!-- Modal Body -->
         <div class="modal-body text-center">
           <p>You have a free account.</p>
           <p class="text-success">
@@ -261,8 +245,42 @@
           </p>
           <span class="lead">Now you can create apps!</span>
         </div>
+
+        <!-- Modal Footer -->
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Share App -->
+  <div class="modal fade" id="handover" tabindex="-1" aria-labelledby="Share App" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h5 class="modal-title">Handover of the App</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body">
+          <div class="d-flex">
+            <div id="inputs"></div>
+            <div id="qr_code" class="pl-2"></div>
+          </div>
+          <!--
+          <div class="text-center">
+            <button type="button" id="download" class="btn btn-primary mr-2"><span class="fas fa-file-download"></span> File</button>
+            <a id="bookmarklet" class="btn btn-secondary mr-2"><span class="fas fa-bookmark"></span> Bookmarklet</a>
+            <button type="button" id="ibook" class="btn btn-info mr-2"><span class="fas fa-book"></span> iBook Widget</button>
+            <button type="button" id="scorm" class="btn btn-danger"><span class="fas fa-archive"></span> SCORM</button>
+          </div>
+          -->
         </div>
       </div>
     </div>
