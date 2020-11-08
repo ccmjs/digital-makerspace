@@ -1,14 +1,14 @@
 ( async () => {
 
-  const url = 'https://ccm2.inf.h-brs.de';
-  const params = new URL( window.location.href ).searchParams;
-  const apps = 'dms-apps';
-  const configs = 'dms-configs';
-  const tools = 'dms-tools';
-  const components = 'dms-components';
-  const default_icon = './img/logo.png';
-  const users = 'dms-user';
-  const realm = 'cloud';
+  const url = 'https://ccm2.inf.h-brs.de';                      // URL of cloud service for data management
+  const params = new URL( window.location.href ).searchParams;  // GET parameters
+  const apps = 'dms-apps';                                      // name of datastore for apps metadata in cloud service and session storage
+  const configs = 'dms-configs';                                // name of datastore for app configurations in cloud service and session storage
+  const tools = 'dms-tools';                                    // name of datastore for tools in session storage
+  const components = 'dms-components';                          // name of datastore for components metadata in cloud service and session storage
+  const users = 'dms-user';                                     // name of datastore for users data in cloud service and current user data in session storage
+  const realm = 'cloud';                                        // realm name for user authentication
+  const default_icon = './img/logo.png';                        // path to default app icon
   const items = {};
 
   // no data of published apps and components loaded yet? => start loading
@@ -125,17 +125,14 @@
   /** when all data is loaded */
   function ready() {
 
-    // fill data lists for app and tool searches
-    fillDataLists();
-
-    // make modal dialogs movable
-    movableModals();
+    fillDataLists();  // fill data lists for app and tool searches
+    movableModals();  // make modal dialogs movable
 
     /**
      * user data if user is logged in
      * @type {Object}
      */
-    let user = JSON.parse( sessionStorage.getItem( 'user' ) );
+    let user = JSON.parse( sessionStorage.getItem( users ) );
 
     // display user as logged in or logged out
     user ? showLoggedIn() : showLoggedOut();
@@ -148,7 +145,7 @@
       params.token = md5( params.token );
       try {
         user = await ccm.load( { url: url, params: params } );
-        sessionStorage.setItem( 'user', JSON.stringify( user ) );
+        sessionStorage.setItem( users, JSON.stringify( user ) );
         showLoggedIn();
         $( '#login-dialog' ).modal( 'hide' );
         event.target.reset();
@@ -158,7 +155,7 @@
       }
     } );
 
-    // set submit event for register form
+    // set submit event for registration form
     document.getElementById( 'register-form' ).addEventListener( 'submit', async event => {
       event.preventDefault();
       const params = {
@@ -181,7 +178,7 @@
       params.set._.creator = params.set.key;
       try {
         await ccm.load( { url: url, params: params } );
-        sessionStorage.setItem( 'user', JSON.stringify( await ccm.load( {
+        sessionStorage.setItem( users, JSON.stringify( await ccm.load( {
           url: url,
           params: {
             realm: realm,
@@ -201,7 +198,7 @@
 
     // set click event for logout button
     document.getElementById( 'logout-btn' ).addEventListener( 'click', () => {
-      sessionStorage.removeItem( 'user' );
+      sessionStorage.removeItem( users );
       user = null;
       showLoggedOut();
     } );
@@ -614,6 +611,7 @@
          */
         const key = ccm.helper.generateKey();
 
+        // save app metadata and app configuration
         publishApp( {
           key: key,
           creator: user.name,
