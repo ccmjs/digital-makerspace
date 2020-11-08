@@ -287,17 +287,18 @@
         // simple search
         if ( search )
           return items.filter( item => {
-            if ( item.published )
-              for ( const key in item ) {
-                if ( item.hasOwnProperty( key ) )
-                  if ( Array.isArray( item[ key ] ) ) {
-                    for ( let i = 0; i < item[ key ].length; i++ )
-                      if ( item[ key ][ i ].toString().toLowerCase().includes( search.toLowerCase() ) )
-                        return true;
-                  }
-                  else if ( item[ key ].toString().toLowerCase().includes( search.toLowerCase() ) )
-                    return true;
-              }
+            if ( item.format === 'application/json' && !item.published ) return false;
+            for ( const key in item ) {
+              if ( item.hasOwnProperty( key ) )
+                if ( Array.isArray( item[ key ] ) ) {
+                  for ( let i = 0; i < item[ key ].length; i++ )
+                    if ( item[ key ][ i ].toString().toLowerCase().includes( search.toLowerCase() ) )
+                      return true;
+                }
+                else if ( item[ key ].toString().toLowerCase().includes( search.toLowerCase() ) )
+                  return true;
+            }
+            return false;
           } );
 
         /**
@@ -310,12 +311,12 @@
 
         // advanced search
         return items.filter( item => {
-          if (                                                      !item.published ) return false;
-          if ( title   && title   !==                                item.title     ) return false;
-          if ( tool    && tool    !== ( getComponent( item.path ) || {} ).title     ) return false;
-          if ( creator && creator !==                                item.creator   ) return false;
-          if ( tag     && ( !item.tags     || !item.tags    .includes( tag  ) )     ) return false;
-          if ( lang    && ( !item.language || !item.language.includes( lang ) )     ) return false;
+          if ( item.format === 'application/json' && !item.published            ) return false;
+          if ( title   && title   !== item.title                                ) return false;
+          if ( tool    && tool    !== ( getComponent( item.path ) || {} ).title ) return false;
+          if ( creator && creator !== item.creator                              ) return false;
+          if ( tag     && ( !item.tags     || !item.tags    .includes( tag  ) ) ) return false;
+          if ( lang    && ( !item.language || !item.language.includes( lang ) ) ) return false;
           return true;
         } );
 
