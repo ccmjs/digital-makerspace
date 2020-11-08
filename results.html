@@ -128,7 +128,7 @@
 
   <!-- Modal: User Login -->
   <div class="modal fade" id="login-dialog" tabindex="-1" aria-labelledby="User Login" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-scrollable">
       <div class="modal-content">
 
         <!-- Modal Header -->
@@ -143,13 +143,14 @@
         <div class="modal-body px-4">
           <form id="login-form">
             <div class="form-group">
-              <label for="user-input">Username</label>
+              <label for="user-input">Username: <small class="text-danger">*</small></label>
               <input type="text" class="form-control" id="user-input" name="user" required>
             </div>
             <div class="form-group">
-              <label for="password-input">Password</label>
+              <label for="password-input">Password: <small class="text-danger">*</small></label>
               <input type="password" class="form-control" id="password-input" name="token" required>
             </div>
+            <p><small><span class="text-danger">*</span> indicates a required field</small></p>
             <div class="hint text-center"></div>
           </form>
         </div>
@@ -165,7 +166,7 @@
 
   <!-- Modal: User Registration -->
   <div class="modal fade" id="register-dialog" tabindex="-1" aria-labelledby="User Registration" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-scrollable">
       <div class="modal-content">
 
         <!-- Modal Header -->
@@ -180,18 +181,19 @@
         <div class="modal-body px-4">
           <form id="register-form">
             <div class="form-group">
-              <label for="register-user-input">Username</label>
+              <label for="register-user-input">Username: <small class="text-danger">*</small></label>
               <input type="text" class="form-control" id="register-user-input" name="user" required>
             </div>
             <div class="form-group">
-              <label for="register-password-input">Password</label>
+              <label for="register-password-input">Password: <small class="text-danger">*</small></label>
               <input type="password" class="form-control" id="register-password-input" name="token" required>
             </div>
             <div class="form-group">
-              <label for="register-name-input">Full name</label>
+              <label for="register-name-input">Full name: <small class="text-danger">*</small></label>
               <input type="text" class="form-control" id="register-name-input" name="name" required>
               <small>Please enter your full real name.</small>
             </div>
+            <p><small><span class="text-danger">*</span> indicates a required field</small></p>
             <div class="hint text-center"></div>
           </form>
         </div>
@@ -206,7 +208,7 @@
 
   <!-- Modal: Registration Succeeded -->
   <div class="modal fade" id="register-success-dialog" tabindex="-1" aria-labelledby="Registration succeeded" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-scrollable">
       <div class="modal-content">
 
         <!-- Modal Header -->

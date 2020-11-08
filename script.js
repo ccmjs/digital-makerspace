@@ -138,7 +138,7 @@
     user ? showLoggedIn() : showLoggedOut();
 
     // set submit event for login form
-    document.getElementById( 'login-form' ).addEventListener( 'submit', async event => {
+    document.querySelector( '#login-form' ).addEventListener( 'submit', async event => {
       event.preventDefault();
       let params = { realm: realm, store: users };
       $( event.target ).serializeArray().forEach( ( { name, value } ) => params[ name ] = value );
@@ -156,7 +156,7 @@
     } );
 
     // set submit event for registration form
-    document.getElementById( 'register-form' ).addEventListener( 'submit', async event => {
+    document.querySelector( '#register-form' ).addEventListener( 'submit', async event => {
       event.preventDefault();
       const params = {
         store: users,
@@ -197,7 +197,7 @@
     } );
 
     // set click event for logout button
-    document.getElementById( 'logout-btn' ).addEventListener( 'click', () => {
+    document.querySelector( '#logout-btn' ).addEventListener( 'click', () => {
       sessionStorage.removeItem( users );
       user = null;
       showLoggedOut();
@@ -243,7 +243,7 @@
        * list element for search results
        * @type {HTMLElement}
        */
-      const list_elem = document.getElementById( 'search_results' );
+      const list_elem = document.querySelector( '#search_results' );
 
       if ( !items.length )
         return list_elem.outerHTML = '<div class="lead p-3"><i>Nothing could be found.</i></div>';
@@ -285,16 +285,17 @@
         // simple search
         if ( search )
           return items.filter( item => {
-            for ( const key in item ) {
-              if ( item.hasOwnProperty( key ) )
-                if ( Array.isArray( item[ key ] ) ) {
-                  for ( let i = 0; i < item[ key ].length; i++ )
-                    if ( item[ key ][ i ].toString().includes( search ) )
-                      return true;
-                }
-                else if ( item[ key ].toString().includes( search ) )
-                  return true;
-            }
+            if ( item.published )
+              for ( const key in item ) {
+                if ( item.hasOwnProperty( key ) )
+                  if ( Array.isArray( item[ key ] ) ) {
+                    for ( let i = 0; i < item[ key ].length; i++ )
+                      if ( item[ key ][ i ].toString().toLowerCase().includes( search.toLowerCase() ) )
+                        return true;
+                  }
+                  else if ( item[ key ].toString().toLowerCase().includes( search.toLowerCase() ) )
+                    return true;
+              }
           } );
 
         /**
@@ -370,7 +371,7 @@
       document.title = document.title.replace( '${title}', app.title );
 
       // add media list entry for the app in the trailer area
-      document.getElementById( 'abstract' ).innerHTML = `
+      document.querySelector( '#abstract' ).innerHTML = `
         <ul class="list-unstyled">
           <li class="media">
             <img src="${app.icon || default_icon}" class="mr-3 rounded" alt="App Icon">
@@ -454,7 +455,7 @@
       document.querySelector( '#app a' ).setAttribute( 'href', app_url );
 
       // add app description
-      const desc_elem = document.getElementById( 'description' );
+      const desc_elem = document.querySelector( '#description' );
       if ( app.description )
         desc_elem.querySelector( 'article' ).innerHTML = app.description;
       else
@@ -478,7 +479,7 @@
             </tr>
             <tr>
               <th scope="row">Content Licence</th>
-              <td><a href="https://creativecommons.org/share-your-work/public-domain/cc0/" target="_blank" title="Every published App is Public Domain">CC0</a></td>
+              <td><a href="https://creativecommons.org/share-your-work/public-domain/cc0/" target="_blank" title="Every published App is Public Domain">${app.license}</a></td>
             </tr>
             <tr>
               <th scope="row">Software Licence</th>
@@ -511,7 +512,7 @@
       document.title = document.title.replace( '${title}', tool.title );
 
       // add media list entry for the app in the trailer area
-      document.getElementById( 'abstract' ).innerHTML = `
+      document.querySelector( '#abstract' ).innerHTML = `
         <ul class="list-unstyled">
           <li class="media">
             <img src="${tool.icon || default_icon}" class="mr-3 rounded" alt="Tool Icon">
@@ -590,46 +591,6 @@
         ccm.start( tool.path, Object.assign( builder_inst.getValue(), { root: document.querySelector( '#preview' ) } ) );
       } );
 
-      // user must be logged in to save an app
-      $( '#save-app' ).on( 'show.bs.modal', () => {
-        if ( user ) {
-          $( '#save-app button' ).prop( 'disabled', false );
-          document.querySelector( '#save-app .hint' ).innerHTML = '';
-        }
-        else {
-          $( '#save-app button' ).prop( 'disabled', true );
-          document.querySelector( '#save-app .hint' ).innerText = 'You are currently not logged in';
-        }
-      } );
-
-      // set click event for the button that saves the app without publish
-      document.querySelector( '.save-btn' ).addEventListener( 'click', () => {
-
-        /**
-         * dataset key of app metadata and app configuration
-         * @type {string}
-         */
-        const key = ccm.helper.generateKey();
-
-        // save app metadata and app configuration
-        publishApp( {
-          key: key,
-          creator: user.name,
-          title: 'App ' + moment().format( 'L' ) + ' ' + moment().format( 'LT' ),
-          tags: [],
-          language: [],
-          format: 'application/json',
-          license: 'CC0',
-          metaFormat: 'ccm-meta',
-          metaVersion: '2.0.0',
-          path: tool.path,
-          source: [ { name: configs, url: url }, key ],
-          published: false,
-          _: { creator: user.key, realm: realm, access: { get: 'all', set: 'creator', del: 'creator' } }
-        } );
-
-      } );
-
       // prepare input of app categories
       const tags = $( document.querySelector( '#tags' ) ).selectize( {
         create: true,
@@ -640,9 +601,39 @@
         options: JSON.parse( sessionStorage.getItem( 'app-tag' ) ).map( tag => { return { value: tag }; } )
       } )[ 0 ].selectize;
 
-      // set submit event for publish app form
-      document.querySelector( '#publish' ).addEventListener( 'submit', event => {
+      // set submit event for app creation form
+      document.querySelector( '#app-creation-form' ).addEventListener( 'submit', event => {
         event.preventDefault();
+        $( '#app-creation' ).modal( 'hide' );
+        $( '#publish-app' ).modal( 'show' );
+      } );
+
+      // user must be logged in to save an app
+      $( '#publish-app' ).on( 'show.bs.modal', () => {
+        if ( user ) {
+          $( '#publish-app button' ).prop( 'disabled', false );
+          document.querySelector( '#publish-app .hint' ).innerHTML = '';
+        }
+        else {
+          $( '#publish-app button' ).prop( 'disabled', true );
+          document.querySelector( '#publish-app .hint' ).innerText = 'You are currently not logged in';
+        }
+      } );
+
+      // set click event for the button that saves the app without publish
+      document.querySelector( '#create-app-btn' ).addEventListener( 'click', () => createApp( false ) );
+
+      // set click event for the button that saves and publishes the app
+      document.querySelector( '#publish-app-btn' ).addEventListener( 'click', () => $( '#agreement' ).modal( 'show' ) );
+
+      // set click event for the "I agree" button
+      document.querySelector( '#agree-btn' ).addEventListener( 'click', () => createApp( true ) );
+
+      /**
+       * creates an app
+       * @param {boolean} [publish] - app should be published
+       */
+      function createApp( publish) {
 
         /**
          * dataset key of app metadata and app configuration
@@ -659,32 +650,21 @@
           creator: user.name,
           language: [],
           format: 'application/json',
-          license: 'CC0',
+          license: publish ? 'CC0' : '-',
           metaFormat: 'ccm-meta',
           metaVersion: '2.0.0',
           path: tool.path,
           source: [ { name: configs, url: url }, key ],
-          published: true,
+          published: publish,
           _: { creator: user.key, realm: realm, access: { get: 'all', set: 'creator', del: 'creator' } }
         };
 
         // add input values in app metadata
-        $( event.target ).serializeArray().forEach( ( { name, value } ) => value && ( name === 'language' ? meta[ name ].push( value ) : meta[ name ] = value ) );
+        $( '#app-creation-form' ).serializeArray().forEach( ( { name, value } ) => value && ( name === 'language' ? meta[ name ].push( value ) : meta[ name ] = value ) );
         meta.tags = tags.items;
 
-        // save app metadata and app configuration
-        publishApp( meta, event.target );
-
-      } );
-
-      /**
-       * @param {Object} meta - app metadata
-       * @param {HTMLElement} [form] - publish form
-       */
-      function publishApp( meta, form ) {
-
         // user must be logged in
-        if ( !user ) return;
+        if ( !user ) return $( '#app-creation' ).modal( 'show' );
 
         /**
          * app configuration
@@ -697,17 +677,20 @@
         } );
 
         // save app metadata and app configuration
-        Promise.all( [
-          ccm.store( { name: apps, url: url } ).then( store => store.set( meta ) ),
-          ccm.store( { name: configs, url: url } ).then( store => store.set( config ) )
-        ] ).then( response => {
-          if ( response[ 0 ] !== meta.key || response[ 1 ] !== meta.key ) return;
-          $( '#publish-app-dialog' ).modal( 'hide' );
-          form && $( form ).reset();
-          sessionStorage.removeItem( 'dms-apps' );
-          document.querySelector( '#publish-app-success-dialog a' ).setAttribute( 'href', './app.html?id=' + meta.key )
-          $( '#publish-app-success-dialog' ).modal( 'show' );
-        } );
+        try {
+          Promise.all( [
+            ccm.store( { name: apps, url: url } ).then( store => store.set( meta ) ),
+            ccm.store( { name: configs, url: url } ).then( store => store.set( config ) )
+          ] ).then( response => {
+            if ( response[ 0 ] !== meta.key || response[ 1 ] !== meta.key ) return;
+            document.querySelector( '#app-creation-form' ).reset();
+            sessionStorage.removeItem( 'dms-apps' );
+            document.querySelector( '#create-app-success a' ).setAttribute( 'href', './app.html?id=' + meta.key )
+            $( '#create-app-success' ).modal( 'show' );
+          } );
+        } catch( e ) {
+          $( '#app-creation' ).modal( 'show' );
+        }
 
       }
 
@@ -736,15 +719,15 @@
     function showLoggedIn() {
 
       // show user in frontend
-      document.getElementById( 'username' ).innerText = user.name;
+      document.querySelector( '#username' ).innerText = user.name;
       document.querySelector( '#user img' ).setAttribute( 'src', user.picture || './img/user.jpg' );
 
       // hide and show correct buttons in the user dropdown
-      document.getElementById( 'login-btn' ).style.display = 'none';
-      document.getElementById( 'register-btn' ).style.display = 'none';
-      document.getElementById( 'my-apps-btn' ).style.display = 'inherit';
-      document.getElementById( 'profile-btn' ).style.display = 'inherit';
-      document.getElementById( 'logout-btn' ).style.display = 'inherit';
+      document.querySelector( '#login-btn' ).style.display = 'none';
+      document.querySelector( '#register-btn' ).style.display = 'none';
+      document.querySelector( '#my-apps-btn' ).style.display = 'inherit';
+      document.querySelector( '#profile-btn' ).style.display = 'inherit';
+      document.querySelector( '#logout-btn' ).style.display = 'inherit';
 
     }
 
@@ -752,15 +735,15 @@
     function showLoggedOut() {
 
       // remove user in frontend
-      document.getElementById( 'username' ).innerText = '';
+      document.querySelector( '#username' ).innerText = '';
       document.querySelector( '#user img' ).setAttribute( 'src', './img/user.jpg' );
 
       // show login and register button and hide logout button
-      document.getElementById( 'login-btn' ).style.display = 'inherit';
-      document.getElementById( 'register-btn' ).style.display = 'inherit';
-      document.getElementById( 'my-apps-btn' ).style.display = 'none';
-      document.getElementById( 'profile-btn' ).style.display = 'none';
-      document.getElementById( 'logout-btn' ).style.display = 'none';
+      document.querySelector( '#login-btn' ).style.display = 'inherit';
+      document.querySelector( '#register-btn' ).style.display = 'inherit';
+      document.querySelector( '#my-apps-btn' ).style.display = 'none';
+      document.querySelector( '#profile-btn' ).style.display = 'none';
+      document.querySelector( '#logout-btn' ).style.display = 'none';
 
     }
 

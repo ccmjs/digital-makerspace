@@ -83,11 +83,11 @@ a.card, a.card:hover {
   background-color: rgba(23,162,184,0.125);
 }
 
-ul {
+ul#search_results {
   margin-bottom: 0;
 }
 
-ul img {
+ul#search_results img {
   width: 80px;
 }
 
@@ -147,7 +147,12 @@ a.link-unstyled:active {
 }
 
 .modal-header {
+  background-color: #f8f9fa;
   cursor: move;
+}
+
+.modal-footer {
+  background-color: #f8f9fa;
 }
 
 #tabs.show + article {
