@@ -186,7 +186,7 @@
             </div>
             <div class="form-group">
               <label for="register-password-input">Password: <small class="text-danger">*</small></label>
-              <input type="password" class="form-control" id="register-password-input" name="token" required>
+              <input type="password" class="form-control" id="register-password-input" name="token" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="The password must contain at least one uppercase letter, one lowercase letter and one number or special character and be at least 8 characters long." required>
             </div>
             <div class="form-group">
               <label for="register-name-input">Full name: <small class="text-danger">*</small></label>
