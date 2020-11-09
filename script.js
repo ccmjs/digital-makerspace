@@ -630,7 +630,7 @@
       // show active app builder in the app builder area
       let builder = builders[ 0 ];
       if ( use ) builder = builders.find( builder => builder.title === use );
-      const config = sessionStorage.getItem( 'config' );
+      let config = sessionStorage.getItem( 'config' );
       config && sessionStorage.removeItem( 'config' );
       const app = !config && getItems( apps ).find( item => item.key === template );
       let builder_inst;
@@ -639,7 +639,7 @@
         config && JSON.parse( config ) || app && ccm.get( app.source[ 0 ], app.source[ 1 ] )
       ] ).then( ( [ component, template ] ) => component.start( {
         root: builder_elem,
-        data: { store: [ 'ccm.store', { app: template } ], key: 'app' }
+        data: { store: [ 'ccm.store', { app: config = template } ], key: 'app' }
       } ) ).then( builder => { builder_inst = builder; cleanHead(); } );
 
       // add entries for tab menu to switch between app builders
@@ -663,19 +663,22 @@
       if ( user && app && app._.creator === user.key && app._.realm === user.realm ) {
 
         // set click event for the 'Save' buttons
-        $( '.save-app-btn' ).click( () => {
+        $( '.save-app-btn' ).click( async () => {
+          const store = await ccm.store( { name: configs, url: url, token: user.token, realm: user.realm } );
+          const key = await store.set( Object.assign( builder_inst.getValue(), { key: config.key } ) );
+          if ( key !== config.key ) return;
+          sessionStorage.removeItem( 'dms-apps' );
+          document.querySelector( '#save-app-success a' ).setAttribute( 'href', './app.html?id=' + use );
+          $( '#show-preview' ).modal( 'hide' );
+          $( '#save-app-success' ).modal( 'show' );
         } );
 
         // rename "Create App" button
         $( '.create-app-btn' ).text( 'Create As New' );
 
       }
-      else {
-
-        // hide "Save" button
-        $( '.save-app-btn' ).hide();
-
-      }
+      // current user isn't the creator => hide "Save" button
+      else $( '.save-app-btn' ).hide();
 
       // prepare input of app categories
       const tags = $( document.querySelector( '#tags' ) ).selectize( {
@@ -714,6 +717,9 @@
 
       // set click event for the "I agree" button
       document.querySelector( '#agree-btn' ).addEventListener( 'click', () => createApp( true ) );
+
+      // show created app when the app is created successfully
+      $( '#create-app-success' ).on( 'hide.bs.modal', () => document.querySelector( '#create-app-success a' ).click() );
 
       /**
        * creates an app
@@ -763,20 +769,16 @@
         } );
 
         // save app metadata and app configuration
-        try {
-          Promise.all( [
-            ccm.store( { name: apps, url: url } ).then( store => store.set( meta ) ),
-            ccm.store( { name: configs, url: url } ).then( store => store.set( config ) )
-          ] ).then( response => {
-            if ( response[ 0 ] !== meta.key || response[ 1 ] !== meta.key ) return;
-            document.querySelector( '#app-creation-form' ).reset();
-            sessionStorage.removeItem( 'dms-apps' );
-            document.querySelector( '#create-app-success a' ).setAttribute( 'href', './app.html?id=' + meta.key )
-            $( '#create-app-success' ).modal( 'show' );
-          } );
-        } catch( e ) {
-          $( '#app-creation' ).modal( 'show' );
-        }
+        Promise.all( [
+          ccm.store( { name: apps, url: url } ).then( store => store.set( meta ) ),
+          ccm.store( { name: configs, url: url } ).then( store => store.set( config ) )
+        ] ).then( response => {
+          if ( response[ 0 ] !== meta.key || response[ 1 ] !== meta.key ) return;
+          document.querySelector( '#app-creation-form' ).reset();
+          sessionStorage.removeItem( 'dms-apps' );
+          document.querySelector( '#create-app-success a' ).setAttribute( 'href', './app.html?id=' + meta.key )
+          $( '#create-app-success' ).modal( 'show' );
+        } ).catch( () => $( '#app-creation' ).modal( 'show' ) );
 
       }
 

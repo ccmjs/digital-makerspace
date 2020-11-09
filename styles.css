@@ -87,7 +87,7 @@ ul#search_results {
   margin-bottom: 0;
 }
 
-.media img {
+ul .media img {
   width: 80px;
 }
 

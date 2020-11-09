@@ -334,6 +334,38 @@
     </div>
   </div>
 
+  <!-- Modal: Save App Succeeded -->
+  <div class="modal fade" id="save-app-success" tabindex="-1" aria-labelledby="App saved successfully" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h5 class="modal-title">App saved successfully</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body text-center">
+          <p class="text-success">
+            <svg width="5em" height="5em" viewBox="0 0 16 16" class="bi bi-check-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+            </svg>
+          </p>
+          <span class="lead">Your changes are saved!</span>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue Editing</button>
+          <a href="" class="btn btn-success">Show App</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Modal: Create App -->
   <div class="modal fade" id="app-creation" tabindex="-1" aria-labelledby="Save App" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
@@ -495,7 +527,7 @@
 
         <!-- Modal Footer -->
         <div class="modal-footer">
-          <a href="" class="btn btn-secondary">Show App</a>
+          <a href="" class="btn btn-success">Show App</a>
         </div>
       </div>
     </div>
