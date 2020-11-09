@@ -6,10 +6,13 @@
   <meta name="author" content="André Kless <andre.kless@web.de> 2020">
   <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href="./libs/bootstrap.min.css">
+  <link rel="stylesheet" href="./libs/selectize.css">
   <link rel="stylesheet" href="./styles.css">
   <script src="./libs/jquery-3.5.1.slim.min.js" defer></script>
   <script src="./libs/bootstrap.bundle.min.js" defer></script>
   <script src="./libs/md5.min.js" defer></script>
+  <script src="./libs/selectize.min.js" defer></script>
+  <script src="./libs/selectize-plugin.js" defer></script>
   <script src="./libs/moment.min.js" defer></script>
   <script src="./libs/qrcode.min.js" defer></script>
   <script src="./libs/ccm.min.js" defer></script>
@@ -335,7 +338,7 @@
 
         <!-- Modal Body -->
         <div class="modal-body">
-          <form id="app-creation-form">
+          <form id="edit-meta-form">
             <div class="form-group">
               <label for="title">Title: <small class="text-danger">*</small></label>
               <input type="text" class="form-control" id="title" name="title" aria-describedby="Title" maxlength="33" required>
@@ -373,8 +376,8 @@
 
         <!-- Modal Footer -->
         <div class="modal-footer d-flex justify-content-between">
-          <button type="submit" form="app-creation-form" class="btn btn-secondary" data-dismiss="modal">Close without Save</button>
-          <button type="submit" form="app-creation-form" class="btn btn-success" data-dismiss="modal">Save Changes</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close without Save</button>
+          <button type="submit" form="edit-meta-form" class="btn btn-success">Save Changes</button>
         </div>
       </div>
     </div>
