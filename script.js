@@ -664,11 +664,11 @@
 
         // set click event for the 'Save' buttons
         $( '.save-app-btn' ).click( () => {
-          alert( 'Save App is clicked' );
         } );
 
         // rename "Create App" button
         $( '.create-app-btn' ).text( 'Create As New' );
+
       }
       else {
 
