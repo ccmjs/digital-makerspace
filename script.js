@@ -659,6 +659,24 @@
         ccm.start( tool.path, Object.assign( builder_inst.getValue(), { root: document.querySelector( '#preview' ) } ) );
       } );
 
+      // current user is the app creator?
+      if ( user && app._.creator === user.key && app._.realm === user.realm ) {
+
+        // set click event for the 'Save' buttons
+        $( '.save-app-btn' ).click( () => {
+          alert( 'Save App is clicked' );
+        } );
+
+        // rename "Create App" button
+        $( '.create-app-btn' ).text( 'Create As New' );
+      }
+      else {
+
+        // hide "Save" button
+        $( '.save-app-btn' ).hide();
+
+      }
+
       // prepare input of app categories
       const tags = $( document.querySelector( '#tags' ) ).selectize( {
         create: true,
