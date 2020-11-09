@@ -492,7 +492,7 @@
       document.querySelector( '#agree-btn' ).addEventListener( 'click', async () => {
         if ( !user ) return;
         const store = await ccm.store( { name: apps, url: url, token: user.token, realm: user.realm } );
-        const response = await store.set( { key: key, published: true } );
+        const response = await store.set( { key: key, published: true, licence: 'CC0' } );
         sessionStorage.removeItem( apps );
         response === key && location.reload();
       } );
