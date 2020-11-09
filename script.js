@@ -660,7 +660,7 @@
       } );
 
       // current user is the app creator?
-      if ( user && app._.creator === user.key && app._.realm === user.realm ) {
+      if ( user && app && app._.creator === user.key && app._.realm === user.realm ) {
 
         // set click event for the 'Save' buttons
         $( '.save-app-btn' ).click( () => {
