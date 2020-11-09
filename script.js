@@ -221,7 +221,8 @@
     function showSearchResults() {
 
       // collect relevant GET parameters from URL
-      const { only, search, title, tool, creator, tag, lang } = {
+      const { my, only, search, title, tool, creator, tag, lang } = {
+        my:      params.get( 'my'       ),
         only:    params.get( 'only'     ),
         search:  params.get( 'search'   ),
         title:   params.get( 'title'    ),
@@ -233,10 +234,14 @@
 
       // determine search results
       let items = [];
-      if ( !only || only === 'apps' )
-        items = items.concat( findItems( apps ) );
-      if ( !only || only === 'tools' )
-        items = items.concat( findItems( tools ) );
+      if ( my === 'apps' && user )
+        items = items.concat( getItems( apps ).filter( app => app._.creator === user.key && app._.realm === user.realm ) );
+      else {
+        if ( !only || only === 'apps' )
+          items = items.concat( findItems( apps ) );
+        if ( !only || only === 'tools' )
+          items = items.concat( findItems( tools ) );
+      }
 
       // sort search results by title
       items.sort( ( a, b ) => a.title.localeCompare( b.title ) );
