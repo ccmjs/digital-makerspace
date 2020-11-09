@@ -234,8 +234,10 @@
 
       // determine search results
       let items = [];
-      if ( my === 'apps' && user )
-        items = items.concat( getItems( apps ).filter( app => app._.creator === user.key && app._.realm === user.realm ) );
+      if ( my === 'apps' ) {
+        if ( user )
+          items = items.concat( getItems( apps ).filter( app => app._.creator === user.key && app._.realm === user.realm ) );
+      }
       else {
         if ( !only || only === 'apps' )
           items = items.concat( findItems( apps ) );
