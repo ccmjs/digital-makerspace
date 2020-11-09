@@ -268,15 +268,15 @@
         entry_elem.setAttribute( 'href', `./${is_app ? 'app' : 'tool'}.html?id=${key}` );
         entry_elem.classList.add( 'link-unstyled' );
         entry_elem.innerHTML = `
-        <li class="media border-top ${is_app ? 'bg-app' : 'bg-tool'}">
-          <img src="${icon}" class="mr-3 rounded" alt="App Icon">
-          <div class="media-body">
-            <h5 class="mt-0 mb-1">${title} <span class="badge badge-${is_app ? 'success' : 'primary'}">${is_app ? 'App' : 'Tool'}</span></h5>
-            ${subject ? subject + '<br>' : ''}
-            <small>Created ${created_at} by ${creator}</small>
-          </div>
-        </li>
-      `;
+          <li class="media border-top ${is_app ? 'bg-app' : 'bg-tool'}">
+            <img src="${icon}" class="mr-3 rounded" alt="App Icon">
+            <div class="media-body">
+              <h5 class="mt-0 mb-1">${title} <span class="badge badge-${is_app ? 'success' : 'primary'}">${is_app ? 'App' : 'Tool'}</span></h5>
+              ${subject ? subject + '<br>' : ''}
+              <small>Created ${created_at} by ${creator}</small>
+            </div>
+          </li>
+        `;
         list_elem.appendChild( entry_elem );
 
       } );
