@@ -473,7 +473,7 @@
         options: JSON.parse( sessionStorage.getItem( 'app-tag' ) ).map( tag => { return { value: tag }; } ),
         items: app.tags
       } )[ 0 ].selectize;
-      app.language.forEach( lang => document.querySelector( '#' + lang ).checked = true );
+      app.language && app.language.forEach( lang => document.querySelector( '#' + lang ).checked = true );
 
       // set submit event of the form for edit app information
       document.querySelector( '#edit-meta-form' ).addEventListener( 'submit', async event => {
