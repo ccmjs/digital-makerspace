@@ -187,3 +187,7 @@ a.link-unstyled:active {
 .disabled {
   opacity: 0.5;
 }
+
+.table {
+  margin-bottom: 0;
+}

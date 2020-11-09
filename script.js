@@ -459,6 +459,14 @@
       qr_code_elem.innerHTML = qr_code.createImgTag();
       document.querySelector( '#qr_code' ).appendChild( qr_code_elem.firstChild );
 
+      // set click event for the "I agree" button
+      document.querySelector( '#agree-btn' ).addEventListener( 'click', async () => {
+        const store = await ccm.store( { name: apps, url: url, token: user.token, realm: user.realm } );
+        const response = await store.set( { key: key, published: true } );
+        sessionStorage.removeItem( apps );
+        response === key && location.reload();
+      } );
+
       // show app in the app area
       ccm.get( app.source[ 0 ], app.source[ 1 ] ).then( config => ccm.start( app.path, Object.assign( config, { root: document.querySelector( '#app article' ) } ) ) ).then( cleanHead );
 
@@ -507,6 +515,25 @@
           </tbody>
         </table>
       `;
+
+      // app is published?
+      if ( app.published ) {
+      }
+      else {
+        document.querySelector( '#reviews' ).style.display = 'none';
+      }
+
+      // current user is the app creator?
+      if ( user && app._.creator === user.key && app._.realm === user.realm ) {
+        const button = document.querySelector( '#create-similar-btn' );
+        button.innerText = 'Edit App';
+        button.title = 'Opens the Toolbox to edit your App';
+        if ( !app.published )
+          document.querySelector( '#publish-app-btn' ).classList.remove( 'd-none' );
+      }
+      else {
+        document.querySelector( '#edit-meta-btn' ).style.display = 'none';
+      }
 
     }
 

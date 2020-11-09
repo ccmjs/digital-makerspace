@@ -12,7 +12,7 @@
   <script src="./libs/md5.min.js" defer></script>
   <script src="./libs/moment.min.js" defer></script>
   <script src="./libs/qrcode.min.js" defer></script>
-  <script src="./libs/ccm-26.0.0.min.js" defer></script>
+  <script src="./libs/ccm.min.js" defer></script>
   <script src="./script.js" defer></script>
   <title>App: ${title} | Digital Makerspace</title>
 </head>
@@ -68,7 +68,7 @@
   </header>
 
   <!-- Main -->
-  <main id="app-view" class="bg-white">
+  <main id="app-view" class="bg-white pb-3">
 
     <!-- Trailer -->
     <section id="trailer" class="container pt-4 pb-2">
@@ -79,7 +79,8 @@
         <div class="col mt-3 mb-3 d-flex align-items-center">
           <nav class="text-nowrap">
             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#handover" title="Use this App anywhere on the Web">Share App</button>
-            <a class="btn btn-primary" title="Use this App as Template for an own App">Create Similar App</a>
+            <a id="create-similar-btn" class="btn btn-primary" title="Use this App as Template for an own App">Create Similar App</a>
+            <button type="button" id="publish-app-btn" class="btn btn-info d-none" data-toggle="modal" data-target="#agreement">Publish App</button>
           </nav>
           <br>
         </div>
@@ -106,12 +107,12 @@
 
     <!-- Metadata -->
     <section id="meta" class="container">
-      <p class="text-muted">Additional Informations</p>
+      <p class="text-muted">Additional Information &nbsp;<a id="edit-meta-btn" class="btn btn-outline-warning btn-xs" data-toggle="modal" data-target="#edit-meta" title="Edit the Additional Information about your App">Edit</a></p>
       <article></article>
     </section>
 
     <!-- Reviews -->
-    <section class="container pb-4">
+    <section id="reviews" class="container pb-4">
       <p class="text-muted">Reviews</p>
       <article class="p-5 text-center bg-app rounded">REVIEWS</article>
     </section>
@@ -283,6 +284,97 @@
             <button type="button" id="scorm" class="btn btn-danger"><span class="fas fa-archive"></span> SCORM</button>
           </div>
           -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Agreement -->
+  <div class="modal fade" id="agreement" tabindex="-1" aria-labelledby="Agreement" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h5 class="modal-title">Published Apps are Public Domain</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body">
+          <div class="bg-light border rounded p-3 lead">
+            <p>I agree that all content of my app is released as public domain under the <a href="https://creativecommons.org/share-your-work/public-domain/cc0/" target="_blank">CC0 license</a>.</p>
+            <p>I agree that all software of my app is released as free software under the <a href="https://en.wikipedia.org/wiki/MIT_License" target="_blank">MIT license</a>.</p>
+            <p>I confirm that this does not violate the copyright of third parties.</p>
+          </div>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="modal-footer d-flex justify-content-between">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Disagree</button>
+          <button type="button" id="agree-btn" class="btn btn-success" data-dismiss="modal">I Agree</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Edit Metadata -->
+  <div class="modal fade" id="edit-meta" tabindex="-1" aria-labelledby="Edit App Information" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h5 class="modal-title">Edit App Information</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body">
+          <form id="app-creation-form">
+            <div class="form-group">
+              <label for="title">Title: <small class="text-danger">*</small></label>
+              <input type="text" class="form-control" id="title" name="title" aria-describedby="Title" maxlength="33" required>
+            </div>
+            <div class="form-group">
+              <label for="icon">Icon:</label>
+              <input type="url" class="form-control" id="icon" name="icon" aria-describedby="Icon">
+            </div>
+            <div class="form-group">
+              <label for="subject">Short Description:</label>
+              <input type="text" class="form-control" id="subject" name="subject" aria-describedby="Short Description" maxlength="62">
+            </div>
+            <div class="form-group">
+              <label for="description-input">Long Description:</label>
+              <textarea class="form-control" id="description-input" name="description" aria-describedby="Long Description"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="tags">Categories:</label>
+              <select id="tags" multiple></select>
+            </div>
+            <div class="form-group">
+              <div><label>Language:</label></div>
+              <div class="form-check form-check-inline custom-checkbox">
+                <input class="form-check-input custom-control-input" type="checkbox" id="en" name="language" value="en">
+                <label class="form-check-label custom-control-label" for="en">English</label>
+              </div>
+              <div class="form-check form-check-inline custom-checkbox">
+                <input class="form-check-input custom-control-input" type="checkbox" id="de" name="language" value="de">
+                <label class="form-check-label custom-control-label" for="de">German</label>
+              </div>
+            </div>
+            <small><span class="text-danger">*</span> indicates a required field</small>
+          </form>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="modal-footer d-flex justify-content-between">
+          <button type="submit" form="app-creation-form" class="btn btn-secondary" data-dismiss="modal">Close without Save</button>
+          <button type="submit" form="app-creation-form" class="btn btn-success" data-dismiss="modal">Save Changes</button>
         </div>
       </div>
     </div>
