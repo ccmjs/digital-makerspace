@@ -11,20 +11,20 @@
   const default_icon = './img/logo.png';                        // path to default app icon
   const items = {};
 
-  // no data of published apps and components loaded yet? => start loading
+  // no data of apps and components loaded yet? => start loading
   if ( !sessionStorage.getItem( apps ) || !sessionStorage.getItem( components ) || !sessionStorage.getItem( tools ) )
     init();
   else
     ready();
 
-  /** loads data of all published apps and components and stores them in the Session Storage */
+  /** loads data of all apps and components and stores them in the Session Storage */
   function init() {
 
-    // load data of all published apps and components
+    // load data of all apps and components
     Promise.all( [
       ccm.get( { name: apps, url: url } ),
       ccm.get( { name: components, url: url } )
-    ] ).then( items => {
+    ] ).then( results => {
 
       /**
        * predefined options for app and tool searches
@@ -51,7 +51,7 @@
       const add = ( obj, key ) => !obj[ key ] && ( obj[ key ] = true );
 
       // collect predefined options for app searches and eliminate duplicates
-      items[ 0 ].forEach( app => {
+      results[ 0 ].forEach( app => {
         if ( !app.published ) return;
 
         add( term.all, app.title );
@@ -77,7 +77,7 @@
       } );
 
       // collect predefined options for tool searches and eliminate duplicates
-      items[ 1 ].forEach( component => {
+      results[ 1 ].forEach( component => {
         add( term.all, component.title );
         add( term.component.all, component.title );
         add( term.component.title, component.title );
@@ -105,17 +105,23 @@
       sessionStorage.setItem( 'component-creator', JSON.stringify( Object.keys( term.component.creator ).sort() ) );
       sessionStorage.setItem( 'component-tag', JSON.stringify( Object.keys( term.component.tag ).sort() ) );
 
-      // store data of all published apps and components in Session Storage
-      sessionStorage.setItem( apps, JSON.stringify( items[ 0 ] ) );
-      sessionStorage.setItem( components, JSON.stringify( items[ 1 ] ) );
-
       // filter only highest versions of published components and store them in Session Storage
       const highest = {};
-      sessionStorage.setItem( tools, JSON.stringify( items[ 1 ].forEach( component => {
+      sessionStorage.setItem( tools, JSON.stringify( results[ 1 ].forEach( component => {
         if ( !highest[ component.identifier ] || ccm.helper.compareVersions( highest[ component.identifier ].version, component.version ) < 0 )
           highest[ component.identifier ] = component;
       } ) ) );
       sessionStorage.setItem( tools, JSON.stringify( Object.values( highest ) ) );
+
+      // add tool title to app metadata
+      results[ 0 ].forEach( app => {
+        const tool = highest[ ccm.helper.convertComponentURL( app.path ).name ];
+        if ( tool ) app.tool = tool.title;
+      } );
+
+      // store data of all apps and components in Session Storage
+      sessionStorage.setItem( apps, JSON.stringify( results[ 0 ] ) );
+      sessionStorage.setItem( components, JSON.stringify( results[ 1 ] ) );
 
       // all data is loaded => Digital Makerspace is ready to use!
       ready();
@@ -127,83 +133,15 @@
   /** when all data is loaded */
   function ready() {
 
-    fillDataLists();  // fill data lists for app and tool searches
-    movableModals();  // make modal dialogs movable
-
     /**
      * user data if user is logged in
      * @type {Object}
      */
     let user = JSON.parse( sessionStorage.getItem( users ) );
 
-    // display user as logged in or logged out
-    user ? showLoggedIn() : showLoggedOut();
-
-    // set submit event for login form
-    document.querySelector( '#login-form' ).addEventListener( 'submit', async event => {
-      event.preventDefault();
-      let params = { realm: realm, store: users };
-      $( event.target ).serializeArray().forEach( ( { name, value } ) => params[ name ] = value );
-      params.token = md5( params.token );
-      try {
-        user = await ccm.load( { url: url, params: params } );
-        sessionStorage.setItem( users, JSON.stringify( user ) );
-        showLoggedIn();
-        $( '#login-dialog' ).modal( 'hide' );
-        event.target.reset();
-      }
-      catch ( e ) {
-        renderHint( document.querySelector( '#login-form .hint' ), 'Login failed. Please try again.' );
-      }
-    } );
-
-    // set submit event for registration form
-    document.querySelector( '#register-form' ).addEventListener( 'submit', async event => {
-      event.preventDefault();
-      const params = {
-        store: users,
-        set: {
-          realm: realm,
-          _: {
-            realm: realm,
-            access: {
-              get: 'creator',
-              set: 'creator',
-              del: 'creator'
-            }
-          }
-        }
-      };
-      $( event.target ).serializeArray().forEach( ( { name, value } ) => params.set[ name ] = value );
-      params.set.key = params.set.user;
-      params.set.token = md5( params.set.token );
-      params.set._.creator = params.set.key;
-      try {
-        await ccm.load( { url: url, params: params } );
-        sessionStorage.setItem( users, JSON.stringify( await ccm.load( {
-          url: url,
-          params: {
-            realm: realm,
-            store: users,
-            user: params.set.key,
-            token: params.set.token
-          }
-        } ) ) );
-        $( '#register-dialog' ).modal( 'hide' );
-        $( '#register-success-dialog' ).modal( 'show' );
-        event.target.reset();
-      }
-      catch ( e ) {
-        renderHint( document.querySelector( '#register-form .hint' ), 'Registration failed. Maybe try a different username.' );
-      }
-    } );
-
-    // set click event for logout button
-    document.querySelector( '#logout-btn' ).addEventListener( 'click', () => {
-      sessionStorage.removeItem( users );
-      user = null;
-      showLoggedOut();
-    } );
+    fillDataLists();
+    draggableModals();
+    handleUserDropdown();
 
     // show search results
     if ( location.pathname.endsWith( 'results.html' ) )
@@ -216,6 +154,177 @@
     // integrate dynamic data in the webpage for a published tool
     if ( location.pathname.endsWith( 'tool.html' ) )
       updateToolView();
+
+    /** fills data lists for app and tool searches */
+    function fillDataLists() {
+
+      // Search Bar
+      const search_bar = document.querySelector( 'input[type=search]' );
+      if ( !search_bar ) return;
+      fillDataList( 'all' );
+      fillDataList( 'app-all' );
+      fillDataList( 'component-all' );
+      search_bar.addEventListener( 'change', () => document.querySelector( 'form' ).submit() );
+
+      // Advanced Search
+      fillDataList( 'app-title' );
+      fillDataList( 'component-title' );
+      fillDataList( 'app-creator' );
+      fillDataList( 'app-tag' );
+      fillDataList( 'app-lang' );
+      fillDataList( 'component-title' );
+      fillDataList( 'component-creator' );
+      fillDataList( 'component-tag' );
+
+      /**
+       * fills a data list with entries
+       * @param {string} key - item key in the Session Storage where the entry values are stored; HTML ID of the data list
+       */
+      function fillDataList( key ) {
+        const datalist = document.querySelector( `datalist#${key}` );
+        if ( !datalist ) return;
+        JSON.parse( sessionStorage.getItem( key ) ).forEach( term => {
+          const entry = document.createElement( 'option' );
+          entry.innerText = term;
+          datalist.append( entry );
+        } );
+      }
+
+    }
+
+    /** makes modal dialogs draggable */
+    function draggableModals() {
+      $( '.modal-header' ).on( 'mousedown', function ( mousedownEvt ) {
+        const $draggable = $( this );
+        const $body = $( 'body' );
+        const x = mousedownEvt.pageX - $draggable.offset().left;
+        const y = mousedownEvt.pageY - $draggable.offset().top;
+        $body.on( 'mousemove.draggable', mousemoveEvt => {
+          $draggable.closest( '.modal-dialog' ).offset( {
+            "left": mousemoveEvt.pageX - x,
+            "top": mousemoveEvt.pageY - y
+          } );
+        } );
+        $body.one( 'mouseup', () => $body.off( 'mousemove.draggable' ) );
+        $draggable.closest( '.modal' ).one( 'bs.modal.hide', () => $body.off( 'mousemove.draggable' ) );
+      } );
+    }
+
+    /** handles login, logout and registration */
+    function handleUserDropdown() {
+
+      // display user as logged in or logged out
+      user ? showLoggedIn() : showLoggedOut();
+
+      // set click event for logout button
+      document.querySelector( '#logout-btn' ).addEventListener( 'click', () => {
+        sessionStorage.removeItem( users );
+        user = null;
+        showLoggedOut();
+      } );
+
+      // set submit event for login form
+      document.querySelector( '#login-form' ).addEventListener( 'submit', async event => {
+        event.preventDefault();
+        let params = { realm: realm, store: users };
+        $( event.target ).serializeArray().forEach( ( { name, value } ) => params[ name ] = value );
+        params.token = md5( params.token );
+        try {
+          user = await ccm.load( { url: url, params: params } );
+          sessionStorage.setItem( users, JSON.stringify( user ) );
+          showLoggedIn();
+          $( '#login-dialog' ).modal( 'hide' );
+          event.target.reset();
+        }
+        catch ( e ) {
+          renderHint( document.querySelector( '#login-form .hint' ), 'Login failed. Please try again.' );
+        }
+      } );
+
+      // set submit event for registration form
+      document.querySelector( '#register-form' ).addEventListener( 'submit', async event => {
+        event.preventDefault();
+        const params = {
+          store: users,
+          set: {
+            realm: realm,
+            _: {
+              realm: realm,
+              access: {
+                get: 'creator',
+                set: 'creator',
+                del: 'creator'
+              }
+            }
+          }
+        };
+        $( event.target ).serializeArray().forEach( ( { name, value } ) => params.set[ name ] = value );
+        params.set.key = params.set.user;
+        params.set.token = md5( params.set.token );
+        params.set._.creator = params.set.key;
+        try {
+          await ccm.load( { url: url, params: params } );
+          sessionStorage.setItem( users, JSON.stringify( await ccm.load( {
+            url: url,
+            params: {
+              realm: realm,
+              store: users,
+              user: params.set.key,
+              token: params.set.token
+            }
+          } ) ) );
+          $( '#register-dialog' ).modal( 'hide' );
+          $( '#register-success-dialog' ).modal( 'show' );
+          event.target.reset();
+        }
+        catch ( e ) {
+          renderHint( document.querySelector( '#register-form .hint' ), 'Registration failed. Maybe try a different username.' );
+        }
+      } );
+
+      /** displays the user in frontend as logged in */
+      function showLoggedIn() {
+
+        // show user in frontend
+        document.querySelector( '#username' ).innerText = user.name;
+        document.querySelector( '#user img' ).setAttribute( 'src', user.picture || './img/user.jpg' );
+
+        // hide and show correct buttons in the user dropdown
+        document.querySelector( '#login-btn' ).style.display = 'none';
+        document.querySelector( '#register-btn' ).style.display = 'none';
+        document.querySelector( '#my-apps-btn' ).style.display = 'inherit';
+        document.querySelector( '#profile-btn' ).style.display = 'inherit';
+        document.querySelector( '#logout-btn' ).style.display = 'inherit';
+
+      }
+
+      /** displays the user in frontend as logged out */
+      function showLoggedOut() {
+
+        // remove user in frontend
+        document.querySelector( '#username' ).innerText = '';
+        document.querySelector( '#user img' ).setAttribute( 'src', './img/user.jpg' );
+
+        // show login and register button and hide logout button
+        document.querySelector( '#login-btn' ).style.display = 'inherit';
+        document.querySelector( '#register-btn' ).style.display = 'inherit';
+        document.querySelector( '#my-apps-btn' ).style.display = 'none';
+        document.querySelector( '#profile-btn' ).style.display = 'none';
+        document.querySelector( '#logout-btn' ).style.display = 'none';
+
+      }
+
+      /**
+       * renders a red text message in a webpage area with a fadeout effect
+       * @param {HTMLElement} elem - webpage area
+       * @param {string} message - text message
+       */
+      function renderHint( elem, message ) {
+        elem.innerHTML = `<span class="text-danger text-center">${message}</span>`;
+        setTimeout( () => elem.querySelector( 'span' ).classList.add( 'fadeout' ), 100 );
+      }
+
+    }
 
     /** shows search results in frontend */
     function showSearchResults() {
@@ -258,7 +367,7 @@
         return list_elem.outerHTML = '<div class="lead p-3"><i>Nothing could be found.</i></div>';
 
       // add a list entry for each search result
-      items.forEach( ( { key, icon, format, title, subject = '', created_at, creator } ) => {
+      items.forEach( ( { key, icon, format, title, tool, published, subject = '', created_at, creator } ) => {
         if ( !icon || !icon.trim() ) icon = default_icon;
         created_at = moment( created_at ).fromNow();
         const is_app = format === 'application/json';
@@ -271,7 +380,7 @@
           <li class="media border-top ${is_app ? 'bg-app' : 'bg-tool'}">
             <img src="${icon}" class="mr-3 rounded" alt="App Icon">
             <div class="media-body">
-              <h5 class="mt-0 mb-1">${title} <span class="badge badge-${is_app ? 'success' : 'primary'}">${is_app ? 'App' : 'Tool'}</span></h5>
+              <h5 class="mt-0 mb-1">${title} &nbsp;<span class="badge badge-${is_app ? 'success' : 'primary'}">${is_app ? tool : 'Tool'}</span>${is_app && !published ? ' <span class="badge badge-warning">not published</span>' : ''}</h5>
               ${subject ? subject + '<br>' : ''}
               <small>Created ${created_at} by ${creator}</small>
             </div>
@@ -308,62 +417,17 @@
             return false;
           } );
 
-        /**
-         * finds metadata of a component by component URL in Session Storage
-         * @function
-         * @param {string} path - component URL
-         * @returns {Object} component metadata
-         */
-        const getComponent = path => getItems( components ).find( component => component.path === path );
-
         // advanced search
         return items.filter( item => {
           if ( item.format === 'application/json' && !item.published            ) return false;
           if ( title   && title   !== item.title                                ) return false;
-          if ( tool    && tool    !== ( getComponent( item.path ) || {} ).title ) return false;
+          if ( tool    && tool    !== item.tool                                 ) return false;
           if ( creator && creator !== item.creator                              ) return false;
           if ( tag     && ( !item.tags     || !item.tags    .includes( tag  ) ) ) return false;
           if ( lang    && ( !item.language || !item.language.includes( lang ) ) ) return false;
           return true;
         } );
 
-      }
-
-    }
-
-    /** fills the data lists for search inputs with entries */
-    function fillDataLists() {
-
-      // Search Bar
-      const search_bar = document.querySelector( 'input[type=search]' );
-      if ( !search_bar ) return;
-      fillDataList( 'all' );
-      fillDataList( 'app-all' );
-      fillDataList( 'component-all' );
-      search_bar.addEventListener( 'change', () => document.querySelector( 'form' ).submit() );
-
-      // Advanced Search
-      fillDataList( 'app-title' );
-      fillDataList( 'component-title' );
-      fillDataList( 'app-creator' );
-      fillDataList( 'app-tag' );
-      fillDataList( 'app-lang' );
-      fillDataList( 'component-title' );
-      fillDataList( 'component-creator' );
-      fillDataList( 'component-tag' );
-
-      /**
-       * fills a data list with entries
-       * @param {string} key - item key in the Session Storage where the entry values are stored; HTML ID of the data list
-       */
-      function fillDataList( key ) {
-        const datalist = document.querySelector( `datalist#${key}` );
-        if ( !datalist ) return;
-        JSON.parse( sessionStorage.getItem( key ) ).forEach( term => {
-          const entry = document.createElement( 'option' );
-          entry.innerText = term;
-          datalist.append( entry );
-        } );
       }
 
     }
@@ -801,66 +865,6 @@
         if ( link.getAttribute( 'href' ).includes( 'bootstrap' ) || link.getAttribute( 'href' ).includes( 'materialize' ) )
           document.head.removeChild( link );
       } );
-    }
-
-    /** displays the user in frontend as logged in */
-    function showLoggedIn() {
-
-      // show user in frontend
-      document.querySelector( '#username' ).innerText = user.name;
-      document.querySelector( '#user img' ).setAttribute( 'src', user.picture || './img/user.jpg' );
-
-      // hide and show correct buttons in the user dropdown
-      document.querySelector( '#login-btn' ).style.display = 'none';
-      document.querySelector( '#register-btn' ).style.display = 'none';
-      document.querySelector( '#my-apps-btn' ).style.display = 'inherit';
-      document.querySelector( '#profile-btn' ).style.display = 'inherit';
-      document.querySelector( '#logout-btn' ).style.display = 'inherit';
-
-    }
-
-    /** displays the user in frontend as logged out */
-    function showLoggedOut() {
-
-      // remove user in frontend
-      document.querySelector( '#username' ).innerText = '';
-      document.querySelector( '#user img' ).setAttribute( 'src', './img/user.jpg' );
-
-      // show login and register button and hide logout button
-      document.querySelector( '#login-btn' ).style.display = 'inherit';
-      document.querySelector( '#register-btn' ).style.display = 'inherit';
-      document.querySelector( '#my-apps-btn' ).style.display = 'none';
-      document.querySelector( '#profile-btn' ).style.display = 'none';
-      document.querySelector( '#logout-btn' ).style.display = 'none';
-
-    }
-
-    /** makes the modal dialogs movable via drag'n'drop */
-    function movableModals() {
-      $( '.modal-header' ).on( 'mousedown', function ( mousedownEvt ) {
-        const $draggable = $( this );
-        const $body = $( 'body' );
-        const x = mousedownEvt.pageX - $draggable.offset().left;
-        const y = mousedownEvt.pageY - $draggable.offset().top;
-        $body.on( 'mousemove.draggable', mousemoveEvt => {
-          $draggable.closest( '.modal-dialog' ).offset( {
-            "left": mousemoveEvt.pageX - x,
-            "top": mousemoveEvt.pageY - y
-          } );
-        } );
-        $body.one( 'mouseup', () => $body.off( 'mousemove.draggable' ) );
-        $draggable.closest( '.modal' ).one( 'bs.modal.hide', () => $body.off( 'mousemove.draggable' ) );
-      } );
-    }
-
-    /**
-     * renders a red text message in a webpage area with a fadeout effect
-     * @param {HTMLElement} elem - webpage area
-     * @param {string} message - text message
-     */
-    function renderHint( elem, message ) {
-      elem.innerHTML = `<span class="text-danger text-center">${message}</span>`;
-      setTimeout( () => elem.querySelector( 'span' ).classList.add( 'fadeout' ), 100 );
     }
 
   }
