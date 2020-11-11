@@ -116,7 +116,11 @@
       // add tool title to app metadata
       results[ 0 ].forEach( app => {
         const tool = highest[ ccm.helper.convertComponentURL( app.path ).name ];
-        if ( tool ) app.tool = tool.title;
+        if ( tool ) {
+          app.tool = tool.title;
+          if ( !app.icon && tool.icon )
+            app.icon = tool.icon;
+        }
       } );
 
       // store data of all apps and components in Session Storage
