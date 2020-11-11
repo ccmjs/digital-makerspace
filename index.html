@@ -57,7 +57,7 @@
             <button type="button" id="login-btn" class="dropdown-item" data-toggle="modal" data-target="#login-dialog">Login</button>
             <button type="button" id="register-btn" class="dropdown-item" data-toggle="modal" data-target="#register-dialog">Register</button>
             <a href="./results.html?my=apps" id="my-apps-btn" class="dropdown-item">My Apps</a>
-            <button disabled type="button" id="profile-btn" class="dropdown-item" data-toggle="modal" data-target="#profile-dialog">Profile</button>
+            <button type="button" id="profile-btn" class="dropdown-item" data-toggle="modal" data-target="#profile-dialog">Profile</button>
             <button type="button" id="logout-btn" class="dropdown-item">Logout</button>
           </nav>
         </div>
@@ -352,6 +352,11 @@
               <input type="text" class="form-control" id="register-name-input" name="name" required>
               <small>Please enter your full real name.</small>
             </div>
+            <div class="form-group">
+              <label for="register-picture-input">Profile Picture:</label>
+              <input type="url" class="form-control" id="register-picture-input" name="picture">
+              <small>Here you can give an image URL, ideally 180x180 pixels.</small>
+            </div>
             <p><small><span class="text-danger">*</span> indicates a required field</small></p>
             <div class="hint text-center"></div>
           </form>
@@ -392,6 +397,58 @@
         <!-- Modal Footer -->
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: User Profile -->
+  <div class="modal fade" id="profile-dialog" tabindex="-1" aria-labelledby="User Profile" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h5 class="modal-title">User Profile</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body px-4">
+          <form id="profile-form">
+            <div class="form-group">
+              <label for="profile-user-input">Username: <small class="text-danger">*</small></label>
+              <input type="text" class="form-control" id="profile-user-input" readonly>
+            </div>
+            <div class="form-group">
+              <label for="profile-password-input">Password: <small class="text-danger">*</small></label>
+              <input type="password" class="form-control" id="profile-old-password-input" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="The password must contain at least one uppercase letter, one lowercase letter and one number or special character and be at least 8 characters long." required>
+            </div>
+            <div class="form-group">
+              <label for="profile-password-input">New Password:</label>
+              <input type="password" class="form-control" id="profile-password-input" name="token" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="The password must contain at least one uppercase letter, one lowercase letter and one number or special character and be at least 8 characters long.">
+            </div>
+            <div class="form-group">
+              <label for="profile-name-input">Full name: <small class="text-danger">*</small></label>
+              <input type="text" class="form-control" id="profile-name-input" name="name" required>
+              <small>Please enter your full real name.</small>
+            </div>
+            <div class="form-group">
+              <label for="profile-picture-input">Profile Picture:</label>
+              <input type="url" class="form-control" id="profile-picture-input" name="picture">
+              <small>Here you can give an image URL, ideally 180x180 pixels.</small>
+            </div>
+            <p><small><span class="text-danger">*</span> indicates a required field</small></p>
+            <div class="hint text-center"></div>
+          </form>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="modal-footer d-flex justify-content-between">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close without Save</button>
+          <button type="submit" form="profile-form" class="btn btn-success">Save Changes</button>
         </div>
       </div>
     </div>

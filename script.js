@@ -210,27 +210,29 @@
       } );
     }
 
-    /** handles login, logout and registration */
+    /** handles login, logout, profile and registration */
     function handleUserDropdown() {
 
       // display user as logged in or logged out
       user ? showLoggedIn() : showLoggedOut();
 
       // set click event for logout button
-      document.querySelector( '#logout-btn' ).addEventListener( 'click', () => {
-        sessionStorage.removeItem( users );
-        user = null;
-        showLoggedOut();
+      document.querySelector( '#logout-btn' ).addEventListener( 'click', logout );
+
+      // set click event for profile button
+      document.querySelector( '#profile-btn' ).addEventListener( 'click', () => {
+        document.querySelector( '#profile-user-input' ).value = user.user;
+        document.querySelector( '#profile-name-input' ).value = user.name;
+        document.querySelector( '#profile-picture-input' ).value = user.picture || '';
       } );
 
       // set submit event for login form
       document.querySelector( '#login-form' ).addEventListener( 'submit', async event => {
         event.preventDefault();
-        let params = { realm: realm, store: users };
-        $( event.target ).serializeArray().forEach( ( { name, value } ) => params[ name ] = value );
-        params.token = md5( params.token );
         try {
-          user = await ccm.load( { url: url, params: params } );
+          const username = document.querySelector( '#user-input' ).value;
+          const password = document.querySelector( '#password-input' ).value;
+          user = await login( username, md5( password ) );
           sessionStorage.setItem( users, JSON.stringify( user ) );
           showLoggedIn();
           $( '#login-dialog' ).modal( 'hide' );
@@ -244,9 +246,8 @@
       // set submit event for registration form
       document.querySelector( '#register-form' ).addEventListener( 'submit', async event => {
         event.preventDefault();
-        const params = {
-          store: users,
-          set: {
+        try {
+          const user_data = {
             realm: realm,
             _: {
               realm: realm,
@@ -256,29 +257,48 @@
                 del: 'creator'
               }
             }
-          }
-        };
-        $( event.target ).serializeArray().forEach( ( { name, value } ) => params.set[ name ] = value );
-        params.set.key = params.set.user;
-        params.set.token = md5( params.set.token );
-        params.set._.creator = params.set.key;
-        try {
-          await ccm.load( { url: url, params: params } );
-          sessionStorage.setItem( users, JSON.stringify( await ccm.load( {
-            url: url,
-            params: {
-              realm: realm,
-              store: users,
-              user: params.set.key,
-              token: params.set.token
-            }
-          } ) ) );
+          };
+          $( event.target ).serializeArray().forEach( ( { name, value } ) => user_data[ name ] = value );
+          user_data.key = user_data.user;
+          user_data.token = md5( user_data.token );
+          user_data._.creator = user_data.key;
+          const store = await ccm.store( { name: users, url: url } );
+          const user_key = await store.set( user_data );
+          user = await login( user_key, user_data.token );
+          sessionStorage.setItem( users, JSON.stringify( user ) );
           $( '#register-dialog' ).modal( 'hide' );
+          showLoggedIn();
           $( '#register-success-dialog' ).modal( 'show' );
           event.target.reset();
         }
         catch ( e ) {
           renderHint( document.querySelector( '#register-form .hint' ), 'Registration failed. Maybe try a different username.' );
+        }
+      } );
+
+      // set submit event for profile form
+      document.querySelector( '#profile-form' ).addEventListener( 'submit', async event => {
+        event.preventDefault();
+        try {
+          const password = document.querySelector( '#profile-old-password-input' ).value;
+          const user_data = await login( user.key, md5( password ) );
+          if ( user_data.key !== user.key )
+            return renderHint( document.querySelector( '#profile-form .hint' ), 'Sorry. Your Password is not correct.' );
+          const store = await ccm.store( { name: users, url: url, token: user.token, realm: user.realm } );
+          const user_priodata = { key: user.key };
+          $( event.target ).serializeArray().forEach( ( { name, value } ) => ( value || name === 'picture' ) && ( user_priodata[ name ] = value ) );
+          if ( user_priodata.token )
+            user_priodata.token = md5( user_priodata.token );
+          const user_key = await store.set( user_priodata );
+          logout();
+          user = await login( user_key, user_priodata.token || md5( password ) );
+          sessionStorage.setItem( users, JSON.stringify( user ) );
+          $( '#profile-dialog' ).modal( 'hide' );
+          showLoggedIn();
+          event.target.reset();
+        }
+        catch ( e ) {
+          renderHint( document.querySelector( '#profile-form .hint' ), 'Update profile failed. Something went wrong.' );
         }
       } );
 
@@ -312,6 +332,31 @@
         document.querySelector( '#profile-btn' ).style.display = 'none';
         document.querySelector( '#logout-btn' ).style.display = 'none';
 
+      }
+
+      /**
+       * authenticates the user and returns user data
+       * @param user - username
+       * @param token - md5 of original password
+       * @returns {Promise<Object>} user data
+       */
+      async function login( user, token ) {
+        return ccm.load( {
+          url: url,
+          params: {
+            realm: realm,
+            store: users,
+            user: user,
+            token: token
+          }
+        } );
+      }
+
+      /** removes the local stored user data and displays the user as logged out */
+      function logout() {
+        sessionStorage.removeItem( users );
+        user = null;
+        showLoggedOut();
       }
 
       /**
