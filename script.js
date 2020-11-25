@@ -487,6 +487,15 @@
       // get key and metadata of the app
       const key = params.get( 'id' );
       const app = getItems( apps ).find( item => item.key === key );
+
+      // app not found? => abort
+      if ( !app ) {
+        document.title = document.title.replace( '${title}', 'not found' );
+        document.querySelector( 'main' ).innerHTML = '<div class="container px-3 pt-3 lead text-center">App not found</div>';
+        return;
+      }
+
+      // get tool and app configuration data
       const tool = getItems( components ).find( item => item.path === app.path );
       const config = [ 'ccm.get', app.source[ 0 ], app.source[ 1 ] ];
       const app_url = location.href.replace( 'app.html', 'show.html' );
@@ -641,7 +650,7 @@
             </tr>
             <tr>
               <th scope="row">Content Licence</th>
-              <td><a href="https://creativecommons.org/share-your-work/public-domain/cc0/" target="_blank" title="Every published App is Public Domain">${app.license}</a></td>
+              <td>${app.licence === 'CC0' ? `<a href="https://creativecommons.org/share-your-work/public-domain/cc0/" target="_blank" title="Every published App is Public Domain">${app.license}</a>` : '-'}</td>
             </tr>
             <tr>
               <th scope="row">Software Licence</th>
@@ -666,6 +675,25 @@
         document.querySelector( '#reviews' ).style.display = 'none';
       }
 
+      // set click event for the "Confirm" button that deletes an app
+      document.querySelector( '#confirm-delete-btn' ).addEventListener( 'click', () => {
+        if ( !user ) return;
+        Promise.all( [
+          ccm.store( { name: apps,    url: url, token: user.token, realm: user.realm } ).then( store => store.del( key ) ),
+          ccm.store( { name: configs, url: url, token: user.token, realm: user.realm } ).then( store => store.del( app.source[ 1 ] ) )
+        ] ).then( ( [ app_is_deleted, config_is_deleted ] ) => {
+          if ( app_is_deleted === true && config_is_deleted === true ) {
+            $( '#delete-success-dialog' ).modal( 'show' );
+          }
+        } );
+      } );
+
+      // show created app when the app is created successfully
+      $( '#delete-success-dialog' ).on( 'hide.bs.modal', () => {
+        sessionStorage.removeItem( apps );
+        location.reload();
+      } );
+
       // current user is the app creator?
       if ( user && app._.creator === user.key && app._.realm === user.realm ) {
         const button = document.querySelector( '#create-similar-btn' );
@@ -675,7 +703,8 @@
           document.querySelector( '#publish-app-btn' ).classList.remove( 'd-none' );
       }
       else {
-        document.querySelector( '#edit-meta-btn' ).style.display = 'none';
+        document.querySelector( '#edit-meta-btn' ).classList.add( 'd-none' );
+        document.querySelector( '#delete-app-btn' ).classList.add( 'd-none' );
       }
 
     }
@@ -855,7 +884,7 @@
           creator: user.name,
           language: [],
           format: 'application/json',
-          license: publish ? 'CC0' : '-',
+          license: publish ? 'CC0' : '',
           metaFormat: 'ccm-meta',
           metaVersion: '2.0.0',
           path: tool.path,
