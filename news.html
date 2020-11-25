@@ -12,7 +12,7 @@
   <script src="./libs/md5.min.js" defer></script>
   <script src="./libs/ccm.min.js" defer></script>
   <script src="./script.js" defer></script>
-  <title>Home | Digital Makerspace</title>
+  <title>News | Digital Makerspace</title>
 </head>
 <body class="bg-light">
 
@@ -36,11 +36,11 @@
       <!-- Menu Entries -->
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="./">Home <span class="sr-only">(current)</span></a>
-          </li>
           <li class="nav-item">
-            <a class="nav-link" href="./news.html">News</a>
+            <a class="nav-link" href="./">Home</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="./news.html">News <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="./apps.html">Apps</a>
@@ -69,10 +69,10 @@
   </header>
 
   <!-- Main -->
-  <main>
+  <main class="bg-white">
 
     <!-- Search Bar -->
-    <section class="border-top bg-white">
+    <section class="border-top">
       <form class="p-3" action="./results.html">
         <div class="form-row align-items-center">
           <label class="sr-only" for="search-all">Search</label>
@@ -94,169 +94,47 @@
       </form>
     </section>
 
-    <!-- Entry Point -->
-    <section class="jumbotron jumbotron-fluid border-bottom bg-white">
-      <div class="container">
-        <h1 class="display-4 ml-3 mr-3">The free Coworking Space for every Citizen!</h1>
-        <div class="container mt-5">
-          <div class="row">
-            <div class="col mb-3">
-              <img alt="Video Placeholder" class="img-thumbnail" src="./img/trailer.jpg" style="width: 100%; min-width: 300px; max-width: 500px">
-            </div>
-            <div class="col" style="min-width: 365px">
-              <h5 class="mt-0 mb-1">Create your own Apps &nbsp;<a class="btn btn-outline-primary btn-xs" href="tools.html">Open Toolbox</a></h5>
-              <p class="lead">We offer free digital tools for app creation. Use created apps anywhere on the web or combine them to an app collection.</p>
-              <h5 class="mt-0 mb-1">Find Apps of Others &nbsp;<a class="btn btn-outline-success btn-xs" href="apps.html">Explore Apps</a></h5>
-              <p class="lead">Use them however you like. Every published app is public domain. Just take them as template for your own apps.</p>
-              <h5 class="mt-0 mb-1">Add Components &nbsp;<a class="btn btn-outline-warning btn-xs" href="#">Developer Guide</a></h5>
-              <p class="lead">Add your own digital tools that allow others to create new kind of apps without programming knowledge.</p>
-            </div>
-          </div>
+    <!-- News -->
+    <section class="container pb-3">
+      <div class="media p-3">
+        <img src="img/news.jpg" class="mr-3" alt="Icon of a news entry" width="100" height="100">
+        <div class="media-body">
+          <h5 class="my-0">Editable Profile</h5>
+          <p class="mb-1"><small>November 25th, 2020</small></p>
+          After login you can now edit your profile via the "Profile" entry in the user dropdown at the top right. There you can see your username and full name, your password can be changed and an URL to a profile picture can be entered.
         </div>
       </div>
-    </section>
-
-    <!-- Apps -->
-    <section class="jumbotron jumbotron-fluid bg-tool border text-center">
-      <div class="container">
-        <h1 class="display-4 ml-3 mr-3">Create your own Apps</h1>
-        <p class="lead">
-          The Digital Makerspace offers free digital tools that allow you to create your own apps without programming knowledge.
-        </p>
-        <p class="mt-5 mb-5">
-          <img alt="Video Placeholder" class="img-thumbnail" src="./img/trailer.jpg" style="width: 100%; min-width: 300px; max-width: 500px">
-        </p>
-        <p>
-          <a class="btn btn-primary btn-lg" href="tools.html">
-            Open Toolbox
-            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-            </svg>
-          </a>
-        </p>
-      </div>
-    </section>
-
-    <!-- Respects for Apps -->
-    <section class="jumbotron jumbotron-fluid bg-white border">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-12 col-lg-10">
-            <div class="media">
-              <img alt="Portrait of an User" src="./img/user.jpg" class="portrait">
-              <div class="media-body">
-                <p class="h2">
-                  “With the Digital Makerspace, I was finally able to do things that were otherwise never so easy.”
-                </p>
-                <span>Enthusiastic User</span>
-              </div>
-            </div>
-          </div>
+      <div class="media p-3">
+        <img src="img/news.jpg" class="mr-3" alt="Icon of a news entry" width="100" height="100">
+        <div class="media-body">
+          <h5 class="my-0">Editable App Metadata</h5>
+          <p class="mb-1"><small>November 16th, 2020</small></p>
+          The metadata of an app such as title, description and category can now also be edited later.
         </div>
       </div>
-    </section>
-
-    <!-- Tools -->
-    <section class="jumbotron jumbotron-fluid bg-app border text-center">
-      <div class="container">
-        <h1 class="display-4 ml-3 mr-3">Find Apps of Others</h1>
-        <p class="lead">
-          Everything in the Digital Makerspace is public domain.
-          The apps can be embedded in any webpage area on the web or can be directly shared by URL.
-          You can also rate and comment them and most important you can use them as template for your own apps.
-        </p>
-        <p class="mt-5 mb-5">
-          <img alt="Video Placeholder" class="img-thumbnail" src="./img/trailer.jpg" style="width: 100%; min-width: 300px; max-width: 500px">
-        </p>
-        <p>
-          <a class="btn btn-success btn-lg" href="apps.html">
-            Explore Apps
-            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-            </svg>
-          </a>
-        </p>
-      </div>
-    </section>
-
-    <!-- Respects for Tools -->
-    <section class="jumbotron jumbotron-fluid bg-white border">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-12 col-lg-10">
-            <div class="media">
-              <img alt="Portrait of an User" src="./img/user.jpg" class="portrait">
-              <div class="media-body">
-                <p class="h2">
-                  “I have rarely found so much inspiration.”
-                </p>
-                <span>Enthusiastic User</span>
-              </div>
-            </div>
-          </div>
+      <div class="media p-3">
+        <img src="img/news.jpg" class="mr-3" alt="Icon of a news entry" width="100" height="100">
+        <div class="media-body">
+          <h5 class="my-0">List of your own Apps</h5>
+          <p class="mb-1"><small>November 11th, 2020</small></p>
+          After login you can now show all your created apps via the "My Apps" entry in the user dropdown at the top right. The list contains both the published apps and the unpublished apps.
         </div>
       </div>
-    </section>
-
-    <!-- Components -->
-    <section class="jumbotron jumbotron-fluid bg-developer border text-center">
-      <div class="container">
-        <h1 class="display-4 ml-3 mr-3">Developer Guide</h1>
-        <p class="lead">
-          Developers who are familiar with the <a href="https://github.com/ccmjs" target="_blank"><i>ccmjs</i> web technology</a> can publish a self-developed web component in the Digital Makerspace and add app builders that allow others to create their own apps based on this component.
-        </p>
-        <p class="mt-5 mb-5">
-          <img alt="Video Placeholder" class="img-thumbnail" src="./img/trailer.jpg" style="width: 100%; min-width: 300px; max-width: 500px">
-        </p>
-        <p>
-          <button disabled class="btn btn-warning btn-lg">
-            Open Guide
-            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-            </svg>
-          </button>
-        </p>
-      </div>
-    </section>
-
-    <!-- Respects for Components -->
-    <section class="jumbotron jumbotron-fluid bg-white border">
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-12 col-lg-10">
-            <div class="media">
-              <img alt="Portrait of an User" src="./img/user.jpg" class="portrait">
-              <div class="media-body">
-                <p class="h2">
-                  “It's hard to believe how easy it is to add new functionality to the web.”
-                </p>
-                <span>Enthusiastic User</span>
-              </div>
-            </div>
-          </div>
+      <div class="media p-3">
+        <img src="img/news.jpg" class="mr-3" alt="Icon of a news entry" width="100" height="100">
+        <div class="media-body">
+          <h5 class="my-0">Login, Logout and Registration</h5>
+          <p class="mb-1"><small>November 10th, 2020</small></p>
+          At the top right there is now a user dropdown via which you can log in, log out and, for the first time, create a free account yourself.
         </div>
       </div>
-    </section>
-
-    <!-- More Features -->
-    <section class="jumbotron jumbotron-fluid bg-features border text-center">
-      <div class="container">
-        <h1 class="display-4 ml-3 mr-3">More Features</h1>
-        <p class="lead">
-          Discover even more features that are made possible by the Digital Makerspace and its underlying web technology.
-        </p>
-        <ul class="mt-5 mb-5 text-left">
-          <li>Cross-Platform Realtime Collaboration</li>
-          <li>Mobile Desktop</li>
-        </ul>
-        <p>
-          <button disabled class="btn btn-info btn-lg">
-            Show me more
-            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-            </svg>
-          </button>
-        </p>
+      <div class="media p-3">
+        <img src="img/news.jpg" class="mr-3" alt="Icon of a news entry" width="100" height="100">
+        <div class="media-body">
+          <h5 class="my-0">Choose to Publish or not Publish an App</h5>
+          <p class="mb-1"><small>November 9th, 2020</small></p>
+          You can now freely choose whether or not to publish a new app. Apps that have not been published are not listed and therefore cannot be found using the search function, but can still be shared with others via the app URL.
+        </div>
       </div>
     </section>
   </main>
