@@ -333,14 +333,6 @@
               <input type="text" class="form-control" id="profile-user-input" readonly>
             </div>
             <div class="form-group">
-              <label for="profile-password-input">Password: <small class="text-danger">*</small></label>
-              <input type="password" class="form-control" id="profile-old-password-input" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="The password must contain at least one uppercase letter, one lowercase letter and one number or special character and be at least 8 characters long." required>
-            </div>
-            <div class="form-group">
-              <label for="profile-password-input">New Password:</label>
-              <input type="password" class="form-control" id="profile-password-input" name="token" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="The password must contain at least one uppercase letter, one lowercase letter and one number or special character and be at least 8 characters long.">
-            </div>
-            <div class="form-group">
               <label for="profile-name-input">Full name: <small class="text-danger">*</small></label>
               <input type="text" class="form-control" id="profile-name-input" name="name" required>
               <small>Please enter your full real name.</small>
@@ -349,6 +341,16 @@
               <label for="profile-picture-input">Profile Picture:</label>
               <input type="url" class="form-control" id="profile-picture-input" name="picture">
               <small>Here you can give an image URL, ideally 180x180 pixels.</small>
+            </div>
+            <div class="form-group">
+              <label for="profile-password-input">Old Password:</label>
+              <input type="password" class="form-control" id="profile-old-password-input">
+              <small>Only has to be set if you want to change your password.</small>
+            </div>
+            <div class="form-group">
+              <label for="profile-password-input">New Password:</label>
+              <input type="password" class="form-control" id="profile-password-input" name="token" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="The password must contain at least one uppercase letter, one lowercase letter and one number or special character and be at least 8 characters long.">
+              <small>Only has to be set if you want to change your password.</small>
             </div>
             <p><small><span class="text-danger">*</span> indicates a required field</small></p>
             <div class="hint text-center"></div>

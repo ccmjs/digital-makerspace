@@ -285,18 +285,24 @@
         event.preventDefault();
         try {
           const password = document.querySelector( '#profile-old-password-input' ).value;
-          const user_data = await login( user.key, md5( password ) );
-          if ( user_data.key !== user.key )
-            return renderHint( document.querySelector( '#profile-form .hint' ), 'Sorry. Your Password is not correct.' );
+          if ( password ) {
+            try {
+              await login( user.key, md5( password ) );
+            }
+            catch ( e ) {
+              return renderHint( document.querySelector( '#profile-form .hint' ), 'Sorry. Your Password is not correct.' );
+            }
+          }
           const store = await ccm.store( { name: users, url: url, token: user.token, realm: user.realm } );
           const user_priodata = { key: user.key };
           $( event.target ).serializeArray().forEach( ( { name, value } ) => ( value || name === 'picture' ) && ( user_priodata[ name ] = value ) );
-          if ( user_priodata.token )
+          if ( user_priodata.token ) {
+            if ( !password )
+              return renderHint( document.querySelector( '#profile-form .hint' ), 'Please also enter your old password.' );
             user_priodata.token = md5( user_priodata.token );
-          const user_key = await store.set( user_priodata );
-          logout();
-          user = await login( user_key, user_priodata.token || md5( password ) );
-          sessionStorage.setItem( users, JSON.stringify( user ) );
+          }
+          if ( await store.set( user_priodata ) !== user.key ) return;
+          sessionStorage.setItem( users, JSON.stringify( user = Object.assign( user, user_priodata ) ) );
           $( '#profile-dialog' ).modal( 'hide' );
           showLoggedIn();
           event.target.reset();
