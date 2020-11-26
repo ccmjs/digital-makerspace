@@ -1,0 +1,11 @@
+.entry {
+  padding: 0.6rem 2.3rem;
+  cursor: pointer;
+  line-height: 1.5rem;
+  color: rgb(35, 209, 35);
+}
+
+.entry:hover {
+  background-color: rgba(132, 162, 102, .9);
+  color: #ffffff;
+}
