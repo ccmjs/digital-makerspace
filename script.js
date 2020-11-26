@@ -798,7 +798,7 @@
       // set click event for the preview button
       document.querySelector( '#preview-btn' ).addEventListener( 'click', () => {
         if ( !builder_inst ) return;
-        ccm.start( tool.path, Object.assign( builder_inst.getValue(), { root: document.querySelector( '#preview' ) } ) );
+        ccm.start( tool.path, Object.assign( builder_inst.getValue(), { root: document.querySelector( '#preview' ) } ) ).then( () => cleanHead() );
       } );
 
       // current user is the app creator?
