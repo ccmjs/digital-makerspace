@@ -816,7 +816,7 @@
           const key = await store.set( Object.assign( builder_inst.getValue(), { key: config.key } ) );
           if ( key !== config.key ) return;
           sessionStorage.removeItem( 'dms-apps' );
-          document.querySelector( '#save-app-success a' ).setAttribute( 'href', './app.html?id=' + use );
+          document.querySelector( '#save-app-success a' ).setAttribute( 'href', './app.html?id=' + template );
           $( '#show-preview' ).modal( 'hide' );
           $( '#save-app-success' ).modal( 'show' );
         } );
