@@ -43,27 +43,27 @@ header {
   bottom: 2px;
 }
 
-.card {
+.categories .card {
   width: 300px;
 }
 
-.card:not(.disabled) {
+.categories .card:not(.disabled) {
   cursor: pointer;
 }
 
-a.card, a.card:hover {
+.categories a.card, a.card:hover {
   color: black;
   text-decoration: none;
 }
 
-.card img {
+.categories .card img {
   height: 200px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   border-bottom: 1px solid rgba(0,0,0,.125);
 }
 
-.card:hover {
+.categories .card:hover {
   border-color: black;
 }
 
