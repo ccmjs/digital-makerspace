@@ -594,7 +594,7 @@
       document.querySelector( '#description' ).value = app.description || '';
       const tags = $( document.querySelector( '#tags' ) ).selectize( {
         create: true,
-        plugins: [ 'remove_button' ],
+        plugins: [ 'drag_drop', 'remove_button' ],
         valueField: 'value',
         labelField: 'value',
         searchField: 'value',
