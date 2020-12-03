@@ -1,0 +1,22 @@
+{
+  "name": "Digital Makerspace",
+  "short_name": "Makerspace",
+  "icons": [
+    {
+      "src": "/digital-makerspace/img/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/digital-makerspace/img/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/digital-makerspace/",
+  "background_color" : "#3367D6",
+  "display": "standalone",
+  "scope": "/digital-makerspace/",
+  "theme_color": "#3367D6",
+  "description": "The free Coworking Space for Everyone"
+}
