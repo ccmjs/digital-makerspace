@@ -11,6 +11,12 @@
   const default_icon = './img/logo.png';                        // path to default app icon
   const items = {};
 
+  /**
+   * user data if user is logged in
+   * @type {Object}
+   */
+  let user = JSON.parse( sessionStorage.getItem( users ) );
+
   // no data of apps and components loaded yet? => start loading
   if ( !sessionStorage.getItem( apps ) || !sessionStorage.getItem( components ) || !sessionStorage.getItem( tools ) )
     init();
@@ -52,7 +58,7 @@
 
       // collect predefined options for app searches and eliminate duplicates
       results[ 0 ].forEach( app => {
-        if ( !app.published ) return;
+        if ( !app.published && ( !user || user.key !== app._.creator ) ) return;
 
         add( term.all, app.title );
         add( term.app.all, app.title );
@@ -136,12 +142,6 @@
 
   /** when all data is loaded */
   function ready() {
-
-    /**
-     * user data if user is logged in
-     * @type {Object}
-     */
-    let user = JSON.parse( sessionStorage.getItem( users ) );
 
     fillDataLists();
     draggableModals();
@@ -458,7 +458,7 @@
         // simple search
         if ( search )
           return items.filter( item => {
-            if ( item.format === 'application/json' && !item.published ) return false;
+            if ( item.format === 'application/json' && !item.published && ( !user || user.key !== item._.creator ) ) return false;
             for ( const key in item ) {
               if ( item.hasOwnProperty( key ) )
                 if ( Array.isArray( item[ key ] ) ) {
@@ -474,10 +474,10 @@
 
         // advanced search
         return items.filter( item => {
-          if ( item.format === 'application/json' && !item.published            ) return false;
-          if ( title   && title   !== item.title                                ) return false;
-          if ( tool    && tool    !== item.tool                                 ) return false;
-          if ( creator && creator !== item.creator                              ) return false;
+          if ( item.format === 'application/json' && !item.published && ( !user || user.key !== item._.creator ) ) return false;
+          if ( title   && title   !== item.title   ) return false;
+          if ( tool    && tool    !== item.tool    ) return false;
+          if ( creator && creator !== item.creator ) return false;
           if ( tag     && ( !item.tags     || !item.tags    .includes( tag  ) ) ) return false;
           if ( lang    && ( !item.language || !item.language.includes( lang ) ) ) return false;
           return true;
