@@ -238,9 +238,7 @@
           const password = document.querySelector( '#password-input' ).value;
           user = await login( username, md5( password ) );
           sessionStorage.setItem( users, JSON.stringify( user ) );
-          showLoggedIn();
-          $( '#login-dialog' ).modal( 'hide' );
-          event.target.reset();
+          location.reload();
         }
         catch ( e ) {
           renderHint( document.querySelector( '#login-form .hint' ), 'Login failed. Please try again.' );
@@ -279,6 +277,9 @@
           renderHint( document.querySelector( '#register-form .hint' ), 'Registration failed. Maybe try a different username.' );
         }
       } );
+
+      // reload page when user is registered successfully
+      $( '#register-success-dialog' ).on( 'hide.bs.modal', () => location.reload() );
 
       // set submit event for profile form
       document.querySelector( '#profile-form' ).addEventListener( 'submit', async event => {
@@ -365,8 +366,7 @@
       /** removes the local stored user data and displays the user as logged out */
       function logout() {
         sessionStorage.removeItem( users );
-        user = null;
-        showLoggedOut();
+        location.reload();
       }
 
       /**
@@ -721,7 +721,7 @@
         } );
       } );
 
-      // show created app when the app is created successfully
+      // reload page when update apps data when the app is deleted successfully
       $( '#delete-success-dialog' ).on( 'hide.bs.modal', () => {
         sessionStorage.removeItem( apps );
         location.reload();
