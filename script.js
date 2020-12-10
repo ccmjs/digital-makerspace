@@ -347,18 +347,18 @@
 
       /**
        * authenticates the user and returns user data
-       * @param user - username
-       * @param token - md5 of original password
+       * @param {string} user - username
+       * @param {string} password - md5 of original password
        * @returns {Promise<Object>} user data
        */
-      async function login( user, token ) {
+      async function login( user, password ) {
         return ccm.load( {
           url: url,
           params: {
             realm: realm,
             store: users,
             user: user,
-            token: token
+            token: password
           }
         } );
       }
