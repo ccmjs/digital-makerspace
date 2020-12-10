@@ -97,7 +97,17 @@
 
     <!-- Search Results -->
     <section>
-      <h1 class="p-3 mb-0">Search Results:</h1>
+      <div class="row mx-0">
+        <div class="col">
+          <h2 id="search_results_topic" class="text-nowrap">Search Results:</h2>
+        </div>
+        <div class="col">
+          <select id="search_results_order" class="form-control mb-2">
+            <option value="title">Alphabetically by Title</option>
+            <option value="newest">Newest First</option>
+          </select>
+        </div>
+      </div>
       <ul id="search_results" class="list-unstyled"></ul>
     </section>
   </main>

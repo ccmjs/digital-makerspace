@@ -385,7 +385,7 @@
     function showSearchResults() {
 
       // collect relevant GET parameters from URL
-      const { my, only, search, title, tool, creator, tag, lang } = {
+      const { my, only, search, title, tool, creator, tag, lang, order } = {
         my:      params.get( 'my'       ),
         only:    params.get( 'only'     ),
         search:  params.get( 'search'   ),
@@ -393,7 +393,8 @@
         tool:    params.get( 'tool'     ),
         creator: params.get( 'author'   ),
         tag:     params.get( 'category' ),
-        lang:    params.get( 'language' )
+        lang:    params.get( 'language' ),
+        order:   params.get( 'order'    ) || 'title'
       };
 
       // determine search results
@@ -409,8 +410,18 @@
           items = items.concat( findItems( tools ) );
       }
 
-      // sort search results by title
-      items.sort( ( a, b ) => a.title.localeCompare( b.title ) );
+      // set topic for search results
+      document.querySelector( '#search_results_topic' ).innerText = getTopic();
+
+      // sort search results in selected order
+      const select = document.querySelector( '#search_results_order' );
+      select.querySelector( 'option[value="' + order + '"]' ).setAttribute( 'selected', '' );
+      select.addEventListener( 'change', () => {
+        const params = new URLSearchParams( location.search );
+        params.set( 'order', select.value );
+        window.location.search = params.toString();
+      } );
+      items.sort( order === 'title' ? ( a, b ) => a.title.localeCompare( b.title ) : ( a, b ) => new Date( b.created_at ).getTime() - new Date( a.created_at ).getTime() );
 
       /**
        * list element for search results
@@ -482,6 +493,22 @@
           if ( lang    && ( !item.language || !item.language.includes( lang ) ) ) return false;
           return true;
         } );
+
+      }
+
+      /**
+       * returns the topic for search results
+       * @returns {string}
+       */
+      function getTopic() {
+        if ( my === 'apps' )
+          return 'My Apps';
+        if ( search )
+          return `Search Results for ${only ? ( only === 'apps' ? 'Apps with' : 'Tools with' ) : ''} "${search}"`;
+        if ( !search && !title && !tool && !creator && tag && !lang )
+          return `${only === 'apps' ? 'Apps' : 'Tools'} of Category "${tag}"`;
+        else
+          return `Search Results:`;
 
       }
 
