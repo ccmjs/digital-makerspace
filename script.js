@@ -322,8 +322,10 @@
       } );
 
       // set click event for on-demand login and register button
-      document.querySelector( '#ondemand-login-btn' ).addEventListener( 'click', () => ondemand = true );
-      document.querySelector( '#ondemand-register-btn' ).addEventListener( 'click', () => ondemand = true );
+      if ( document.querySelector( '#ondemand-login-btn' ) ) {
+        document.querySelector( '#ondemand-login-btn' ).addEventListener( 'click', () => ondemand = true );
+        document.querySelector( '#ondemand-register-btn' ).addEventListener( 'click', () => ondemand = true );
+      }
 
       /** displays the user in frontend as logged in */
       function showLoggedIn() {
