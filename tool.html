@@ -446,7 +446,7 @@
         <!-- Modal Body -->
         <div class="modal-body">
           <form id="app-creation-form">
-            <p class="lead">Please provide additional information about your app, so that you and others can find the app more easily.</p>
+            <p class="lead">Please provide additional information about the app, so that you and others can find the app more easily.</p>
             <div class="form-group">
               <label for="title">Title: <small class="text-danger">*</small></label>
               <input type="text" class="form-control" id="title" name="title" aria-describedby="Title" maxlength="33" required>
@@ -527,8 +527,10 @@
 
         <!-- Modal Footer -->
         <div class="modal-footer d-flex justify-content-between">
-          <button type="button" id="create-app-btn" class="btn btn-warning" data-dismiss="modal">Create without Publish</button>
-          <button type="button" id="publish-app-btn" class="btn btn-success" data-dismiss="modal">Create and Publish</button>
+          <button type="button" id="create-app-btn" class="btn btn-warning with-user" data-dismiss="modal">Create without Publish</button>
+          <button type="button" id="publish-app-btn" class="btn btn-success with-user" data-dismiss="modal">Create and Publish</button>
+          <button type="button" id="ondemand-login-btn" class="btn btn-primary without-user" data-dismiss="modal" data-toggle="modal" data-target="#login-dialog">Login</button>
+          <button type="button" id="ondemand-register-btn" class="btn btn-success without-user" data-dismiss="modal" data-toggle="modal" data-target="#register-dialog">Create free Account</button>
         </div>
       </div>
     </div>

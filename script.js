@@ -216,6 +216,7 @@
 
     /** handles login, logout, profile and registration */
     function handleUserDropdown() {
+      let ondemand = false;
 
       // display user as logged in or logged out
       user ? showLoggedIn() : showLoggedOut();
@@ -238,7 +239,14 @@
           const password = document.querySelector( '#password-input' ).value;
           user = await login( username, md5( password ) );
           sessionStorage.setItem( users, JSON.stringify( user ) );
-          location.reload();
+          if ( ondemand ) {
+            showLoggedIn();
+            $( '#login-dialog' ).modal( 'hide' );
+            event.target.reset();
+            ondemand = false;
+          }
+          else
+            location.reload();
         }
         catch ( e ) {
           renderHint( document.querySelector( '#login-form .hint' ), 'Login failed. Please try again.' );
@@ -279,7 +287,7 @@
       } );
 
       // reload page when user is registered successfully
-      $( '#register-success-dialog' ).on( 'hide.bs.modal', () => location.reload() );
+      $( '#register-success-dialog' ).on( 'hide.bs.modal', () => ( ondemand ? ondemand = false : location.reload() ) || true );
 
       // set submit event for profile form
       document.querySelector( '#profile-form' ).addEventListener( 'submit', async event => {
@@ -312,6 +320,10 @@
           renderHint( document.querySelector( '#profile-form .hint' ), 'Update profile failed. Something went wrong.' );
         }
       } );
+
+      // set click event for on-demand login and register button
+      document.querySelector( '#ondemand-login-btn' ).addEventListener( 'click', () => ondemand = true );
+      document.querySelector( '#ondemand-register-btn' ).addEventListener( 'click', () => ondemand = true );
 
       /** displays the user in frontend as logged in */
       function showLoggedIn() {
@@ -875,11 +887,13 @@
       // user must be logged in to save an app
       $( '#publish-app' ).on( 'show.bs.modal', () => {
         if ( user ) {
-          $( '#publish-app button' ).prop( 'disabled', false );
+          $( '#publish-app .with-user' ).show();
+          $( '#publish-app .without-user' ).hide();
           document.querySelector( '#publish-app .hint' ).innerHTML = '';
         }
         else {
-          $( '#publish-app button' ).prop( 'disabled', true );
+          $( '#publish-app .with-user' ).hide();
+          $( '#publish-app .without-user' ).show();
           document.querySelector( '#publish-app .hint' ).innerText = 'You are currently not logged in';
         }
       } );
