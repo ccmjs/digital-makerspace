@@ -851,6 +851,11 @@
       // current user is the app creator?
       if ( user && app && app._.creator === user.key && app._.realm === user.realm ) {
 
+        // show title of edited app
+        const app_alert = document.querySelector( '#app-alert' );
+        app_alert.classList.remove( 'd-none' );
+        app_alert.querySelector( 'b' ).innerText = app.title;
+
         // set click event for the 'Save' buttons
         $( '.save-app-btn' ).click( async () => {
           const store = await ccm.store( { name: configs, url: url, token: user.token, realm: user.realm } );
