@@ -821,7 +821,7 @@
       if ( use ) builder = builders.find( builder => builder.title === use );
       let config = sessionStorage.getItem( 'config' );
       config && sessionStorage.removeItem( 'config' );
-      const app = !config && getItems( apps ).find( item => item.key === template );
+      const app = getItems( apps ).find( item => item.key === template );
       let builder_inst;
       Promise.all( [
         ccm.helper.solveDependency( builder.app ),
