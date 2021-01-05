@@ -629,27 +629,17 @@
       document.querySelector( '#qr_code' ).appendChild( qr_code_elem.firstChild );
 
       // fill the input fields of the form for edit app information with initial values
-      document.querySelector( '#title' ).value = app.title;
-      document.querySelector( '#icon' ).value = app.icon || '';
-      document.querySelector( '#subject' ).value = app.subject || '';
-      document.querySelector( '#description' ).value = app.description || '';
-      const tags = $( document.querySelector( '#tags' ) ).selectize( {
-        create: true,
-        plugins: [ 'drag_drop', 'remove_button' ],
-        valueField: 'value',
-        labelField: 'value',
-        searchField: 'value',
-        options: JSON.parse( sessionStorage.getItem( 'app-tag' ) ).map( tag => { return { value: tag }; } ),
-        items: app.tags
-      } )[ 0 ].selectize;
-      app.language && app.language.forEach( lang => { if ( lang ) document.querySelector( '#' + lang ).checked = true; } );
+      const tags = fillEditMetaForm();
+
+      // set click event of the cancel button in the edit app information modal dialog
+      $( '#edit-meta' ).on( 'hide.bs.modal', fillEditMetaForm );
 
       // set submit event of the form for edit app information
       document.querySelector( '#edit-meta-form' ).addEventListener( 'submit', async event => {
         event.preventDefault();
         if ( !user ) return;
         const app_meta = { key: key, language: [] };
-        $( '#edit-meta-form' ).serializeArray().forEach( ( { name, value } ) => value && ( name === 'language' ? app_meta[ name ].push( value ) : app_meta[ name ] = value ) );
+        $( '#edit-meta-form' ).serializeArray().forEach( ( { name, value } ) => name === 'language' ? app_meta[ name ].push( value ) : app_meta[ name ] = value );
         app_meta.tags = tags.items;
         const store = await ccm.store( { name: apps, url: url, token: user.token, realm: user.realm } );
         const response = await store.set( app_meta );
@@ -754,6 +744,31 @@
         document.querySelector( '#delete-app-btn' ).classList.add( 'd-none' );
       }
 
+      /** fills the input fields of the form for edit app information with initial values */
+      function fillEditMetaForm() {
+
+        // reset input field values
+        document.querySelector( '#edit-meta-form' ).reset();
+        document.querySelector( 'label + span' ).innerHTML = '<select id="tags" multiple></select>';
+
+        // fill the input fields with initial values
+        document.querySelector( '#title' ).value = app.title;
+        document.querySelector( '#icon' ).value = app.icon || '';
+        document.querySelector( '#subject' ).value = app.subject || '';
+        document.querySelector( '#description-input' ).value = app.description || '';
+        const tags = $( document.querySelector( '#tags' ) ).selectize( {
+          create: true,
+          plugins: [ 'drag_drop', 'remove_button' ],
+          valueField: 'value',
+          labelField: 'value',
+          searchField: 'value',
+          options: JSON.parse( sessionStorage.getItem( 'app-tag' ) ).map( tag => { return { value: tag }; } ),
+          items: app.tags
+        } )[ 0 ].selectize;
+        app.language && app.language.forEach( lang => { if ( lang ) document.querySelector( '#' + lang ).checked = true; } );
+
+        return tags;
+      }
     }
 
     /** shows a tool for app creation in frontend */
