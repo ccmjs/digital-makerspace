@@ -435,7 +435,12 @@
         params.set( 'order', select.value );
         window.location.search = params.toString();
       } );
-      items.sort( order === 'title' ? ( a, b ) => a.title.localeCompare( b.title ) : ( a, b ) => new Date( b.created_at ).getTime() - new Date( a.created_at ).getTime() );
+      const sort_by = {
+        title: ( a, b ) => a.title.localeCompare( b.title ),
+        tool: ( a, b ) => ( a.tool || a.title ).localeCompare( b.tool || b.title ) || sort_by.title( a, b ),
+        newest: ( a, b ) => new Date( b.created_at ).getTime() - new Date( a.created_at ).getTime() || sort_by.title( a, b )
+      };
+      items.sort( sort_by[ order ] );
 
       /**
        * list element for search results
