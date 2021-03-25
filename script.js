@@ -830,7 +830,7 @@
       // prepare app builders
       const builder_elem = document.querySelector( '#app_builder article' );
       const builders = tool.ignore.builders;
-      if ( !builders.length ) return builder_elem.innerHTML = '<p class="lead pt-3 text-center">Sorry! This tool has no app builder yet.</p>';
+//    if ( !builders.length ) return builder_elem.innerHTML = '<p class="lead pt-3 text-center">Sorry! This tool has no app builder yet.</p>';
       builders.push( {
         title: 'JSON Builder',
         app: [ 'ccm.component', 'https://ccmjs.github.io/akless-components/json_builder/versions/ccm.json_builder-2.1.0.js', { directly: true, nosubmit: true } ]
