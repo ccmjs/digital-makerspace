@@ -569,8 +569,9 @@
         </ul>
       `;
 
-      // add target URL for the link button to create a similar app
-      document.querySelector( '#trailer nav a' ).setAttribute( 'href', `./tool.html?id=${tool.key}&template=${key}` );
+      // add target URL for the link button to create a similar app and create new app button
+      document.querySelector( '#create-similar-btn' ).setAttribute( 'href', `./tool.html?id=${tool.key}&template=${key}` );
+      document.querySelector( '#create-new-btn' ).setAttribute( 'href', `./tool.html?id=${tool.key}` );
 
       // add inputs for handover of the app
       document.querySelector( '#handover #inputs' ).innerHTML = `
