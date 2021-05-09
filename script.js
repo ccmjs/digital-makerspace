@@ -845,11 +845,13 @@
       const app = getItems( apps ).find( item => item.key === template );
       let builder_inst;
       Promise.all( [
+        ccm.helper.solveDependency( [ 'ccm.component', tool.path ] ),
         ccm.helper.solveDependency( builder.app ),
         config && JSON.parse( config ) || app && ccm.get( app.source[ 0 ], app.source[ 1 ] )
-      ] ).then( ( [ component, template ] ) => component.start( {
+      ] ).then( async ( [ tool, builder, template ] ) => builder.start( {
         root: builder_elem,
-        data: { store: [ 'ccm.store', { app: config = template } ], key: 'app' }
+        data: { store: [ 'ccm.store', { app: config = template } ], key: 'app' },
+        'ignore.defaults': await ccm.helper.integrate( tool.config, ccm.helper.deepValue( builder, 'config.ignore.defaults' ), true )
       } ) ).then( builder => { builder_inst = builder; cleanHead(); } );
 
       // add entries for tab menu to switch between app builders
