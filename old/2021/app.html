@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="André Kless <andre.kless@web.de> 2020">
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="./libs/bootstrap.min.css">
+  <link rel="stylesheet" href="./libs/selectize.css">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./libs/jquery-3.5.1.min.js" defer></script>
+  <script src="./libs/jquery-ui.min.js" defer></script>
+  <script src="./libs/bootstrap.bundle.min.js" defer></script>
+  <script src="./libs/md5.min.js" defer></script>
+  <script src="./libs/selectize.min.js" defer></script>
+  <script src="./libs/selectize-drag_drop-plugin.js" defer></script>
+  <script src="./libs/selectize-remove_button-plugin.js" defer></script>
+  <script src="./libs/moment.min.js" defer></script>
+  <script src="./libs/qrcode.min.js" defer></script>
+  <script src="./libs/ccm.min.js" defer></script>
+  <script src="./script.js" defer></script>
+  <title>App: ${title} | Digital Makerspace</title>
+</head>
+<body class="bg-light">
+
+  <!-- Header -->
+  <header class="border-bottom">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+      <!-- Logo -->
+      <a class="navbar-brand" href="./">
+        <img src="./img/logo.png" width="30" height="30" alt="" loading="lazy">
+        <span class="pl-1">Digital Makerspace</span>
+      </a>
+
+      <!-- Hamburger Button -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Menu Entries -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="./">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./news.html">News</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./apps.html">Apps</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./tools.html">Tools</a>
+          </li>
+        </ul>
+
+        <!-- User Dropdown -->
+        <div id="user-dropdown" class="dropdown">
+          <button id="user" class="btn btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span id="username"></span>
+            <img src="" alt="User Picture" class="img-thumbnail" width="32" height="32">
+          </button>
+          <nav class="dropdown-menu" aria-labelledby="user">
+            <button type="button" id="login-btn" class="dropdown-item" data-toggle="modal" data-target="#login-dialog">Login</button>
+            <button type="button" id="register-btn" class="dropdown-item" data-toggle="modal" data-target="#register-dialog">Register</button>
+            <a href="./results.html?my=apps" id="my-apps-btn" class="dropdown-item">My Apps</a>
+            <button type="button" id="profile-btn" class="dropdown-item" data-toggle="modal" data-target="#profile-dialog">Profile</button>
+            <button type="button" id="logout-btn" class="dropdown-item">Logout</button>
+          </nav>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main -->
+  <main id="app-view" class="bg-white pb-3">
+
+    <!-- Trailer -->
+    <section id="trailer" class="container pt-4 pb-2">
+      <div class="row">
+        <div class="col">
+          <article id="abstract"></article>
+        </div>
+        <div class="col mt-3 mb-3 d-flex align-items-center">
+          <nav class="text-nowrap d-flex overflow-auto">
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#handover" title="Use this App anywhere on the Web">Share App</button>
+            <a id="create-similar-btn" class="btn btn-primary" title="Use this App as Template for an own App">Create Similar App</a>
+            <button type="button" id="publish-app-btn" class="btn btn-info d-none" data-toggle="modal" data-target="#agreement">Publish App</button>
+            <a id="create-new-btn" class="btn btn-warning" title="Create a new App of the same kind">Create New</a>
+          </nav>
+          <br>
+        </div>
+      </div>
+    </section>
+
+    <!-- App -->
+    <section id="app" class="container">
+      <p class="text-muted">App &nbsp;<a class="btn btn-outline-success btn-xs" title="Opens the App in a new Tab">Fullscreen</a></p>
+      <article class="bg-white border">
+        <div class="d-flex justify-content-center align-items-center spinner">
+          <div class="spinner-border text-success" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- Description -->
+    <section id="description" class="container">
+      <p class="text-muted">Description</p>
+      <article></article>
+    </section>
+
+    <!-- Metadata -->
+    <section id="meta" class="container">
+      <p class="text-muted">Additional Information &nbsp;<a id="edit-meta-btn" class="btn btn-outline-warning btn-xs" data-toggle="modal" data-target="#edit-meta" title="Edit the Additional Information about your App">Edit</a></p>
+      <article></article>
+    </section>
+
+    <!-- Reviews -->
+    <section id="reviews" class="container pb-4">
+      <p class="text-muted">Reviews</p>
+      <article class="p-5 text-center bg-app rounded">REVIEWS</article>
+    </section>
+
+    <!-- Delete App Button -->
+    <section class="container d-flex py-3 justify-content-end">
+      <button type="button" id="delete-app-btn" class="btn btn-sm btn-outline-danger" data-toggle="modal" data-target="#delete-app">Delete App</button>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container-fluid bg-light pt-2 pb-2 border-top">
+      <div class="row">
+
+        <!-- Copyright -->
+        <div class="col mt-1 mb-1 d-flex align-items-center">
+          <a href="https://www.h-brs.de" target="_blank">
+            <img height="32" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNi4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkViZW5lXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB3aWR0aD0iMTQ5NS43ODlweCIgaGVpZ2h0PSIyNjcuNDc1cHgiIHZpZXdCb3g9IjAgMCAxNDk1Ljc4OSAyNjcuNDc1IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCAxNDk1Ljc4OSAyNjcuNDc1Ig0KCSB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxnIGlkPSJLcmVpc2VfeDVGX2N5YW4iPg0KCTxjaXJjbGUgZmlsbD0iIzAwOUVFMCIgc3Ryb2tlPSIjMDA5RUUwIiBzdHJva2Utd2lkdGg9IjIiIGN4PSI0MDkuNDI1IiBjeT0iMTMyLjg5NiIgcj0iMTA1LjI1NSIvPg0KPC9nPg0KPGcgaWQ9IlNjaHJpZnQiPg0KCTxwYXRoIGQ9Ik03MjQuMjA1LDQ5LjI5NGgxNC4wMDF2MjguMjAyaDI4LjAwMVY0OS4yOTRoMTQuMDAxdjY5LjgwNWgtMTQuMDAxVjg4LjQ5NmgtMjguMDAxdjMwLjYwM2gtMTQuMDAxVjQ5LjI5NHoiLz4NCgk8cGF0aCBkPSJNODE4LjgwNSw2Ni4zOTVjMTUuMzAyLDAsMjcuMDAxLDEwLjMsMjcuMDAxLDI3LjMwMmMwLDE0LjgwMS05Ljg5OSwyNi42MDItMjcuMDAxLDI2LjYwMg0KCQljLTE3LjAwMSwwLTI2LjkwMS0xMS44MDEtMjYuOTAxLTI2LjYwMkM3OTEuOTAzLDc2LjY5NSw4MDMuNjA0LDY2LjM5NSw4MTguODA1LDY2LjM5NXogTTgxOC44MDUsMTA5Ljg5Nw0KCQljMTAuMzAyLDAsMTMtOS4yLDEzLTE3LjgwMWMwLTcuOTAxLTQuMTk5LTE1LjMwMi0xMy0xNS4zMDJjLTguNzAxLDAtMTIuOSw3LjYwMi0xMi45LDE1LjMwMg0KCQlDODA1LjkwNCwxMDAuNTk3LDgwOC42MDQsMTA5Ljg5Nyw4MTguODA1LDEwOS44OTd6Ii8+DQoJPHBhdGggZD0iTTg4OS43MDQsNzguNjk2Yy0yLjQtMS4xLTUtMS45LTkuMTAyLTEuOWMtOC4zLDAtMTMuNjAxLDYuNjAyLTEzLjYwMSwxNi4zMDJjMCw5LjUsNC41LDE2LjgwMSwxMy45MDEsMTYuODAxDQoJCWMzLjgsMCw4LTEuNCwxMC4zMDEtMi40bDAuNiwxMS4xMDJjLTMuODk5LDEuMTk5LTcuOSwxLjY5OS0xMy40LDEuNjk5Yy0xNi45MDEsMC0yNS40MDItMTEuNTAxLTI1LjQwMi0yNy4yMDENCgkJYzAtMTQuOTAxLDguODAxLTI2LjcwMiwyNC45MDItMjYuNzAyYzUuMzk5LDAsOS4zLDAuNiwxMywxLjdMODg5LjcwNCw3OC42OTZ6Ii8+DQoJPHBhdGggZD0iTTkwMC43MDEsNDQuMDk0aDEzLjR2MzAuNTAyaDAuMmMzLjQtNSw5LjItOC4yLDE2LjIwMS04LjJjMTIuMjAxLDAsMTcuNTAxLDguNjAxLDE3LjUwMSwyMC4yMDF2MzIuNTAyaC0xMy40MDFWOTEuNTk3DQoJCWMwLTYuMzAyLTAuMS0xNC44MDItOC42OTktMTQuODAyYy05LjcwMSwwLTExLjgwMiwxMC41MDEtMTEuODAyLDE3LjEwMnYyNS4yMDJoLTEzLjRWNDQuMDk0TDkwMC43MDEsNDQuMDk0eiIvPg0KCTxwYXRoIGQ9Ik05OTIuNDAxLDc4LjM5NmMtNC4xMDEtMS40LTcuMTAyLTIuMi0xMi0yLjJjLTMuNjAxLDAtNy45LDEuMy03LjksNS43MDFjMCw4LjIsMjMuMzAxLDMsMjMuMzAxLDIxLjYwMQ0KCQljMCwxMi4wMDEtMTAuNywxNi44MDEtMjEuNjAxLDE2LjgwMWMtNS4xMDIsMC0xMC4zMDEtMC44OTktMTUuMjAxLTIuMTk5bDAuOC0xMWM0LjIsMi4xLDguNjAyLDMuMzk5LDEzLjIwMSwzLjM5OQ0KCQljMy40LDAsOC44LTEuMyw4LjgtNi4zYzAtMTAuMTAxLTIzLjMwMS0zLjItMjMuMzAxLTIxLjgwMWMwLTExLjEwMiw5LjcwMS0xNi4wMDEsMjAuMjAxLTE2LjAwMWM2LjMsMCwxMC40LDEsMTQuNjAxLDEuODk5DQoJCUw5OTIuNDAxLDc4LjM5NnoiLz4NCgk8cGF0aCBkPSJNMTAzOS42MDEsNzguNjk2Yy0yLjM5OS0xLjEtNS4wMDEtMS45LTkuMTAxLTEuOWMtOC4zMDEsMC0xMy42MDIsNi42MDItMTMuNjAyLDE2LjMwMmMwLDkuNSw0LjUwMSwxNi44MDEsMTMuOSwxNi44MDENCgkJYzMuOCwwLDgtMS40LDEwLjMwMS0yLjRsMC42MDEsMTEuMTAyYy0zLjksMS4xOTktNy45LDEuNjk5LTEzLjQsMS42OTljLTE2LjkwMSwwLTI1LjQwMS0xMS41MDEtMjUuNDAxLTI3LjIwMQ0KCQljMC0xNC45MDEsOC44MDEtMjYuNzAyLDI0LjkwMS0yNi43MDJjNS40LDAsOS4zMDEsMC42LDEzLjAwMSwxLjdMMTAzOS42MDEsNzguNjk2eiIvPg0KCTxwYXRoIGQ9Ik0xMDUwLjU5Nyw0NC4wOTRoMTMuNHYzMC41MDJoMC4yYzMuMzk5LTUsOS4yMDEtOC4yLDE2LjIwMS04LjJjMTIuMjAxLDAsMTcuNTAxLDguNjAxLDE3LjUwMSwyMC4yMDF2MzIuNTAyaC0xMy40VjkxLjU5Nw0KCQljMC02LjMwMi0wLjEwMS0xNC44MDItOC43MDEtMTQuODAyYy05LjcsMC0xMS44MDEsMTAuNTAxLTExLjgwMSwxNy4xMDJ2MjUuMjAyaC0xMy40VjQ0LjA5NEwxMDUwLjU5Nyw0NC4wOTR6Ii8+DQoJPHBhdGggZD0iTTExNTguOTk5LDExOS4wOThoLTEyLjd2LTdoLTAuMTk5Yy00LjEwMiw1LTkuOSw4LjItMTYuOTAxLDguMmMtMTIuMiwwLTE3LjUwMS04LjYwMS0xNy41MDEtMjAuMlY2Ny41OTVoMTMuNHYyNy41MDENCgkJYzAsNi4zLDAuMTAxLDE0LjgwMSw4LjcsMTQuODAxYzkuNywwLDExLjgwMi0xMC41LDExLjgwMi0xNy4xMDJ2LTI1LjJoMTMuMzk5VjExOS4wOThMMTE1OC45OTksMTE5LjA5OHoiLz4NCgk8cGF0aCBkPSJNMTE3My4wOTUsNDQuMDk0aDEzLjQwMXY3NS4wMDVoLTEzLjQwMVY0NC4wOTR6Ii8+DQoJPHBhdGggZD0iTTEyNDEuODk4LDExNi4xOThjLTQuOSwyLjctMTAuNTAyLDQuMTAxLTE3LjcwMSw0LjEwMWMtMTcuMDAxLDAtMjYuOTAxLTkuODAxLTI2LjkwMS0yNi43MDENCgkJYzAtMTQuOTAxLDcuOS0yNy4yMDIsMjMuOTAxLTI3LjIwMmMxOS4xMDEsMCwyNC41MDEsMTMuMTAxLDI0LjUwMSwzMS4xMDJoLTM1LjYwM2MwLjYsOC4zLDYuNCwxMywxNC43LDEzDQoJCWM2LjUwMSwwLDEyLjEwMi0yLjM5OSwxNy4xMDItNS4yTDEyNDEuODk4LDExNi4xOThMMTI0MS44OTgsMTE2LjE5OHogTTEyMzIuODk2LDg4LjI5NmMtMC4zOTgtNi41LTMuMzk5LTEyLjEwMS0xMC44OTktMTIuMTAxDQoJCWMtNy41MDEsMC0xMS4zMDEsNS4yMDEtMTEuOSwxMi4xMDFIMTIzMi44OTZ6Ii8+DQoJPHBhdGggZD0iTTcyNC4yMDUsMTY5LjI5NGgyNC40MDFjOSwwLDIyLjUwMSwyLjYwMSwyMi41MDEsMTcuOTAxYzAsOC4zMDEtNS42MDIsMTQuMTAxLTEzLjkwMSwxNS42MDF2MC4yDQoJCWM5LjUsMC45LDE2LjAwMSw3LjMsMTYuMDAxLDE1LjljMCwxNy42MDItMTUuODAxLDIwLjIwMS0yNC42MDIsMjAuMjAxaC0yNC40MDFMNzI0LjIwNSwxNjkuMjk0TDcyNC4yMDUsMTY5LjI5NHogTTczOC4yMDYsMTk3LjQ5Ng0KCQloNS43YzUuODk5LDAsMTMuMjAxLTEuMywxMy4yMDEtOC41YzAtOC4xMDEtNy4xMDItOC43MDEtMTMuNTAxLTguNzAxaC01LjRWMTk3LjQ5NnogTTczOC4yMDYsMjI4LjA5OGg2LjYNCgkJYzYuNSwwLDE0LjQwMS0xLjYwMSwxNC40MDEtOS43MDFjMC05LjEwMS03LjQtMTAuNS0xNC40MDEtMTAuNWgtNi42VjIyOC4wOTh6Ii8+DQoJPHBhdGggZD0iTTgwNy43MDUsMTg2LjM5NWMxNS4zMDEsMCwyNy4wMDEsMTAuMywyNy4wMDEsMjcuMzAyYzAsMTQuODAxLTkuOSwyNi42MDItMjcuMDAxLDI2LjYwMg0KCQljLTE3LjAwMSwwLTI2LjkwMi0xMS44MDEtMjYuOTAyLTI2LjYwMkM3ODAuODAzLDE5Ni42OTUsNzkyLjUwNCwxODYuMzk1LDgwNy43MDUsMTg2LjM5NXogTTgwNy43MDUsMjI5Ljg5Nw0KCQljMTAuMzAxLDAsMTMtOS4yLDEzLTE3LjgwMWMwLTcuOTAxLTQuMi0xNS4zMDItMTMtMTUuMzAyYy04LjcwMSwwLTEyLjkwMSw3LjYwMi0xMi45MDEsMTUuMzAyDQoJCUM3OTQuODA0LDIyMC41OTgsNzk3LjUwNCwyMjkuODk3LDgwNy43MDUsMjI5Ljg5N3oiLz4NCgk8cGF0aCBkPSJNODQ1LjIwMywxODcuNTk1aDEyLjcwMXY3aDAuMTk5YzQuMi01LjksOS45LTguMiwxNi45MDEtOC4yYzEyLjIwMSwwLDE3LjUwMSw4LjYwMSwxNy41MDEsMjAuMjAxdjMyLjUwMWgtMTMuNHYtMjcuNTAxDQoJCWMwLTYuMzAyLTAuMS0xNC44MDItOC43LTE0LjgwMmMtOS43MDEsMC0xMS44MDIsMTAuNTAxLTExLjgwMiwxNy4xMDJ2MjUuMjAxaC0xMy40VjE4Ny41OTVMODQ1LjIwMywxODcuNTk1eiIvPg0KCTxwYXRoIGQ9Ik05MDYuMzAyLDE4Ny41OTVoMTIuNzAxdjdoMC4yYzQuMi01LjksOS45LTguMiwxNi45LTguMmMxMi4yMDEsMCwxNy41MDIsOC42MDEsMTcuNTAyLDIwLjIwMXYzMi41MDFoLTEzLjQwMXYtMjcuNTAxDQoJCWMwLTYuMzAyLTAuMTAxLTE0LjgwMi04LjctMTQuODAyYy05LjcwMSwwLTExLjgwMSwxMC41MDEtMTEuODAxLDE3LjEwMnYyNS4yMDFoLTEzLjQwMVYxODcuNTk1TDkwNi4zMDIsMTg3LjU5NXoiLz4NCgk8cGF0aCBkPSJNOTY0LjAwMSwyMTcuNjk3di0xMS4wMDFoMjYuMzAydjExLjAwMUg5NjQuMDAxeiIvPg0KCTxwYXRoIGQ9Ik0xMDAwLjcsMTY5LjI5NGgxNS4xMDFjMTUuMDAxLDAsMzIuOTAyLTAuNSwzMi45MDIsMTguOTAxYzAsOC4yMDEtNS41LDE1LjAwMS0xNC40LDE2LjIwMXYwLjJjMy44MDEsMC4zLDYsNC4xLDcuNCw3LjE5OQ0KCQlsMTEuMiwyNy4zMDJoLTE1LjYwMmwtOC4zOTktMjEuODAyYy0yLjAwMS01LjE5OS0zLjgwMi03LjItOS43MDEtNy4yaC00LjV2MjkuMDAxSDEwMDAuN1YxNjkuMjk0eiBNMTAxNC43MDEsMTk5LjA5Nmg0LjYwMQ0KCQljNi45LDAsMTQuODAyLTEsMTQuODAyLTkuNzAxYzAtOC40LTcuODAyLTkuMTAyLTE0LjgwMi05LjEwMmgtNC42MDFWMTk5LjA5NnoiLz4NCgk8cGF0aCBkPSJNMTA2MS44LDE2NC4wOTRoMTMuNHYzMC41MDJoMC4yYzMuMzk5LTUsOS4yMDEtOC4yLDE2LjIwMS04LjJjMTIuMiwwLDE3LjUsOC42MDEsMTcuNSwyMC4yMDF2MzIuNTAxaC0xMy4zOTl2LTI3LjUwMQ0KCQljMC02LjMwMi0wLjEwMS0xNC44MDItOC43MDEtMTQuODAyYy05LjcsMC0xMS44MDEsMTAuNTAxLTExLjgwMSwxNy4xMDJ2MjUuMjAxaC0xMy40VjE2NC4wOTRMMTA2MS44LDE2NC4wOTR6Ii8+DQoJPHBhdGggZD0iTTExNjQuMjAyLDIzNi4xOTdjLTQuOSwyLjcwMS0xMC41MDEsNC4xMDItMTcuNzAxLDQuMTAyYy0xNy4wMDEsMC0yNi45MDEtOS44MDEtMjYuOTAxLTI2LjcwMQ0KCQljMC0xNC45MDEsNy45LTI3LjIwMiwyMy45MDEtMjcuMjAyYzE5LjEwMSwwLDI0LjUwMSwxMy4xMDEsMjQuNTAxLDMxLjEwMkgxMTMyLjRjMC42LDguMyw2LjM5OSwxMy4wMDEsMTQuNjk5LDEzLjAwMQ0KCQljNi41MDEsMCwxMi4xMDItMi4zOTksMTcuMTAzLTUuMjAxVjIzNi4xOTd6IE0xMTU1LjIwMSwyMDguMjk2Yy0wLjM5OS02LjUtMy40LTEyLjEwMS0xMC45LTEyLjEwMXMtMTEuMzAxLDUuMjAxLTExLjg5OSwxMi4xMDENCgkJSDExNTUuMjAxeiIvPg0KCTxwYXRoIGQ9Ik0xMTc4Ljc5OSwxNjUuMzk0aDEzLjQwMXYxMi44MDFoLTEzLjQwMVYxNjUuMzk0eiBNMTE3OC43OTksMTg3LjU5NWgxMy40MDF2NTEuNTAyaC0xMy40MDFWMTg3LjU5NXoiLz4NCgk8cGF0aCBkPSJNMTIwNi4yOTksMTg3LjU5NUgxMjE5djdoMC4xOTljNC4yMDEtNS45LDkuOS04LjIsMTYuOS04LjJjMTIuMjAxLDAsMTcuNTAxLDguNjAxLDE3LjUwMSwyMC4yMDF2MzIuNTAxaC0xMy4zOTl2LTI3LjUwMQ0KCQljMC02LjMwMi0wLjEwMi0xNC44MDItOC43MDEtMTQuODAyYy05LjcsMC0xMS44MDEsMTAuNTAxLTExLjgwMSwxNy4xMDJ2MjUuMjAxaC0xMy40VjE4Ny41OTVMMTIwNi4yOTksMTg3LjU5NXoiLz4NCgk8cGF0aCBkPSJNMTI2My45OTgsMjE3LjY5N3YtMTEuMDAxaDI2LjMwMnYxMS4wMDFIMTI2My45OTh6Ii8+DQoJPHBhdGggZD0iTTEzMzkuMzk5LDE4Mi4wOTVjLTQuNC0xLjktOS4zMDItMy0xNC4yLTNjLTQuODAxLDAtMTEuMDAxLDIuMS0xMS4wMDEsOS42OTljMCwxMi4xMDIsMzAuNjAyLDcsMzAuNjAyLDMwLjQwMg0KCQljMCwxNS4zMDEtMTIuMTAxLDIxLjEwMi0yNi4yLDIxLjEwMmMtNy42MDIsMC0xMS4wMDItMS0xNy45MDEtMi43bDEuMy0xMi42MDJjNC44MDEsMi42MDIsMTAuMzAxLDQuMywxNS44MDIsNC4zDQoJCWM1LjMwMSwwLDEyLjQtMi42OTgsMTIuNC05YzAtMTMuMzAxLTMwLjYwMy03LjgtMzAuNjAzLTMwLjkwMWMwLTE1LjYwMiwxMi4xMDItMjEuMzAyLDI0LjQwMS0yMS4zMDJjNiwwLDExLjYwMSwwLjgwMSwxNi43MDEsMi41DQoJCUwxMzM5LjM5OSwxODIuMDk1eiIvPg0KCTxwYXRoIGQ9Ik0xMzU2LjU5OCwxNjUuMzk0aDEzLjQwMXYxMi44MDFoLTEzLjQwMVYxNjUuMzk0eiBNMTM1Ni41OTgsMTg3LjU5NWgxMy40MDF2NTEuNTAyaC0xMy40MDFWMTg3LjU5NXoiLz4NCgk8cGF0aCBkPSJNMTQyNS40LDIzNi4xOTdjLTQuOSwyLjcwMS0xMC41MDEsNC4xMDItMTcuNzAxLDQuMTAyYy0xNy4wMDEsMC0yNi45MDEtOS44MDEtMjYuOTAxLTI2LjcwMQ0KCQljMC0xNC45MDEsNy45LTI3LjIwMiwyMy45MDEtMjcuMjAyYzE5LjEwMSwwLDI0LjUwMSwxMy4xMDEsMjQuNTAxLDMxLjEwMmgtMzUuNjAzYzAuNjAxLDguMyw2LjQsMTMuMDAxLDE0LjcsMTMuMDAxDQoJCWM2LjUwMSwwLDEyLjEwMy0yLjM5OSwxNy4xMDMtNS4yMDFWMjM2LjE5N0wxNDI1LjQsMjM2LjE5N3ogTTE0MTYuMzk5LDIwOC4yOTZjLTAuMzk5LTYuNS0zLjQtMTIuMTAxLTEwLjktMTIuMTAxDQoJCWMtNy41MDEsMC0xMS4zMDEsNS4yMDEtMTEuOSwxMi4xMDFIMTQxNi4zOTl6Ii8+DQoJPHBhdGggZD0iTTE0ODcsMTg3LjU5NXY0Ni41MDJjMCwxNC4wMDEtNS42MDEsMjcuMi0yNy4yMDEsMjcuMmMtNS4zMDEsMC0xMS40LTAuNzk5LTE3LjgwMi0zLjVsMS4xMDEtMTEuMzk5DQoJCWM0LjEwMSwyLjIsMTAuODAxLDQuNSwxNS4wMDEsNC41YzE0LjgwMiwwLDE1LjUwMS0xMS4xMDEsMTUuNTAxLTIwLjAwMWgtMC4xOTljLTIuNSw0LjM5OS04LjUwMiw4LjItMTYuMDAyLDguMg0KCQljLTE1LjIsMC0yMS0xMi4yLTIxLTI2LjAwMWMwLTEyLjQwMSw2LjM5OS0yNi43MDIsMjEuODAxLTI2LjcwMmM2LjgwMSwwLDEyLjEwMSwyLjMsMTUuODAxLDguMmgwLjJ2LTdMMTQ4NywxODcuNTk1TDE0ODcsMTg3LjU5NXoNCgkJIE0xNDczLjYsMjEyLjc5NmMwLTguOC0zLjM5OS0xNi4wMDEtMTEuMjAxLTE2LjAwMWMtOS4xMDEsMC0xMiw4LjQwMS0xMiwxNi4zMDJjMCw3LjAwMSwzLjcsMTUuNjAxLDExLjQsMTUuNjAxDQoJCUMxNDcwLjE5OSwyMjguNjk3LDE0NzMuNiwyMjEuMzk2LDE0NzMuNiwyMTIuNzk2eiIvPg0KPC9nPg0KPGcgaWQ9IktyZWlzX2lubmVuX3dlaXMiPg0KCTxwYXRoIGZpbGw9IiMwMDlFRTAiIGQ9Ik0xMTYuNSwyNy42NDFjLTU4LjEzLDAtMTA1LjI1NCw0Ny4xMjQtMTA1LjI1NCwxMDUuMjU1YzAsNTguMTMsNDcuMTI0LDEwNS4yNTQsMTA1LjI1NCwxMDUuMjU0DQoJCWM1OC4xMzEsMCwxMDUuMjU1LTQ3LjEyNCwxMDUuMjU1LTEwNS4yNTRDMjIxLjc1NSw3NC43NjQsMTc0LjYzMSwyNy42NDEsMTE2LjUsMjcuNjQxeiBNMTE2Ljg5LDE5NC4yMTINCgkJYy0zNC4zMDUsMC02Mi4xMTUtMjcuODEtNjIuMTE1LTYyLjExNGMwLTM0LjMwNiwyNy44MS02Mi4xMTUsNjIuMTE1LTYyLjExNWMzNC4zMDUsMCw2Mi4xMTUsMjcuODEsNjIuMTE1LDYyLjExNQ0KCQlTMTUxLjE5NSwxOTQuMjEyLDExNi44OSwxOTQuMjEyeiIvPg0KCTxjaXJjbGUgZmlsbD0ibm9uZSIgY3g9IjExNi44OSIgY3k9IjEzMi4wOTciIHI9IjYyLjExNSIvPg0KPC9nPg0KPC9zdmc+DQo=">
+          </a>
+          <a href="https://www.h-brs.de/inf" target="_blank" id="department" class="pl-3 text-muted">
+            <small>Department of<br>Computer Science</small>
+          </a>
+        </div>
+
+        <!-- Navigation -->
+        <div class="col">
+          <nav class="nav justify-content-end">
+            <a class="nav-link" href="https://www.stifterverband.org/digital-lehrfellows/2017/kaul" target="_blank">About</a>
+            <a class="nav-link" href="https://www.h-brs.de/inf/andre-kless" target="_blank">Contact</a>
+            <a class="nav-link" href="https://www.h-brs.de/impressum" target="_blank">Impressum</a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal: User Login -->
+  <div class="modal fade" id="login-dialog" tabindex="-1" aria-labelledby="User Login" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h5 class="modal-title">User Login</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body px-4">
+          <form id="login-form">
+            <div class="form-group">
+              <label for="user-input">Username: <small class="text-danger">*</small></label>
+              <input type="text" class="form-control" id="user-input" name="user" required>
+            </div>
+            <div class="form-group">
+              <label for="password-input">Password: <small class="text-danger">*</small></label>
+              <input type="password" class="form-control" id="password-input" name="token" required>
+            </div>
+            <p><small><span class="text-danger">*</span> indicates a required field</small></p>
+            <div class="hint text-center"></div>
+          </form>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="modal-footer justify-content-lg-between">
+          <small><a href="https://www.h-brs.de/inf/andre-kless" target="_blank">Contact us</a> if you have forgotten your username or password.</small>
+          <button type="submit" class="btn btn-info" form="login-form">Login</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: User Registration -->
+  <div class="modal fade" id="register-dialog" tabindex="-1" aria-labelledby="User Registration" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h5 class="modal-title">Create a free Account</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body px-4">
+          <form id="register-form">
+            <div class="form-group">
+              <label for="register-user-input">Username: <small class="text-danger">*</small></label>
+              <input type="text" class="form-control" id="register-user-input" name="user" required>
+            </div>
+            <div class="form-group">
+              <label for="register-password-input">Password: <small class="text-danger">*</small></label>
+              <input type="password" class="form-control" id="register-password-input" name="token" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="The password must contain at least one uppercase letter, one lowercase letter and one number or special character and be at least 8 characters long." required>
+            </div>
+            <div class="form-group">
+              <label for="register-name-input">Full name: <small class="text-danger">*</small></label>
+              <input type="text" class="form-control" id="register-name-input" name="name" required>
+              <small>Please enter your full real name.</small>
+            </div>
+            <div class="form-group">
+              <label for="register-picture-input">Profile Picture:</label>
+              <input type="url" class="form-control" id="register-picture-input" name="picture">
+              <small>Here you can give an image URL, ideally 180x180 pixels.</small>
+            </div>
+            <p><small><span class="text-danger">*</span> indicates a required field</small></p>
+            <div class="hint text-center"></div>
+          </form>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-info" form="register-form">Create Account</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Registration Succeeded -->
+  <div class="modal fade" id="register-success-dialog" tabindex="-1" aria-labelledby="Registration succeeded" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h5 class="modal-title">Registration succeeded</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body text-center">
+          <p>You have a free account.</p>
+          <p class="text-success">
+            <svg width="5em" height="5em" viewBox="0 0 16 16" class="bi bi-check-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+            </svg>
+          </p>
+          <span class="lead">Now you can create apps!</span>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: User Profile -->
+  <div class="modal fade" id="profile-dialog" tabindex="-1" aria-labelledby="User Profile" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h5 class="modal-title">User Profile</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body px-4">
+          <form id="profile-form">
+            <div class="form-group">
+              <label for="profile-user-input">Username: <small class="text-danger">*</small></label>
+              <input type="text" class="form-control" id="profile-user-input" readonly>
+            </div>
+            <div class="form-group">
+              <label for="profile-name-input">Full name: <small class="text-danger">*</small></label>
+              <input type="text" class="form-control" id="profile-name-input" name="name" required>
+              <small>Please enter your full real name.</small>
+            </div>
+            <div class="form-group">
+              <label for="profile-picture-input">Profile Picture:</label>
+              <input type="url" class="form-control" id="profile-picture-input" name="picture">
+              <small>Here you can give an image URL, ideally 180x180 pixels.</small>
+            </div>
+            <div class="form-group">
+              <label for="profile-password-input">Old Password:</label>
+              <input type="password" class="form-control" id="profile-old-password-input">
+              <small>Only has to be set if you want to change your password.</small>
+            </div>
+            <div class="form-group">
+              <label for="profile-password-input">New Password:</label>
+              <input type="password" class="form-control" id="profile-password-input" name="token" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="The password must contain at least one uppercase letter, one lowercase letter and one number or special character and be at least 8 characters long.">
+              <small>Only has to be set if you want to change your password.</small>
+            </div>
+            <p><small><span class="text-danger">*</span> indicates a required field</small></p>
+            <div class="hint text-center"></div>
+          </form>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="modal-footer d-flex justify-content-between">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close without Save</button>
+          <button type="submit" form="profile-form" class="btn btn-success">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Share App -->
+  <div class="modal fade" id="handover" tabindex="-1" aria-labelledby="Share App" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h5 class="modal-title">Handover of the App</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body">
+          <div class="d-flex">
+            <div id="inputs"></div>
+            <div id="qr_code" class="pl-2"></div>
+          </div>
+          <!--
+          <div class="text-center">
+            <button type="button" id="download" class="btn btn-primary mr-2"><span class="fas fa-file-download"></span> File</button>
+            <a id="bookmarklet" class="btn btn-secondary mr-2"><span class="fas fa-bookmark"></span> Bookmarklet</a>
+            <button type="button" id="ibook" class="btn btn-info mr-2"><span class="fas fa-book"></span> iBook Widget</button>
+            <button type="button" id="scorm" class="btn btn-danger"><span class="fas fa-archive"></span> SCORM</button>
+          </div>
+          -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Agreement -->
+  <div class="modal fade" id="agreement" tabindex="-1" aria-labelledby="Agreement" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h5 class="modal-title">Published Apps are Public Domain</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body">
+          <div class="bg-light border rounded p-3 lead">
+            <p>I agree that all content of my app is released as public domain under the <a href="https://creativecommons.org/share-your-work/public-domain/cc0/" target="_blank">CC0 license</a>.</p>
+            <p>I agree that all software of my app is released as free software under the <a href="https://en.wikipedia.org/wiki/MIT_License" target="_blank">MIT license</a>.</p>
+            <p>I confirm that this does not violate the copyright of third parties.</p>
+          </div>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="modal-footer d-flex justify-content-between">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Disagree</button>
+          <button type="button" id="agree-btn" class="btn btn-success" data-dismiss="modal">I Agree</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Edit Metadata -->
+  <div class="modal fade" id="edit-meta" tabindex="-1" aria-labelledby="Edit App Information" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h5 class="modal-title">Edit App Information</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body">
+          <form id="edit-meta-form">
+            <div class="form-group">
+              <label for="title">Title: <small class="text-danger">*</small></label>
+              <input type="text" class="form-control" id="title" name="title" aria-describedby="Title" maxlength="33" required>
+            </div>
+            <div class="form-group">
+              <label for="icon">Icon:</label>
+              <input type="url" class="form-control" id="icon" name="icon" aria-describedby="Icon">
+            </div>
+            <div class="form-group">
+              <label for="subject">Short Description:</label>
+              <input type="text" class="form-control" id="subject" name="subject" aria-describedby="Short Description" maxlength="62">
+            </div>
+            <div class="form-group">
+              <label for="description-input">Long Description:</label>
+              <textarea class="form-control" id="description-input" name="description" aria-describedby="Long Description"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="tags">Categories:</label>
+              <span>
+                <select id="tags" multiple></select>
+              </span>
+            </div>
+            <div class="form-group">
+              <div><label>Language:</label></div>
+              <div class="form-check form-check-inline custom-checkbox">
+                <input class="form-check-input custom-control-input" type="checkbox" id="en" name="language" value="en">
+                <label class="form-check-label custom-control-label" for="en">English</label>
+              </div>
+              <div class="form-check form-check-inline custom-checkbox">
+                <input class="form-check-input custom-control-input" type="checkbox" id="de" name="language" value="de">
+                <label class="form-check-label custom-control-label" for="de">German</label>
+              </div>
+            </div>
+            <small><span class="text-danger">*</span> indicates a required field</small>
+          </form>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="modal-footer d-flex justify-content-between">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close without Save</button>
+          <button type="submit" form="edit-meta-form" class="btn btn-success">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Delete App -->
+  <div class="modal fade" id="delete-app" tabindex="-1" aria-labelledby="Delete App" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h5 class="modal-title">Delete App</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body text-center">
+          <p class="lead">Do you really want to delete your app?</p>
+          <p class="text-danger">
+            <svg width="5em" height="5em" viewBox="0 0 16 16" class="bi bi-exclamation-octagon-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M11.46.146A.5.5 0 0 0 11.107 0H4.893a.5.5 0 0 0-.353.146L.146 4.54A.5.5 0 0 0 0 4.893v6.214a.5.5 0 0 0 .146.353l4.394 4.394a.5.5 0 0 0 .353.146h6.214a.5.5 0 0 0 .353-.146l4.394-4.394a.5.5 0 0 0 .146-.353V4.893a.5.5 0 0 0-.146-.353L11.46.146zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+            </svg>
+          </p>
+          <p>This cannot be undone and the app will no longer work anywhere on the web where it is used.</p>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="modal-footer d-flex justify-content-between">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="button" id="confirm-delete-btn" class="btn btn-danger" data-dismiss="modal">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: App Deletion Succeeded -->
+  <div class="modal fade" id="delete-success-dialog" tabindex="-1" aria-labelledby="App deleted successfully" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h5 class="modal-title">App deleted successfully</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body text-center text-success">
+          <svg width="5em" height="5em" viewBox="0 0 16 16" class="bi bi-check-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+          </svg>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
