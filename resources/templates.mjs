@@ -43,7 +43,7 @@ export function main() {
       <section>
         <div class="container text-center text-md-start pt-4 pb-3">
           <div class="row mt-3">
-            <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mx-md-0 mb-4">
+            <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
               <h6 class="text-uppercase fw-bold mb-4 d-flex align-items-center">
                 <img class="me-2" alt="${ dms.text.alt_logo_dms }" width="24" height="24" src="${ dms.icon }" data-lang="alt_logo_dms-alt">
                 <span data-lang="title">${ dms.text.title }</span>
@@ -82,7 +82,7 @@ export function main() {
             <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
               <h6 class="text-uppercase fw-bold mb-4" data-lang="a_contact">${ dms.text.a_contact }</h6>
               <p>
-                <table class="mx-auto">
+                <table class="mx-auto mx-md-0">
                   <tr class="align-top">
                     <td>
                       <i class="bi bi-house-door-fill me-3"></i>
