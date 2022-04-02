@@ -43,7 +43,7 @@ export function main() {
       <section>
         <div class="container text-center text-md-start pt-4 pb-3">
           <div class="row mt-3">
-            <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+            <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mx-md-0 mb-4">
               <h6 class="text-uppercase fw-bold mb-4 d-flex align-items-center">
                 <img class="me-2" alt="${ dms.text.alt_logo_dms }" width="24" height="24" src="${ dms.icon }" data-lang="alt_logo_dms-alt">
                 <span data-lang="title">${ dms.text.title }</span>
