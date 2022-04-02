@@ -763,8 +763,7 @@ export const example_apps = {
 export const test = {
   "apps": [ "ccm.store", { "url": "https://ccm2.inf.h-brs.de", "name": "dms2-apps" } ],
   "comment": [ "ccm.component", "https://ccmjs.github.io/tkless-components/comment/ccm.comment.js", {
-    "lang": [ "ccm.start", "./../lang/ccm.lang.js", {
-      "active": "en",
+    "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/ccm.lang.js", {
       "translations": {
         "de": [ "ccm.load", "https://ccmjs.github.io/tkless-components/comment/resources/resources.mjs#de" ],
         "en": [ "ccm.load", "https://ccmjs.github.io/tkless-components/comment/resources/resources.mjs#en" ]
@@ -772,10 +771,10 @@ export const test = {
     } ],
     "libs": [ "ccm.load", [
       [
-        "./../libs/dayjs/dayjs.min.js",
-        "./../libs/dayjs/relativeTime.min.js"
+        "https://ccmjs.github.io/akless-components/libs/dayjs/dayjs.min.js",
+        "https://ccmjs.github.io/akless-components/libs/dayjs/relativeTime.min.js"
       ],
-      "./../libs/dayjs/de.min.js"
+      "https://ccmjs.github.io/akless-components/libs/dayjs/de.min.js"
     ] ],
     "text": [ "ccm.load", "https://ccmjs.github.io/tkless-components/comment/resources/resources.mjs#en" ]
   } ],
@@ -783,28 +782,27 @@ export const test = {
   "configs": [ "ccm.store", { "url": "https://ccm2.inf.h-brs.de", "name": "dms2-configs" } ],
   "css": [ "ccm.load",
     [
-      "./../libs/bootstrap-5/css/bootstrap.css",
-      "./../dms/resources/styles.css"
+      "./libs/bootstrap-5/css/bootstrap.css",
+      "./resources/styles.css"
     ],
-    "./../libs/bootstrap-5/css/bootstrap-icons.css",
-    { "url": "./../libs/bootstrap-5/css/bootstrap-fonts.css", "context": "head" }
+    "./libs/bootstrap-5/css/bootstrap-icons.css",
+    { "url": "./libs/bootstrap-5/css/bootstrap-fonts.css", "context": "head" }
   ],
-  "dark": false,
-  "handover": [ "ccm.component", "./../handover_app/ccm.handover_app.js", [ "ccm.load", "./../handover_app/resources/resources.mjs#test" ] ],
-  "helper.1": "./../modules/helper.mjs",
-  "html.1": "./../dms/resources/templates.mjs",
-  "icon": "./../dms/resources/icon.png",
-  "lang": [ "ccm.start", "./../lang/ccm.lang.js", {
+  "handover": [ "ccm.component", "https://ccmjs.github.io/akless-components/handover_app/ccm.handover_app.js", [ "ccm.load", "https://ccmjs.github.io/akless-components/handover_app/resources/resources.mjs#test" ] ],
+  "helper.1": "./libs/ccm/helper.mjs",
+  "html.1": "./resources/templates.mjs",
+  "icon": "./resources/img/icon.png",
+  "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/ccm.lang.js", {
     "translations": { "de": de, "en": en }
   } ],
-  "libs.1": "./../libs/bootstrap-5/js/bootstrap.bundle.js",
-  "logger": [ "ccm.instance", "./../log/ccm.log.js", [ "ccm.get", "./../log/resources/configs.js", "greedy" ] ],
+  "libs.1": "./libs/bootstrap-5/js/bootstrap.bundle.js",
+  "logger": [ "ccm.instance", "https://ccmjs.github.io/akless-components/log/ccm.log.js", [ "ccm.get", "https://ccmjs.github.io/akless-components/log/resources/configs.js", "greedy" ] ],
   "onfinish": { "log": true },
-  "picture": "./../user/resources/icon.svg",
-  "quill": [ "ccm.component", "./../quill/ccm.quill.js", [ "ccm.load", "./../quill/resources/resources.mjs#test" ] ],
-  "selectize.1": "./../selectize/ccm.selectize.js",
-  "text": en,
-  "user": [ "ccm.instance", "./../user/ccm.user.js", [ "ccm.get", "./../user/resources/resources.js", "cloud" ] ]
+  "picture": "https://ccmjs.github.io/akless-components/user/resources/icon.svg",
+  "quill": [ "ccm.component", "https://ccmjs.github.io/akless-components/quill/ccm.quill.js", [ "ccm.load", "https://ccmjs.github.io/akless-components/quill/resources/resources.mjs#test" ] ],
+  "selectize.1": "https://ccmjs.github.io/akless-components/selectize/ccm.selectize.js",
+  "text": de,
+  "user": [ "ccm.instance", "https://ccmjs.github.io/akless-components/user/ccm.user.js", [ "ccm.get", "https://ccmjs.github.io/akless-components/user/resources/resources.js", "cloud" ] ]
 };
 
 /**
@@ -813,16 +811,14 @@ export const test = {
  */
 export const demo = {
   "apps": [ "ccm.store", example_apps ],
-  "comment": [ "ccm.component", "https://ccmjs.github.io/tkless-components/comment/versions/ccm.comment-7.1.0.min.js", [ "ccm.load", "https://ccmjs.github.io/tkless-components/comment/resources/resources.mjs#demo" ] ],
+  "comment": [ "ccm.component", "https://ccmjs.github.io/tkless-components/comment/versions/ccm.comment-7.2.0.min.js", [ "ccm.load", "https://ccmjs.github.io/tkless-components/comment/resources/resources.mjs#demo" ] ],
   "components": [ "ccm.store", example_components ],
-  "dark": false,
   "handover": [ "ccm.component", "https://ccmjs.github.io/akless-components/handover_app/versions/ccm.handover_app-3.0.0.min.js", [ "ccm.load", "https://ccmjs.github.io/akless-components/handover_app/resources/resources.mjs#demo" ] ],
-  "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/versions/ccm.lang-1.0.0.min.js", {
-    "active": "de",
+  "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/versions/ccm.lang-1.1.0.min.js", {
     "translations": { "de": de, "en": en }
   } ],
   "text": de,
-  "user": [ "ccm.instance", "https://ccmjs.github.io/akless-components/user/versions/ccm.user-9.7.2.js", [ "ccm.get", "https://ccmjs.github.io/akless-components/user/resources/resources.js", "cloud" ] ]
+  "user": [ "ccm.instance", "https://ccmjs.github.io/akless-components/user/versions/ccm.user-9.7.2.min.js", [ "ccm.get", "https://ccmjs.github.io/akless-components/user/resources/resources.js", "cloud" ] ]
 };
 
 /**
@@ -831,9 +827,9 @@ export const demo = {
  */
 export const live = {
   "apps": [ "ccm.store", { "url": "https://ccm2.inf.h-brs.de", "name": "dms2-apps" } ],
-  "comment": [ "ccm.component", "https://ccmjs.github.io/tkless-components/comment/versions/ccm.comment-7.1.0.min.js", {
+  "comment": [ "ccm.component", "https://ccmjs.github.io/tkless-components/comment/versions/ccm.comment-7.2.0.min.js", {
     "data": { "store": [ "ccm.store", { "url": "https://ccm2.inf.h-brs.de", "name": "dms2-comments" } ] },
-    "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/versions/ccm.lang-1.0.0.min.js", {
+    "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/versions/ccm.lang-1.1.0.min.js", {
       "translations": {
         "de": [ "ccm.load", "https://ccmjs.github.io/tkless-components/comment/resources/resources.mjs#de" ],
         "en": [ "ccm.load", "https://ccmjs.github.io/tkless-components/comment/resources/resources.mjs#en" ]
@@ -850,9 +846,8 @@ export const live = {
   } ],
   "components": [ "ccm.store", { "url": "https://ccm2.inf.h-brs.de", "name": "dms2-components" } ],
   "configs": [ "ccm.store", { "url": "https://ccm2.inf.h-brs.de", "name": "dms2-configs" } ],
-  "dark": false,
   "handover": [ "ccm.component", "https://ccmjs.github.io/akless-components/handover_app/versions/ccm.handover_app-3.0.0.min.js", {
-    "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/versions/ccm.lang-1.0.0.min.js", {
+    "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/versions/ccm.lang-1.1.0.min.js", {
       "translations": {
         "de": [ "ccm.load", "https://ccmjs.github.io/akless-components/handover_app/resources/resources.mjs#de" ],
         "en": [ "ccm.load", "https://ccmjs.github.io/akless-components/handover_app/resources/resources.mjs#en" ]
@@ -861,7 +856,7 @@ export const live = {
     "qr_code": [ "ccm.load", "https://ccmjs.github.io/akless-components/libs/qrcode-generator/qrcode.min.js" ],
     "text": [ "ccm.load", "https://ccmjs.github.io/akless-components/handover_app/resources/resources.mjs#de" ],
     "window": [ "ccm.component", "https://ccmjs.github.io/akless-components/window/versions/ccm.window-2.0.0.min.js", {
-      "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/versions/ccm.lang-1.0.0.min.js", {
+      "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/versions/ccm.lang-1.1.0.min.js", {
         "translations": {
           "de": [ "ccm.load", "https://ccmjs.github.io/akless-components/window/resources/resources.mjs#de" ],
           "en": [ "ccm.load", "https://ccmjs.github.io/akless-components/window/resources/resources.mjs#en" ]
@@ -870,9 +865,9 @@ export const live = {
       "text": [ "ccm.load", "https://ccmjs.github.io/akless-components/window/resources/resources.mjs#de" ]
     } ]
   } ],
-  "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/versions/ccm.lang-1.0.0.min.js", {
+  "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/versions/ccm.lang-1.1.0.min.js", {
     "translations": { "de": de, "en": en }
   } ],
   "text": de,
-  "user": [ "ccm.instance", "https://ccmjs.github.io/akless-components/user/versions/ccm.user-9.7.2.js", [ "ccm.get", "https://ccmjs.github.io/akless-components/user/resources/resources.js", "cloud" ] ]
+  "user": [ "ccm.instance", "https://ccmjs.github.io/akless-components/user/versions/ccm.user-9.7.2.min.js", [ "ccm.get", "https://ccmjs.github.io/akless-components/user/resources/resources.js", "cloud" ] ]
 };

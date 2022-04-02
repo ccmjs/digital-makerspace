@@ -12,30 +12,30 @@
   const component = {
     name: 'dms',
     version: [ 5, 0, 0 ],
-    ccm: 'https://ccmjs.github.io/ccm/versions/ccm-27.2.0.min.js',
+    ccm: 'https://ccmjs.github.io/ccm/versions/ccm-27.3.1.min.js',
     config: {
       "apps": [ "ccm.store" ],
-      "comment": [ "ccm.component", "https://ccmjs.github.io/tkless-components/comment/versions/ccm.comment-7.0.0.min.js" ],
+      "comment": [ "ccm.component", "https://ccmjs.github.io/tkless-components/comment/versions/ccm.comment-7.2.0.min.js" ],
       "css": [ "ccm.load",
         [
-          "https://ccmjs.github.io/akless-components/libs/bootstrap-5/css/bootstrap.min.css",
-          "https://ccmjs.github.io/akless-components/dms/resources/styles.min.css"
+          "https://ccmjs.github.io/digital-makerspace/libs/bootstrap-5/css/bootstrap.min.css",
+          "https://ccmjs.github.io/digital-makerspace/dms/resources/styles.min.css"
         ],
-        "https://ccmjs.github.io/akless-components/libs/bootstrap-5/css/bootstrap-icons.min.css",
-        { "url": "https://ccmjs.github.io/akless-components/libs/bootstrap-5/css/bootstrap-fonts.min.css", "context": "head" }
+        "https://ccmjs.github.io/digital-makerspace/libs/bootstrap-5/css/bootstrap-icons.min.css",
+        { "url": "https://ccmjs.github.io/digital-makerspace/libs/bootstrap-5/css/bootstrap-fonts.min.css", "context": "head" }
       ],
       "components": [ "ccm.store" ],
       "configs": [ "ccm.store" ],
-      "dark": "auto",
-      "icon": "https://ccmjs.github.io/akless-components/dms/resources/icon.png",
+      "dark": false,
+      "icon": "https://ccmjs.github.io/digital-makerspace/resources/img/icon.png",
 //    "handover": [ "ccm.component", "https://ccmjs.github.io/akless-components/handover_app/versions/ccm.handover_app-3.0.0.min.js" ],
-      "helper": [ "ccm.load", "https://ccmjs.github.io/akless-components/modules/versions/helper-7.10.0.min.mjs" ],
-      "html": [ "ccm.load", "https://ccmjs.github.io/akless-components/dms/resources/templates.mjs" ],
-//    "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/versions/ccm.lang-1.0.0.min.js" ],
-      "libs": [ "ccm.load", "https://ccmjs.github.io/akless-components/libs/bootstrap-5/js/bootstrap.bundle.min.js" ],
+      "helper": [ "ccm.load", "https://ccmjs.github.io/digital-makerspace/libs/ccm/helper.mjs" ],
+      "html": [ "ccm.load", "https://ccmjs.github.io/digital-makerspace/resources/templates.mjs" ],
+//    "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/versions/ccm.lang-1.1.0.min.js" ],
+      "libs": [ "ccm.load", "https://ccmjs.github.io/digital-makerspace/libs/bootstrap-5/js/bootstrap.bundle.min.js" ],
 //    "logger": [ "ccm.instance", "https://ccmjs.github.io/akless-components/log/versions/ccm.log-5.0.1.min.js", [ "ccm.get", "https://ccmjs.github.io/akless-components/log/resources/configs.min.js", "greedy" ] ],
       "picture": "https://ccmjs.github.io/akless-components/user/resources/icon.svg",
-      "quill": [ "ccm.component", "https://ccmjs.github.io/akless-components/quill/versions/ccm.quill-1.0.0.min.js", {
+      "quill": [ "ccm.component", "https://ccmjs.github.io/akless-components/quill/versions/ccm.quill-2.0.0.min.js", {
         "options": {
           "theme": "snow"
         }
@@ -46,9 +46,9 @@
         "plugins": [ "remove_button" ]
       } ],
       "shadow": "none",
-      "text": [ "ccm.load", "https://ccmjs.github.io/akless-components/dms/resources/resources.mjs#en" ],
-      "url": "https://ccmjs.github.io/akless-components/dms/app.html",
-      "user": [ "ccm.instance", "https://ccmjs.github.io/akless-components/user/versions/ccm.user-9.7.2.js" ]
+      "text": [ "ccm.load", "https://ccmjs.github.io/digital-makerspace/resources/resources.mjs#en" ],
+      "url": "https://ccmjs.github.io/digital-makerspace/app.html",
+      "user": [ "ccm.instance", "https://ccmjs.github.io/akless-components/user/versions/ccm.user-9.7.2.min.js" ]
     },
     Instance: function () {
 
