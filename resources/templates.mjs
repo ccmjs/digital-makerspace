@@ -70,7 +70,7 @@ export function main() {
                 <a href="https://ccmjs.github.io/digital-makerspace/old/2021/" target="_blank" class="text-reset" data-lang="old_dms">Alter Digital Makerspace</a>
               </p>
               <p>
-                <a href="https://prototypefund.de/project/digital-makerspace/" target="_blank" class="text-reset">Prototpe Fund</a>
+                <a href="https://prototypefund.de/project/digital-makerspace/" target="_blank" class="text-reset">Prototype Fund</a>
               </p>
               <p>
                 <a href="https://github.com/ccmjs" class="text-reset" target="_blank" data-lang="for_developers">${ dms.text.for_developers }</a>
