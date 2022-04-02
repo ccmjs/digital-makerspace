@@ -19,7 +19,7 @@
       "css": [ "ccm.load",
         [
           "https://ccmjs.github.io/digital-makerspace/libs/bootstrap-5/css/bootstrap.min.css",
-          "https://ccmjs.github.io/digital-makerspace/dms/resources/styles.min.css"
+          "https://ccmjs.github.io/digital-makerspace/resources/styles.min.css"
         ],
         "https://ccmjs.github.io/digital-makerspace/libs/bootstrap-5/css/bootstrap-icons.min.css",
         { "url": "https://ccmjs.github.io/digital-makerspace/libs/bootstrap-5/css/bootstrap-fonts.min.css", "context": "head" }
