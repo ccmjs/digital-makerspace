@@ -254,7 +254,7 @@ export function home() {
           <div class="mb-4 display-4" data-lang="${ title }">${ dms.text[ title ] }</div>
           <div class="lead mb-4" data-lang="${ text }">${ dms.text[ text ] }</div>
           <div class="mb-4">
-            <video controls poster="https://ccmjs.github.io/digital-makerspace/img/trailer.jpg" alt="Einführungsvideo" title="Platzhalter für Video" class="img-thumbnail"></video>
+            <video controls poster="https://ccmjs.github.io/digital-makerspace/resources/img/trailer.jpg" alt="Einführungsvideo" title="Platzhalter für Video" class="img-thumbnail"></video>
           </div>
           <div>
             <button class="btn btn-${ color } btn-lg" ?disabled=${ rubric === 'developer' } @click=${ () => dms.events.onList( color ) }>
@@ -312,7 +312,7 @@ function trailer( section, title, text ) {
             <p data-lang="${ text }">${ dms.text[ text ] }</p>
           </div>
           <div class="col">
-            <video controls poster="https://ccmjs.github.io/digital-makerspace/img/trailer.jpg" alt="Einführungsvideo" title="Platzhalter für Video" class="img-thumbnail">
+            <video controls poster="https://ccmjs.github.io/digital-makerspace/resources/img/trailer.jpg" alt="Einführungsvideo" title="Platzhalter für Video" class="img-thumbnail">
           </div>
         </div>
       </div>
