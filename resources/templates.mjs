@@ -207,7 +207,7 @@ export function home() {
         <div class="mb-4 display-4" data-lang="home_slogan">${ dms.text.home_slogan }</div>
         <div class="row">
           <div class="col py-2">
-            <video controls poster="https://ccmjs.github.io/digital-makerspace/img/trailer.jpg" alt="Einführungsvideo" title="Platzhalter für Video" class="img-thumbnail"></video>
+            <video controls poster="https://ccmjs.github.io/digital-makerspace/resources/img/trailer.jpg" alt="Einführungsvideo" title="Platzhalter für Video" class="img-thumbnail"></video>
           </div>
           <div class="col py-2">
             ${ headline( 'tools', 'home_trailer_tools_title', 'home_trailer_tools_text', 'btn_toolbox' ) }
