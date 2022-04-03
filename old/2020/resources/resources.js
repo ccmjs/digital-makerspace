@@ -21,7 +21,7 @@ ccm.files[ 'resources.js' ] = {
     "default_icon": "https://ccmjs.github.io/digital-makerspace/old/2020/resources/img/default.png",
     "form": [ "ccm.component", "https://ccmjs.github.io/akless-components/submit/versions/ccm.submit-8.1.1.js", [ "ccm.get", "https://ccmjs.github.io/akless-components/submit/resources/configs.js", "component_meta_create" ] ],
     "html": [ "ccm.load", "https://ccmjs.github.io/digital-makerspace/old/2020/resources/html/dms.html" ],
-    "lang": [ "ccm.instance", "https://ccmjs.github.io/tkless-components/lang/versions/ccm.lang-1.0.0.js", [ "ccm.get", "https://ccmjs.github.io/akless-components/dms/v4.5.0/resources/resources.js", "lang" ] ],
+    "lang": [ "ccm.instance", "https://ccmjs.github.io/tkless-components/lang/versions/ccm.lang-1.0.0.js", [ "ccm.get", "https://ccmjs.github.io/digital-makerspace/old/2020/resources/resources.js", "lang" ] ],
     "listing": {
       "apps": [ "ccm.component", "https://ccmjs.github.io/akless-components/listing/versions/ccm.listing-4.0.0.js", {
         "html": [ "ccm.load", "https://ccmjs.github.io/digital-makerspace/old/2020/resources/html/listing_apps.html" ],
@@ -86,14 +86,14 @@ ccm.files[ 'resources.js' ] = {
         }
       }
     } ],
-    "logo": "https://ccmjs.github.io/akless-components/dms/v4.5.0/resources/img/component.png",
-    "menu": [ "ccm.component", "https://ccmjs.github.io/akless-components/menu/versions/ccm.menu-3.0.0.js", [ "ccm.get", "https://ccmjs.github.io/akless-components/dms/v4.5.0/resources/resources.js", "menu" ] ],
+    "logo": "https://ccmjs.github.io/digital-makerspace/old/2020/resources/img/component.png",
+    "menu": [ "ccm.component", "https://ccmjs.github.io/akless-components/menu/versions/ccm.menu-3.0.0.js", [ "ccm.get", "https://ccmjs.github.io/digital-makerspace/old/2020/resources/resources.js", "menu" ] ],
     "rating": {
       "apps": {
         "component": [ "ccm.component", "https://ccmjs.github.io/tkless-components/star_rating_result/versions/ccm.star_rating_result-5.0.0.js", {
           "css": [ "ccm.load",
             { "context": "head", "url": "https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" },
-            "https://ccmjs.github.io/akless-components/dms/v4.5.0/resources/css/rating_apps.css"
+            "https://ccmjs.github.io/digital-makerspace/old/2020/resources/css/rating_apps.css"
           ]
         } ],
         "store": [ "ccm.store", { "name": "dms-apps-ratings", "url": "https://ccm2.inf.h-brs.de" } ]
@@ -102,14 +102,14 @@ ccm.files[ 'resources.js' ] = {
         "component": [ "ccm.component", "https://ccmjs.github.io/tkless-components/star_rating_result/versions/ccm.star_rating_result-5.0.0.js", {
           "css": [ "ccm.load",
             { "context": "head", "url": "https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" },
-            "https://ccmjs.github.io/akless-components/dms/v4.5.0/resources/css/rating_components.css"
+            "https://ccmjs.github.io/digital-makerspace/old/2020/resources/css/rating_components.css"
           ]
         } ],
         "store": [ "ccm.store", { "name": "dms-components-ratings", "url": "https://ccm2.inf.h-brs.de" } ]
       }
     },
     "routing": [ "ccm.instance", "https://ccmjs.github.io/akless-components/routing/versions/ccm.routing-2.0.5.js", { "app": "dms" } ],
-    "user": [ "ccm.start", "https://ccmjs.github.io/akless-components/user/versions/ccm.user-9.7.0.js", [ "ccm.get", "https://ccmjs.github.io/akless-components/dms/v4.5.0/resources/resources.js", "user" ] ]
+    "user": [ "ccm.start", "https://ccmjs.github.io/akless-components/user/versions/ccm.user-9.7.0.js", [ "ccm.get", "https://ccmjs.github.io/digital-makerspace/old/2020/resources/resources.js", "user" ] ]
   },
 
   /** configuration for multilingualism */
