@@ -121,7 +121,7 @@
       "css": [ "ccm.load",
         "https://ccmjs.github.io/akless-components/libs/bootstrap/css/bootstrap.css",
         { "context": "head", "url": "https://ccmjs.github.io/akless-components/libs/bootstrap/css/font-face.css" },
-        "https://ccmjs.github.io/akless-components/dms/v1.0.7/default.css"
+        "https://ccmjs.github.io/digital-makerspace/old/2020/default.css"
       ],
       "data": [],
       "listing": [ "ccm.component", "https://ccmjs.github.io/akless-components/listing/versions/ccm.listing-2.0.3.js", {
@@ -156,14 +156,14 @@
         },
         "css": [ "ccm.load", "https://ccmjs.github.io/akless-components/dms/resources/listing.css" ],
         "defaults": {
-          "icon": "https://ccmjs.github.io/akless-components/dms/v1.0.7/component.png"
+          "icon": "https://ccmjs.github.io/digital-makerspace/old/2020/component.png"
         }
       } ],
       "rating": [ "ccm.component", "https://ccmjs.github.io/tkless-components/star_rating_result/versions/ccm.star_rating_result-4.0.0.js", {
         "css": [ "ccm.load",
           { "context": "head", "url": "https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" },
           "https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css",
-          "https://ccmjs.github.io/akless-components/dms/v1.0.7/rating.css"
+          "https://ccmjs.github.io/digital-makerspace/old/2020/rating.css"
         ]
       } ],
       "form": [ "ccm.component", "https://ccmjs.github.io/akless-components/submit/versions/ccm.submit-7.0.0.js", {
@@ -291,7 +291,7 @@
                   "id": "icon-input",
                   "class": "form-control",
                   "name": "icon",
-                  "placeholder": "https://ccmjs.github.io/akless-components/dms/v1.0.7/component.png"
+                  "placeholder": "https://ccmjs.github.io/digital-makerspace/old/2020/component.png"
                 }
               ]
             },

@@ -10,7 +10,7 @@ ccm.files[ 'configs.js' ] = {
     "css": [ "ccm.load",
       "https://ccmjs.github.io/akless-components/libs/bootstrap/css/bootstrap.css",
       { "context": "head", "url": "https://ccmjs.github.io/akless-components/libs/bootstrap/css/font-face.css" },
-      "https://ccmjs.github.io/akless-components/dms/v1.0.7/default.css"
+      "https://ccmjs.github.io/digital-makerspace/old/2018/default.css"
     ],
     "data": {
       "store": [ "ccm.store", { "name": "components", "url": "https://ccm2.inf.h-brs.de" } ],
@@ -22,7 +22,7 @@ ccm.files[ 'configs.js' ] = {
       "commentary.2.data.store.1": { "name": "component_comments", "url": "https://ccm2.inf.h-brs.de" },
       "source.url": "https://ccm2.inf.h-brs.de"
     } ],
-    "listing.2.css.1": "https://ccmjs.github.io/akless-components/dms/v1.0.7/listing.css",
+    "listing.2.css.1": "https://ccmjs.github.io/digital-makerspace/old/2020/listing.css",
     "rating.2.data": { "store": [ "ccm.store", [ "ccm.get", { "name": "component_ratings", "url": "https://ccm2.inf.h-brs.de" }, {} ] ] },
     "user": [ "ccm.instance", "https://ccmjs.github.io/akless-components/user/versions/ccm.user-8.3.1.js", {
       "key": [ "ccm.get", "https://ccmjs.github.io/akless-components/user/resources/configs.js", "guest" ],
