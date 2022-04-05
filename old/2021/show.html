@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="André Kless <andre.kless@web.de> 2020">
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+  <style>* { height: 100%; } body { margin: 0; }</style>
+  <script src="./old/2021/libs/ccm.min.js"></script>
+  <script>
+    ( async () => {
+      const key = new URL( window.location.href ).searchParams.get( 'id' );
+      const meta = await ccm.get( { name: 'dms-apps', url: 'https://ccm2.inf.h-brs.de' }, key );
+      const config = await ccm.get( meta.source[ 0 ], meta.source[ 1 ] );
+      document.title = document.title.replace( '${title}', meta.title );
+      config.root = document.body;
+      ccm.start( meta.path, config );
+    } )();
+  </script>
+  <title>App: ${title} | Digital Makerspace</title>
+</head>
