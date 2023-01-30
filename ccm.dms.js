@@ -531,7 +531,7 @@
           ] ).then( ( [ editor_comp, config = {} ] ) => {
             if ( config.data && config.data.store && config.data.key && data.apps.meta[ app_key ]._.creator !== ( this.user.getValue() || {} ).key )
               delete config.data.key;
-            delete config.key; delete config.created_at; delete config.updated_at; delete config._;
+            delete config.key; delete config.component; delete config.app; delete config.ignore?.meta; delete config.created_at; delete config.updated_at; delete config._;
             editor_comp.start( {
               dark: this.dark,
               data: { store: [ 'ccm.store', { app: config } ], key: 'app' },
